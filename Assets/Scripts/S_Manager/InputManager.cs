@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Mirror;
 using UnityEngine;
 
-public class MOBA_NetworkManager : NetworkManager
+public class InputManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
