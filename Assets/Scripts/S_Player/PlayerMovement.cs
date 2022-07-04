@@ -27,15 +27,14 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     [Command]
-    void MovePlayerTowardsPoint(Vector3 position)
+    void CmdMovePlayerTowardsPoint(Vector3 position)
     {
         bool validPosition = NavMesh.SamplePosition(position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas);
         Debug.Log(position);
         if (!validPosition) return;
-        {
-            agent.SetDestination(hit.position);
-        }
+        agent.SetDestination(hit.position);
     }
+    
     [Client]
     void SetMovePoint()
     {
@@ -46,7 +45,7 @@ public class PlayerMovement : NetworkBehaviour
 
             if (!validPos) return;
             {
-               MovePlayerTowardsPoint(hit.point);
+               CmdMovePlayerTowardsPoint(hit.point);
             }
         }
     }
