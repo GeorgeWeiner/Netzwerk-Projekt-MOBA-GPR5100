@@ -1,51 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
+using S_Combat;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
-public class PlayerMovement : NetworkBehaviour
+namespace S_Player
 {
-    [SerializeField] LayerMask groundLayer;
-    NavMeshAgent agent;
-    Camera mainCamera;
+    public class PlayerMovement : NetworkBehaviour
+    {
+        [SerializeField] private Targeter targeter;
+        [SerializeField] private float chaseRange = 10f;
+        
+        private NavMeshAgent agent;
 
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        mainCamera = Camera.main;
-    }
-    [Client]
-    void Update()
-    {
-        if (InputManager.instance.ClickedRightMouseButton())
+        private void Start()
         {
-            SetMovePoint();
+            agent = GetComponent<NavMeshAgent>();
         }
-    }
-    [Command]
-    void CmdMovePlayerTowardsPoint(Vector3 position)
-    {
-        bool validPosition = NavMesh.SamplePosition(position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas);
-        agent.ResetPath();
+        
+        //Moved all of this into the UnitCommandGiver.cs to make to code more flexible.
+        
+        //[Client]
+        //private void Update()
+        //{
+        //    if (InputManager.instance.ClickedRightMouseButton())
+        //    {
+        //        SetMovePoint();
+        //    }
+        //}
+        
+        //[Client]
+        //private void SetMovePoint()
+        //{
+        //    if (!hasAuthority) return;
+        //    
+        //    Ray ray = mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
+        //    
+        //    bool validPos = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer);
+        //    if (!validPos) return;
+        //    
+        //    CmdMove(hit.point);
+        //}
 
-        if (!validPosition) return;
-        agent.SetDestination(hit.position);
-    }
-    
-    [Client]
-    void SetMovePoint()
-    {
-        if (!hasAuthority) return;
+        [Command]
+        public void CmdMove(Vector3 position)
         {
-            Ray ray = mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
-            bool validPos = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer);
-
-            if (!validPos) return;
-            {
-               CmdMovePlayerTowardsPoint(hit.point);
-            }
+            targeter.ClearTarget();
+            
+            bool validPosition = 
+                NavMesh.SamplePosition(position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas);
+            
+            if (!validPosition) return;
+            
+            agent.SetDestination(hit.position);
         }
     }
 }
