@@ -5,7 +5,6 @@ using Unit = S_Unit.Unit;
 
 namespace S_Player
 {
-    
     //This is the class that is responsible for handling the units under your command.
     public class MobaPlayer : NetworkBehaviour
     {

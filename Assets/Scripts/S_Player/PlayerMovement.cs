@@ -7,17 +7,14 @@ namespace S_Player
 {
     public class PlayerMovement : NetworkBehaviour
     {
-        [SerializeField] private LayerMask groundLayer;
         [SerializeField] private Targeter targeter;
         [SerializeField] private float chaseRange = 10f;
         
         private NavMeshAgent agent;
-        private Camera mainCamera;
 
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
-            mainCamera = Camera.main;
         }
         
         //Moved all of this into the UnitCommandGiver.cs to make to code more flexible.

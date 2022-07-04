@@ -1,11 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using S_Player;
 using UnityEngine;
 
-public class UnitSelectionHandler : MonoBehaviour
+namespace S_Unit
 {
-    [SerializeField] private PlayerMovement playerMovement;
-    
-    
+    public class UnitSelectionHandler : MonoBehaviour
+    {
+        public List<Unit> SelectedUnits = new List<Unit>();
+        private MobaPlayer mobaPlayer;
+
+        private void Update()
+        {
+            if (mobaPlayer == null)
+            {
+                mobaPlayer = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
+            }
+            
+            SelectedUnits = mobaPlayer.GetMyUnits();
+        }
+    }
 }

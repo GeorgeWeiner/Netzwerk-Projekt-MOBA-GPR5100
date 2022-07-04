@@ -1,12 +1,10 @@
-﻿using System;
-using S_Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace S_Unit
 {
     public class UnitCommandGiver : MonoBehaviour
     {
-        [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private UnitSelectionHandler unitSelectionHandler;
         [SerializeField] private LayerMask groundLayer;
         
         private Camera mainCamera;
@@ -30,8 +28,12 @@ namespace S_Unit
             
             bool validPos = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer);
             if (!validPos) return;
-            
-            playerMovement.CmdMove(hit.point);
+
+
+            foreach (var unitMovement in unitSelectionHandler.SelectedUnits)
+            {
+                unitMovement.GetUnitMovement().CmdMove(hit.point);
+            }
         }
     }
 }

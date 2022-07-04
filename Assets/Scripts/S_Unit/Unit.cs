@@ -21,9 +21,44 @@ namespace S_Unit
         public static event Action<Unit> AuthorityOnUnitSpawned; 
         public static event Action<Unit> AuthorityOnUnitDespawned;
         
+        
         public PlayerMovement GetUnitMovement()
         {
             return unitMovement;
         }
+
+        public override void OnStartServer()
+        {
+            ServerOnUnitSpawned?.Invoke(this);
+            health.ServerOnDie += ServerHandleDie;
+        }
+
+        public override void OnStopServer()
+        {
+            ServerOnUnitDespawned?.Invoke(this);
+            health.ServerOnDie -= ServerHandleDie;
+        }
+
+        [Server]
+        private void ServerHandleDie()
+        {
+            NetworkServer.Destroy(gameObject);
+        }
+        
+
+        public override void OnStartClient()
+        {
+            if (!isClientOnly) return;
+            if (!hasAuthority) return;
+            AuthorityOnUnitSpawned?.Invoke(this);
+        }
+
+        public override void OnStopClient()
+        {
+            if (!isClientOnly) return;
+            if (!hasAuthority) return;
+            AuthorityOnUnitDespawned?.Invoke(this);
+        }
+
     }
 }
