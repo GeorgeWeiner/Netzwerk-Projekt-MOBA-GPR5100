@@ -23,14 +23,13 @@ public class PlayerMovement : NetworkBehaviour
         {
             SetMovePoint();
         }
-       
     }
-
     [Command]
     void MovePlayerTowardsPoint(Vector3 position)
     {
         bool validPosition = NavMesh.SamplePosition(position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas);
-        Debug.Log(position);
+        agent.ResetPath();
+
         if (!validPosition) return;
         {
             agent.SetDestination(hit.position);
