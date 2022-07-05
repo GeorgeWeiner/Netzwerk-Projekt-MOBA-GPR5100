@@ -48,7 +48,10 @@ MonoBehaviour:
   unitSelectionHandler: {fileID: 5256718535195885418}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 63
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &5256718535195885418
 MonoBehaviour:
   m_ObjectHideFlags: 0

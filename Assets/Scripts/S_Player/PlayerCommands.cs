@@ -28,5 +28,12 @@ namespace S_Player
             
             agent.SetDestination(hit.position);
         }
+
+        [Command]
+        public void CmdMoveTowardsAttackTarget(Vector3 targetPos)
+        {
+            agent.ResetPath();
+            agent.SetDestination(targetPos);
+        }
     }
 }

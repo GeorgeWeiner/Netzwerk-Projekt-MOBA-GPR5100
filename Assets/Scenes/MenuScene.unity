@@ -213,6 +213,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 6320472783847641401, guid: 2e0cd3aee8b48a744bdb10e15a9f7964, type: 3}
+  - {fileID: 6694978226375659141, guid: f8b9ff72ed0020949a9ed0544daa921c, type: 3}
   heroPrefab: {fileID: 6320472783847641401, guid: 2e0cd3aee8b48a744bdb10e15a9f7964,
     type: 3}
 --- !u!4 &120441609

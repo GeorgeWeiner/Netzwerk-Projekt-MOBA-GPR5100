@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using S_Combat;
@@ -8,21 +9,26 @@ public class MeleeAttack : Attack
     protected override IEnumerator AttackTarget(IDamageable damageTarget)
     {
         canAttack = false;
-        float attackDelay = this.attackDelay;
+        float attackDelay = base.attackDelay;
 
         while (attackDelay > 0)
         {
             attackDelay -= Time.deltaTime;
-            if (hasAuthority && InputManager.instance.ClickedRightMouseButton())
+            yield return new WaitForEndOfFrame();
+
+            if (InputManager.instance.ClickedRightMouseButton())
             {
                 canAttack = true;
+                StopCoroutine(attackRoutine);
+                attackRoutine = null;
             }
+
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("Attack");
+        
         damageTarget.TakeDmg(4);
 
-        yield return new WaitForSeconds(attackCd);
+        yield return new WaitForSeconds(timeBeetweenAttacks);
         canAttack = true;
     }
 }
