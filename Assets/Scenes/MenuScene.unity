@@ -207,11 +207,14 @@ MonoBehaviour:
   networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 6320472783847641401, guid: 2e0cd3aee8b48a744bdb10e15a9f7964,
+  playerPrefab: {fileID: 3512845625358199354, guid: 67d0f1bb1c1523847adf738ffc506125,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 6320472783847641401, guid: 2e0cd3aee8b48a744bdb10e15a9f7964, type: 3}
+  heroPrefab: {fileID: 6320472783847641401, guid: 2e0cd3aee8b48a744bdb10e15a9f7964,
+    type: 3}
 --- !u!4 &120441609
 Transform:
   m_ObjectHideFlags: 0
@@ -557,9 +560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a275c8eadacd8674eb997117936b5d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseRightButton: {fileID: -6578583616317608604, guid: 5447cc15f2c91a14482644409f0a1010,
-    type: 3}
-  mousePos: {fileID: 0}
 --- !u!4 &1995917526
 Transform:
   m_ObjectHideFlags: 0

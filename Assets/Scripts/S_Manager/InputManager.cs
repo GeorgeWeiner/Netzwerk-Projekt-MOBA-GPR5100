@@ -12,11 +12,10 @@ public class InputManager : BaseSingleton<InputManager>
         {
             return true;
         }
-       
     }
-
     public Vector2 GetMousePos()
     {
         return Mouse.current.position.ReadValue();
     }
+
 }

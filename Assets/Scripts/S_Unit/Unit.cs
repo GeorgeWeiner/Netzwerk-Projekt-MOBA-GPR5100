@@ -9,8 +9,9 @@ namespace S_Unit
 {
     public class Unit : NetworkBehaviour
     {
-        [SerializeField] private PlayerMovement unitMovement;
+        [SerializeField] private PlayerCommands _unitCommands;
         [SerializeField] private Targeter targeter;
+        public Targeter Targeter{ get => targeter; set => targeter = value; }
         [SerializeField] private Health health;
         [SerializeField] private UnityEvent onSelected;
         [SerializeField] private UnityEvent onDeselected;
@@ -22,9 +23,9 @@ namespace S_Unit
         public static event Action<Unit> AuthorityOnUnitDespawned;
         
         
-        public PlayerMovement GetUnitMovement()
+        public PlayerCommands GetUnitMovement()
         {
-            return unitMovement;
+            return _unitCommands;
         }
 
         public override void OnStartServer()

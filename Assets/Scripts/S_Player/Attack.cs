@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using S_Combat;
+using Mirror;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Attack : MonoBehaviour
+public abstract class Attack : NetworkBehaviour
 {
-    [SerializeField] Targeter targeter;
-
+    
+    public void Start()
+    {
+     
+       
+    }
     void Update()
     {
-
+       
+    }
+    void AttackTargetable()
+    {
+       
     }
     public void SetTargetable()
     {
-
+      
+    }
+    protected abstract IEnumerator AttackTarget(IDamageable target);
+    void OnDrawGizmosSelected()
+    {
+       
     }
 }

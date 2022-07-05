@@ -11,7 +11,6 @@ namespace S_Manager
             base.OnServerAddPlayer(conn);
             var heroInstance = Instantiate(heroPrefab, conn.identity.transform.position,
                 conn.identity.transform.rotation);
-            
             NetworkServer.Spawn(heroInstance, conn);
         }
     }

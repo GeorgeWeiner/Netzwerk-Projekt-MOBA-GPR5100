@@ -2,7 +2,7 @@ using System;
 using Mirror;
 using UnityEngine;
 
-public class Health : NetworkBehaviour
+public class Health : NetworkBehaviour,IDamageable
     {
         [SerializeField] private int maxHealth = 100;
 
@@ -18,28 +18,30 @@ public class Health : NetworkBehaviour
         {
             currentHealth = maxHealth;
         }
-
         [Server]
-        public void DealDamage(int damageAmount)
+        public void TakeDmg(int dmg)
         {
             if (currentHealth == 0) return;
-            currentHealth = currentHealth = Mathf.Max(currentHealth - damageAmount, 0);
+            Debug.Log("Attack22222");
+            currentHealth = currentHealth = Mathf.Max(currentHealth - dmg, 0);
 
             if (currentHealth != 0) return;
-            
+
             ServerOnDie?.Invoke();
-            
+
             Debug.Log("We died.");
         }
 
-        #endregion
+    #endregion
 
         #region Client
 
-        private void HandleHealthUpdated(int oldHealth, int newHealth)
+    private void HandleHealthUpdated(int oldHealth, int newHealth)
         {
             ClientOnHealthUpdated?.Invoke(newHealth, maxHealth);
         }
 
         #endregion
+
+      
     }
