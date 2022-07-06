@@ -9,7 +9,12 @@ namespace S_Player
     public class MobaPlayer : NetworkBehaviour
     {
         [SerializeField] private List<Unit> myUnits = new List<Unit>();
-        
+        [HideInInspector][SyncVar(hook = nameof(ChangeName))]public string playerName;
+
+        void Update()
+        {
+            Debug.Log(playerName);
+        }
         public List<Unit> GetMyUnits()
         {
             return myUnits;
@@ -26,17 +31,17 @@ namespace S_Player
             if (unit.connectionToClient.connectionId != connectionToClient.connectionId) return;
             myUnits.Add(unit);
         }
-        
+
         private void ServerHandleUnitDespawned(Unit unit)
         {
             if (unit.connectionToClient.connectionId != connectionToClient.connectionId) return;
             myUnits.Remove(unit);
         }
-        
+
         public override void OnStartClient()
         {
             if (!hasAuthority) return;
-      
+
             Unit.AuthorityOnUnitSpawned += AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
         }
@@ -48,17 +53,27 @@ namespace S_Player
             Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
             Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
         }
-        
+
         private void AuthorityHandleUnitSpawned(Unit unit)
         {
             if (!hasAuthority) return;
             myUnits.Add(unit);
         }
-   
+
         private void AuthorityHandleUnitDespawned(Unit unit)
         {
             if (!hasAuthority) return;
             myUnits.Remove(unit);
+        }
+        [Command] 
+        public void CmdChangeName(string newName)
+        {
+            playerName = newName;
+        }
+
+        public void ChangeName(string old, string newName)
+        {
+            playerName = newName;
         }
     }
 }
