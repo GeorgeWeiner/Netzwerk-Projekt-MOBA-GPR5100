@@ -13,7 +13,7 @@ namespace S_Player
 
         void Update()
         {
-            Debug.Log(playerName);
+           
         }
         public List<Unit> GetMyUnits()
         {

@@ -10,37 +10,14 @@ using Random = System.Random;
 public class MobaNetworkRoomManager : NetworkRoomManager
 {
     [SerializeField] private GameObject heroPrefab;
-    bool startedGame = false;
-    void Update()
-    {
-        if (startedGame) return;
-        {
-            CheckIfAllPlayersAreReady();
-        }
-       
-    }
+    static public List<MobaPlayer> players = new List<MobaPlayer>();
+
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        Debug.Log(conn.identity.GetComponent<MobaPlayer>().playerName);
+        players.Add(conn.identity.GetComponent<MobaPlayer>());
+        Debug.Log(players.Count);
+      
     }
 
-    void CheckIfAllPlayersAreReady()
-    {
-
-        //bool everyBodyReady = true;
-
-        //foreach (var networkRoomPlayer in roomSlots)
-        //{
-        //    if (!networkRoomPlayer.readyToBegin)
-        //    {
-        //        everyBodyReady = false;
-        //    }
-        //}
-        //if (everyBodyReady)
-        //{
-        //    startedGame = true;
-        //    ServerChangeScene("EnzoScene");
-        //}
-    }
 }

@@ -8,6 +8,7 @@ using UnityEngine;
 public class SubmitName : NetworkBehaviour
 {
     [SerializeField] TMP_InputField nameInput;
+    [SerializeField] GameObject champSelect;
     MobaPlayer player;
     NetworkRoomPlayer roomPlayer;
 
@@ -19,7 +20,7 @@ public class SubmitName : NetworkBehaviour
     public void ChangeName()
     {
         player.CmdChangeName(nameInput.text);
-        roomPlayer.readyToBegin = true;
-        Debug.Log(player.playerName);
+        champSelect.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
