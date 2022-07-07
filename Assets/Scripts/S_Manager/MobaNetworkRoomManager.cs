@@ -20,4 +20,21 @@ public class MobaNetworkRoomManager : NetworkRoomManager
       
     }
 
+    void CheckIfAllPlayersAreReady()
+    {
+        //bool everyBodyReady = true;
+
+        //foreach (var networkRoomPlayer in roomSlots)
+        //{
+        //    if (!networkRoomPlayer.readyToBegin)
+        //    {
+        //        everyBodyReady = false;
+        //    }
+        //}
+        //if (everyBodyReady)
+        //{
+        //    startedGame = true;
+        //    ServerChangeScene("EnzoScene");
+        //}
+    }
 }
