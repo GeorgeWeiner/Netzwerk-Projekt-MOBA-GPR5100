@@ -1,9 +1,10 @@
 ﻿using System;
+using Mirror;
 using UnityEngine;
 
 namespace S_Manager
 {
-    public class GameOverManager : BaseSingleton<GameOverManager>
+    public class GameOverManager : NetworkBehaviour
     {
         public static event Action OnGameOver;
             
