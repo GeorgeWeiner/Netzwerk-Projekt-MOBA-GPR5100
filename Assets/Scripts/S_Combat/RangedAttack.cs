@@ -12,7 +12,6 @@ public class RangedAttack : Attack
     protected override IEnumerator AttackTarget(IDamageable target)
     {
         canAttack = false;
-        Debug.Log("HEYRANGED");
         float attackDelay = base.attackDelay;
 
         yield return new WaitForEndOfFrame();

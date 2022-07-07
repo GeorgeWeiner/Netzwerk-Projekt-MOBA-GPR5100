@@ -50,7 +50,7 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: Assets/Scenes/MenuScene.unity
+  offlineScene: 
   onlineScene: Assets/Scenes/EnzoScene.unity
   transport: {fileID: 1129491001763174772}
   networkAddress: localhost
@@ -67,7 +67,7 @@ MonoBehaviour:
   minPlayers: 1
   roomPlayerPrefab: {fileID: -7989209609957591735, guid: 67d0f1bb1c1523847adf738ffc506125,
     type: 3}
-  RoomScene: Assets/Scenes/MenuScene.unity
+  RoomScene: 
   GameplayScene: Assets/Scenes/EnzoScene.unity
   _allPlayersReady: 0
   roomSlots:

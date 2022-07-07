@@ -7,7 +7,7 @@ namespace S_Unit
     {
         [SerializeField] private UnitSelectionHandler unitSelectionHandler;
         [SerializeField] private LayerMask groundLayer;
-        [SerializeField] LayerMask playerLayer;
+        [SerializeField] LayerMask targetableLayer;
 
         private Camera mainCamera;
 
@@ -44,7 +44,7 @@ namespace S_Unit
         {
             Ray ray = mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
 
-            bool validAttackPos = Physics.Raycast(ray,out RaycastHit hit,Mathf.Infinity,playerLayer);
+            bool validAttackPos = Physics.Raycast(ray,out RaycastHit hit,Mathf.Infinity,targetableLayer);
 
             if (!validAttackPos || !hit.collider.TryGetComponent<Targetable>(out Targetable target)) return;
             {
