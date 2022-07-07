@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/George.unity
     guid: 86025365880829c4b88417069f42577e
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: a032f6b1f67f6f548bd31d33588c6333
   m_configObjects: {}
