@@ -4,11 +4,14 @@ using Mirror;
 using S_Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SubmitName : NetworkBehaviour
 {
     [SerializeField] TMP_InputField nameInput;
+    [SerializeField] Button submitButton;
     [SerializeField] GameObject champSelect;
+    [SerializeField] DisplayNamesInChampSelect displayNames;
     MobaPlayer player;
     NetworkRoomPlayer roomPlayer;
 
@@ -21,6 +24,6 @@ public class SubmitName : NetworkBehaviour
     {
         player.CmdChangeName(nameInput.text);
         champSelect.SetActive(true);
-        gameObject.SetActive(false);
+        submitButton.gameObject.SetActive(false);
     }
 }
