@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NameDisplayField : NetworkBehaviour
 {
-    [SerializeField] DisplayNamesInChampSelect display;
+    [SerializeField] ChampSelect display;
     [SerializeField] TMP_Text playerNameField;
     [SyncVar(hook = nameof(UpdatePlayerName))] public string playerName;
 

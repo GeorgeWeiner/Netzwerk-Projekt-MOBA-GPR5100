@@ -11,7 +11,7 @@ public class SubmitName : NetworkBehaviour
     [SerializeField] TMP_InputField nameInput;
     [SerializeField] Button submitButton;
     [SerializeField] GameObject champSelect;
-    [SerializeField] DisplayNamesInChampSelect displayNames;
+    [SerializeField] ChampSelect displayNames;
     MobaPlayer player;
     NetworkRoomPlayer roomPlayer;
 
@@ -23,6 +23,7 @@ public class SubmitName : NetworkBehaviour
     public void ChangeName()
     {
         player.CmdChangeName(nameInput.text);
+        roomPlayer.readyToBegin = true;
         champSelect.SetActive(true);
         submitButton.gameObject.SetActive(false);
     }

@@ -11,9 +11,11 @@ public class MobaNetworkRoomManager : NetworkRoomManager
 {
     [SerializeField] private GameObject heroPrefab;
     static public event Action<MobaPlayer> OnPlayerEnterChampSelect;
+    static public event Action<NetworkIdentity,MobaPlayer> OnPlayerEnterChampSelect2; 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
         OnPlayerEnterChampSelect?.Invoke(conn.identity.GetComponent<MobaPlayer>());
+        OnPlayerEnterChampSelect2?.Invoke(conn.identity, conn.identity.GetComponent < MobaPlayer>());
     }
 }

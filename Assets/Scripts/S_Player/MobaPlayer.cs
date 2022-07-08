@@ -9,6 +9,7 @@ namespace S_Player
     public class MobaPlayer : NetworkBehaviour
     {
         [SerializeField] private List<Unit> myUnits = new List<Unit>();
+        [SyncVar(hook = nameof(ChangeChampionPrefab))] public GameObject championPrefab;
         [HideInInspector][SyncVar(hook = nameof(ChangeName))]public string playerName;
 
         void Update()
@@ -65,6 +66,13 @@ namespace S_Player
             if (!hasAuthority) return;
             myUnits.Remove(unit);
         }
+
+        [Command]
+        public void CmdChangePrefab(GameObject newPrefab,Transform position)
+        {
+            championPrefab = newPrefab;
+            newPrefab.transform.position = position.position;
+        }
         [Command] 
         public void CmdChangeName(string newName)
         {
@@ -74,6 +82,11 @@ namespace S_Player
         public void ChangeName(string old, string newName)
         {
             playerName = newName;
+        }
+
+        public void ChangeChampionPrefab(GameObject old,GameObject newPrefab)
+        {
+            championPrefab = newPrefab;
         }
     }
 }
