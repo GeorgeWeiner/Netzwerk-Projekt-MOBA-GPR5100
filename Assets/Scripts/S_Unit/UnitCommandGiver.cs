@@ -1,4 +1,5 @@
 ﻿using S_Combat;
+using S_Manager;
 using UnityEngine;
 
 namespace S_Unit
@@ -7,18 +8,20 @@ namespace S_Unit
     {
         [SerializeField] private UnitSelectionHandler unitSelectionHandler;
         [SerializeField] private LayerMask groundLayer;
-        [SerializeField] LayerMask playerLayer;
+        [SerializeField] private LayerMask targetableLayer;
 
-        private Camera mainCamera;
+        private Camera _mainCamera;
+        private bool _canControlUnits = true;
 
         private void Start()
         {
-            mainCamera = Camera.main;
+            _mainCamera = Camera.main;
+            GameOverManager.OnGameOver += () => _canControlUnits = false;
         }
 
         private void Update()
         {
-            if (InputManager.instance.ClickedRightMouseButton())
+            if (InputManager.instance.ClickedRightMouseButton() && _canControlUnits)
             {
                 SetMovePoint();
                 SetAttackPoint();
@@ -27,7 +30,7 @@ namespace S_Unit
         
         private void SetMovePoint()
         {
-            Ray ray = mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
+            Ray ray = _mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
             
             bool validMovePos = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer);
           
@@ -42,9 +45,9 @@ namespace S_Unit
 
         void SetAttackPoint()
         {
-            Ray ray = mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
+            Ray ray = _mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
 
-            bool validAttackPos = Physics.Raycast(ray,out RaycastHit hit,Mathf.Infinity,playerLayer);
+            bool validAttackPos = Physics.Raycast(ray,out RaycastHit hit,Mathf.Infinity,targetableLayer);
 
             if (!validAttackPos || !hit.collider.TryGetComponent<Targetable>(out Targetable target)) return;
             {
