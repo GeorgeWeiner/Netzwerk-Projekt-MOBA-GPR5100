@@ -9,12 +9,11 @@ namespace S_Player
     public class MobaPlayer : NetworkBehaviour
     {
         [SerializeField] private List<Unit> myUnits = new List<Unit>();
-        [SyncVar(hook = nameof(ChangeChampionPrefab))]public GameObject championPrefab;
+        public GameObject championPrefab;
         [HideInInspector][SyncVar(hook = nameof(ChangeName))]public string playerName;
 
         void Start()
         {
-            championPrefab = Instantiate(championPrefab);
             NetworkClient.ready = true;
         }
         public List<Unit> GetMyUnits()
@@ -77,7 +76,10 @@ namespace S_Player
         [Command]
         public void CmdChangePrefab()
         {
-            NetworkServer.Spawn(championPrefab);
+            if (championPrefab != null)
+            {
+                NetworkServer.Spawn(championPrefab);
+            }
         }
         
         [Command] 
