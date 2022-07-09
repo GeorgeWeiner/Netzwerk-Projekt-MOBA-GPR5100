@@ -16,6 +16,5 @@ public class MobaNetworkRoomManager : NetworkRoomManager
     {
         base.OnServerAddPlayer(conn);
         OnPlayerEnterChampSelect?.Invoke(conn.identity.GetComponent<MobaPlayer>());
-        OnPlayerEnterChampSelect2?.Invoke(conn.identity, conn.identity.GetComponent < MobaPlayer>());
     }
 }
