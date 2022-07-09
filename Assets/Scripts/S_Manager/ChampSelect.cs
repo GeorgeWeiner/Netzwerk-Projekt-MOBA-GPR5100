@@ -42,6 +42,7 @@ public class ChampSelect : NetworkBehaviour
         _playerCount = newPlayerCount;
     }
     
+    [Command]
     public void ChangeChampionPrefabOfPlayer(GameObject prefabToChangeTo)
     {
         Debug.Log("HEHEHEH");
@@ -50,7 +51,7 @@ public class ChampSelect : NetworkBehaviour
             if (players[i].hasAuthority)
             {
                 var instance = Instantiate(prefabToChangeTo, championDisplayPositions[players[i]].position, Quaternion.identity);
-                NetworkServer.Spawn(instance);
+                NetworkServer.Spawn(instance, NetworkClient.connection);
                 players[i].CmdChangePrefab(instance, championDisplayPositions[players[i]]);
                 return;
             }

@@ -30,6 +30,7 @@ namespace S_Player
         private void ServerHandleUnitSpawned(Unit unit)
         {
             if (unit.connectionToClient.connectionId != connectionToClient.connectionId) return;
+            //This can be null
             myUnits.Add(unit);
         }
 
@@ -73,6 +74,7 @@ namespace S_Player
             championPrefab = newPrefab;
             newPrefab.transform.position = position.position;
         }
+        
         [Command] 
         public void CmdChangeName(string newName)
         {
