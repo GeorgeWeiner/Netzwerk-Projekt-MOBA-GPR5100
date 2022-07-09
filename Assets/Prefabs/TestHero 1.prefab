@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5023252523154920014}
   - component: {fileID: -3862066954463077366}
   m_Layer: 0
-  m_Name: TestHero
+  m_Name: TestHero 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5023252523154920015}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5023252523154920113
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -113,5 +113,5 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 87c58c06031cbce43b8510b4d443657f
+  m_AssetId: 819af6e75c5927347a2f005cd162b400
   hasSpawned: 0

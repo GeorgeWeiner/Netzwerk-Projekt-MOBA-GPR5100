@@ -1,6 +1,8 @@
 using Mirror;
 using S_Player;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = System.Random;
 
 public class ChampSelect : NetworkBehaviour
 {
@@ -29,7 +31,6 @@ public class ChampSelect : NetworkBehaviour
             }
         }
     }
-
     public void AddPlayerToChampSelect(MobaPlayer playerToAdd)
     {
         players.Add(playerToAdd);
@@ -45,16 +46,7 @@ public class ChampSelect : NetworkBehaviour
     [Command]
     public void ChangeChampionPrefabOfPlayer(GameObject prefabToChangeTo)
     {
-        Debug.Log("HEHEHEH");
-        for (int i = 0; i < players.Count; i++)
-        {
-            if (players[i].hasAuthority)
-            {
-                var instance = Instantiate(prefabToChangeTo, championDisplayPositions[players[i]].position, Quaternion.identity);
-                NetworkServer.Spawn(instance, NetworkClient.connection);
-                players[i].CmdChangePrefab(instance, championDisplayPositions[players[i]]);
-                return;
-            }
-        }
+        var mobaPlayer = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
+        mobaPlayer.ChangeChampionPrefabToSpawn(prefabToChangeTo);
     }
 }

@@ -82,5 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  data: {fileID: 11400000, guid: 2c024199d2a78784a8e38f58b5599acf, type: 2}
   myUnits: []
+  championPrefab: {fileID: 5023252523154920015, guid: 87c58c06031cbce43b8510b4d443657f,
+    type: 3}
+  playerName: 
