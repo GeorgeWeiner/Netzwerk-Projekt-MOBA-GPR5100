@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477c8b70344546ceb7344e5674b662fd, type: 3}
+  m_Name: Console Ability
+  m_EditorClassIdentifier: 
+  thumbNail: {fileID: 21300000, guid: f7cd89dcf4bc33a4c9af7db011c3e58e, type: 3}
+  abilityName: Console Ability
+  manaCost: 30
+  coolDown: 1
+  subAbilities:
+  - {fileID: 11400000, guid: cba49b309d44aa841b966d875b407295, type: 2}
