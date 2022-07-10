@@ -53,17 +53,12 @@ namespace S_Abilities
             CmdSpawnPrefab(find);
         }
 
-        [Command]
         private void CmdSpawnPrefab(GameObject prefab)
         {
-            if (prefab == null)
-            {
-                Debug.LogWarning("Warning! Passed prefab is null. Did you add a Network Identity?.");
-                return;
-            }
+            MobaNetworkRoomManager.SpawnPrefab(prefab);
 
-            var outputPrefab = Instantiate(prefab);
-            NetworkServer.Spawn(outputPrefab, connectionToClient);
+            //var outputPrefab = Instantiate(prefab);
+            //NetworkServer.Spawn(outputPrefab, connectionToClient);
         }
     }
 }

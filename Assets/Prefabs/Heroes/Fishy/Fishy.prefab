@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  attack: {fileID: 0}
+  attack: {fileID: 6093679366838889631}
   _unitCommands: {fileID: -7339416586776186322}
   targeter: {fileID: 4739244059358363384}
   health: {fileID: 8218255599728891129}
