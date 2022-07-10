@@ -1555,7 +1555,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champSelect: {fileID: 2063817375}
-  prefab: {fileID: 5023252523154920015, guid: 87c58c06031cbce43b8510b4d443657f, type: 3}
+  ChampionSprite: {fileID: 0}
+  championId: 1
 --- !u!114 &982596750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,7 +2186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champSelect: {fileID: 2063817375}
-  prefab: {fileID: 5023252523154920015, guid: 819af6e75c5927347a2f005cd162b400, type: 3}
+  ChampionSprite: {fileID: 0}
+  championId: 0
 --- !u!114 &1506117582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,8 +3324,6 @@ MonoBehaviour:
   championDisplaySpawnPositions:
   - {fileID: 1311484756}
   - {fileID: 793278156}
-  testObject: {fileID: 5023252523154920015, guid: 87c58c06031cbce43b8510b4d443657f,
-    type: 3}
 --- !u!114 &2063817376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,7 +3354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champSelect: {fileID: 0}
-  prefab: {fileID: 0}
+  ChampionSprite: {fileID: 0}
+  championId: 0
 --- !u!1 &2135585363
 GameObject:
   m_ObjectHideFlags: 0
