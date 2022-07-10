@@ -1,5 +1,6 @@
 using Mirror;
 using S_Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -7,10 +8,9 @@ using Random = System.Random;
 public class ChampSelect : NetworkBehaviour
 {
     [SerializeField] private Transform[] championDisplaySpawnPositions;
-    [SerializeField] private GameObject testObject;
     public readonly SyncList<NameDisplayField> names = new();
-    public readonly SyncList<MobaPlayer> players = new();
-    public readonly SyncDictionary<MobaPlayer, Transform> championDisplayPositions = new();
+    public readonly SyncList<MobaPlayerData> playersData = new SyncList<MobaPlayerData>();
+    public readonly SyncDictionary<MobaPlayerData, Transform> championDisplayPositions = new();
     public readonly SyncDictionary<MobaPlayer,GameObject> championChoosenDisplay = new();
     [SyncVar(hook = nameof(UpdatePlayerCount))]
     private int _playerCount;
@@ -23,18 +23,18 @@ public class ChampSelect : NetworkBehaviour
     [Server]
     private void Update()
     {
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playersData.Count; i++)
         {
             if (names[i] != null)
             {
-                names[i].playerName = players[i].playerName;
+                names[i].playerName = playersData[i].playerName;
             }
         }
     }
-    public void AddPlayerToChampSelect(MobaPlayer playerToAdd)
+    public void AddPlayerToChampSelect(MobaPlayerData playerToAdd)
     {
-        players.Add(playerToAdd);
-        championDisplayPositions.Add(playerToAdd,championDisplaySpawnPositions[_playerCount]);
+        playersData.Add(playerToAdd);
+        championDisplayPositions.Add(playerToAdd, championDisplaySpawnPositions[_playerCount]);
         _playerCount++;
     }
 
@@ -42,10 +42,14 @@ public class ChampSelect : NetworkBehaviour
     {
         _playerCount = newPlayerCount;
     }
-    
-    public void ChangeChampionPrefabOfPlayer(GameObject prefabToChangeTo)
+    public void ChangeChampionPrefabOfPlayer(int championId)
     {
-        var mobaPlayer = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
-        mobaPlayer.ChangeChampionPrefabToSpawn(prefabToChangeTo);
+        foreach (var mobaPlayerData in playersData)
+        {
+            if (mobaPlayerData == NetworkClient.connection.identity.GetComponent<MobaPlayerData>())
+            {
+               mobaPlayerData.CmdChangePrefab(championId);
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3512845625358199303}
   - component: {fileID: 3512845625358199300}
   - component: {fileID: -7989209609957591735}
+  - component: {fileID: -5127892347611435168}
   - component: {fileID: 3512845625358199301}
   m_Layer: 0
   m_Name: Player
@@ -68,6 +69,25 @@ MonoBehaviour:
   showRoomGUI: 1
   readyToBegin: 0
   index: 0
+--- !u!114 &-5127892347611435168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512845625358199354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e66329dbf82ae4fa7b21a7c8b018d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  championPrefab: {fileID: 0}
+  playerName: 
+  allChampionsAvailable:
+  - {fileID: 5023252523154920015, guid: 819af6e75c5927347a2f005cd162b400, type: 3}
+  - {fileID: 5023252523154920015, guid: 87c58c06031cbce43b8510b4d443657f, type: 3}
 --- !u!114 &3512845625358199301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +103,3 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   myUnits: []
-  championPrefab: {fileID: 5023252523154920015, guid: 87c58c06031cbce43b8510b4d443657f,
-    type: 3}
-  playerName: 

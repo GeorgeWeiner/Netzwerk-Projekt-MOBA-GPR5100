@@ -12,12 +12,12 @@ public class SubmitName : NetworkBehaviour
     [SerializeField] Button submitButton;
     [SerializeField] GameObject champSelect;
     [SerializeField] ChampSelect displayNames;
-    MobaPlayer player;
+    MobaPlayerData player;
     NetworkRoomPlayer roomPlayer;
 
     void Start()
     {
-        player = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
+        player = NetworkClient.connection.identity.GetComponent<MobaPlayerData>();
         roomPlayer = NetworkClient.connection.identity.GetComponent<NetworkRoomPlayer>();
     }
     public void ChangeName()

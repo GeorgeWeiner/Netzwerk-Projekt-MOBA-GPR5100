@@ -10,11 +10,10 @@ using Random = System.Random;
 public class MobaNetworkRoomManager : NetworkRoomManager
 {
     [SerializeField] private GameObject heroPrefab;
-    static public event Action<MobaPlayer> OnPlayerEnterChampSelect;
-    static public event Action<NetworkIdentity,MobaPlayer> OnPlayerEnterChampSelect2; 
+    static public event Action<MobaPlayerData> OnPlayerEnterChampSelect; 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        OnPlayerEnterChampSelect?.Invoke(conn.identity.GetComponent<MobaPlayer>());
+        OnPlayerEnterChampSelect?.Invoke(conn.identity.GetComponent<MobaPlayerData>());
     }
 }
