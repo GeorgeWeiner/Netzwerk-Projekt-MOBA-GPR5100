@@ -16,7 +16,6 @@ public class MobaNetworkRoomManager : NetworkRoomManager
         base.OnServerAddPlayer(conn);
         MobaPlayerData playerData = conn.identity.GetComponent<MobaPlayerData>();
         OnPlayerEnterChampSelect?.Invoke(playerData);
-       
     }
 
     public override void OnServerSceneChanged(string sceneName)
@@ -29,10 +28,19 @@ public class MobaNetworkRoomManager : NetworkRoomManager
                 var player = networkRoomPlayer.GetComponent<MobaPlayerData>();
                 var instance = Instantiate(player.allChampionsAvailable[player.CurrentChampion].GetCurrentChampion());
                 NetworkServer.Spawn(instance,player.connectionToClient);
-
-
             }
         }
-       
+    }
+    
+    public static void SpawnPrefab(GameObject go)
+    {
+        var goInstance = Instantiate(go);
+        NetworkServer.Spawn(goInstance);
+    }
+        
+    public static void SpawnPrefab(GameObject go, NetworkConnectionToClient conn)
+    {
+        var goInstance = Instantiate(go);
+        NetworkServer.Spawn(goInstance, conn);
     }
 }

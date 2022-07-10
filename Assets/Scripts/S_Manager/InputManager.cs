@@ -5,7 +5,11 @@ using UnityEngine.InputSystem;
 
 public class InputManager : BaseSingleton<InputManager>
 {
-
+    public bool PressedAbilityButton()
+    {
+        return Keyboard.current.digit1Key.wasPressedThisFrame;
+    }
+    
     public bool ClickedRightMouseButton()
     {
         if (!Mouse.current.rightButton.wasPressedThisFrame) return false;
