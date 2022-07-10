@@ -49,7 +49,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 63
-  playerLayer:
+  targetableLayer:
     serializedVersion: 2
     m_Bits: 64
 --- !u!114 &5256718535195885418

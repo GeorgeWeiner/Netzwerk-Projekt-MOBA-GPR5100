@@ -5,25 +5,37 @@ using UnityEngine;
 
 public class MobaPlayerData : NetworkBehaviour
 {
-    [SyncVar(hook = nameof(ChangeChampionPrefab))] public GameObject championPrefab;
-    [SyncVar(hook = nameof(ChangeName))] public string playerName;
-    [SerializeField] List<GameObject> allChampionsAvailable;
+    
+    [SerializeField] public List<ChampionData> allChampionsAvailable;
     public readonly SyncList<int> allChampions = new SyncList<int>();
+
+    [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
+    [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
+    public bool IsReady{ get => isReady; }
+    [SyncVar(hook = nameof(ChangeName))] public string playerName;
+    [SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
+  
+    public int CurrentChampion { get => currentChampion; }
+
+
     void Awake()
     {
         AddAllChampionsAvailable();
     }
     #region Commands
-
-
     [Command]
-    public void CmdChangePrefab(int championToSpawn)
+    public void CmdChangePrefab(int championToSpawn,Vector3 position)
     {
-        if (allChampions.Contains(championToSpawn))
+        if (allChampions.Contains(allChampionsAvailable[championToSpawn].ChampionId))
         {
-            var instance = Instantiate(allChampionsAvailable[championToSpawn]);
+            if (visualInstance != null)
+            {
+                NetworkServer.Destroy(visualInstance);
+            }
+            var instance = Instantiate(allChampionsAvailable[championToSpawn].GetVisualDisplay(),position,Quaternion.identity);
             NetworkServer.Spawn(instance);
-            championPrefab = instance;
+            currentChampion = allChampionsAvailable[championToSpawn].ChampionId;
+            visualInstance = instance;
         }
     }
     [Command]
@@ -32,18 +44,32 @@ public class MobaPlayerData : NetworkBehaviour
         playerName = newName;
     }
 
+    [Command]
+    public void CmdChangeReadyState(bool isReady)
+    {
+        this.isReady = isReady;
+    }
+
     #endregion
 
     #region Hooks
 
-    public void ChangeChampionPrefab(GameObject old, GameObject newObject)
+    public void ChangeCurrentChampionVisualDisplay(GameObject old,GameObject newObject)
     {
-        championPrefab = newObject;
+        visualInstance = newObject;
     }
-
+    public void ChangeCurrentChampion(int old , int newChampionId)
+    {
+        currentChampion = newChampionId;
+    }
     public void ChangeName(string old, string newName)
     {
         playerName = newName;
+    }
+
+    public void ChangeReadyState(bool old,bool newState)
+    {
+        isReady = newState;
     }
 
     #endregion
@@ -52,7 +78,7 @@ public class MobaPlayerData : NetworkBehaviour
     {
         for (int i = 0; i < allChampionsAvailable.Count; i++)
         {
-            allChampions.Add(i);
+            allChampions.Add(allChampionsAvailable[i].ChampionId);
         }
     }
 }
