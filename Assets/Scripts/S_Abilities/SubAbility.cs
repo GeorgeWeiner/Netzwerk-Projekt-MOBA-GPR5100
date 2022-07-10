@@ -11,19 +11,19 @@ namespace S_Abilities
         public float subAbilityDelay;
         public float range;
         
-        protected Transform transformSelf;
+        protected Transform TransformSelf;
         protected AbilityHandler AbilityHandler;
         
         public abstract void ExecuteSubAbility();
 
         public void InitializeSelf(Transform self)
         {
-            transformSelf = self;
+            TransformSelf = self;
         }
         
         public void InitializeSelf(Transform self, AbilityHandler handler)
         {
-            transformSelf = self;
+            TransformSelf = self;
             AbilityHandler = handler;
         }
     }

@@ -12,9 +12,9 @@ namespace S_Abilities
 
         public override void ExecuteSubAbility()
         {
-            _target = transformSelf.GetComponent<Targeter>().GetTarget();
+            _target = TransformSelf.GetComponent<Targeter>().GetTarget();
             
-            if (transformSelf.position.GetSqredDistance(_target.transform.position) > range) return;
+            if (TransformSelf.position.GetSqredDistance(_target.transform.position) > range) return;
             if (!_target.TryGetComponent(out Health health)) return;
             health.TakeDmg(damage);
             Debug.Log($"Successfully executed TargetAttack.");
