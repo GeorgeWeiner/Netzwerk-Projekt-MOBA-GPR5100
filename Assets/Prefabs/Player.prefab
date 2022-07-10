@@ -83,11 +83,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  championPrefab: {fileID: 0}
-  playerName: 
   allChampionsAvailable:
-  - {fileID: 5023252523154920015, guid: 819af6e75c5927347a2f005cd162b400, type: 3}
-  - {fileID: 5023252523154920015, guid: 87c58c06031cbce43b8510b4d443657f, type: 3}
+  - {fileID: 11400000, guid: a3f6b85098241a34699faf2fa0f65b52, type: 2}
+  - {fileID: 11400000, guid: ac79bf864495d8042b10a601975b5f5b, type: 2}
+  playerName: 
 --- !u!114 &3512845625358199301
 MonoBehaviour:
   m_ObjectHideFlags: 0

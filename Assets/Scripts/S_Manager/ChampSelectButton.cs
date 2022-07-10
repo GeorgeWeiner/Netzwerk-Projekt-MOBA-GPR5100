@@ -9,13 +9,14 @@ using UnityEngine.UI;
 public class ChampSelectButton : MonoBehaviour,IPointerDownHandler
 {
     [SerializeField] ChampSelect champSelect;
-    [SerializeField] Sprite ChampionSprite;
-    [SerializeField] int championId;
-    
+    [SerializeField] ChampionData championData;
 
+    void Awake()
+    {
+        GetComponent<Image>().sprite = championData.ChampionSprite;
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
-        GetComponent<Image>().color = Random.ColorHSV();
-        champSelect.ChangeChampionPrefabOfPlayer(championId);
+        champSelect.ChangeChampionPrefabOfPlayer(championData.ChampionId);
     }
 }

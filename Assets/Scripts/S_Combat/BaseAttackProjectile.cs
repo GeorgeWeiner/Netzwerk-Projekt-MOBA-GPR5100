@@ -22,6 +22,10 @@ public class BaseAttackProjectile : Projectile
     }
     void MoveTowardsTarget()
     {
+        if (target == null)
+        {
+            Destroy(gameObject);
+        }
         transform.position = Vector3.MoveTowards(transform.position, target.GetAimAtPoint().position, Time.deltaTime * projectileSpeed);
     }
     void OnTriggerEnter(Collider other)

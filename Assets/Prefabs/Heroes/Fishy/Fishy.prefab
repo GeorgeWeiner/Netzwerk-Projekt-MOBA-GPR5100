@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: -2823662903073081699}
   - component: {fileID: -8748289578980493745}
   m_Layer: 6
-  m_Name: Hero
+  m_Name: Fishy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6320472783847641401}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c8c06646f75184468954e4022700f3f, type: 3}
   m_Name: 

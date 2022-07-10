@@ -7,6 +7,7 @@ using Random = System.Random;
 
 public class ChampSelect : NetworkBehaviour
 {
+    [SerializeField] Button startButton;
     [SerializeField] private Transform[] championDisplaySpawnPositions;
     public readonly SyncList<NameDisplayField> names = new();
     public readonly SyncList<MobaPlayerData> playersData = new SyncList<MobaPlayerData>();
@@ -15,9 +16,15 @@ public class ChampSelect : NetworkBehaviour
     [SyncVar(hook = nameof(UpdatePlayerCount))]
     private int _playerCount;
 
+    [Server]
     private void Awake()
     {
         MobaNetworkRoomManager.OnPlayerEnterChampSelect += AddPlayerToChampSelect;
+        if (!isServer) return;
+        {
+            startButton.gameObject.SetActive(true);
+        }
+        
     }
 
     [Server]
@@ -29,7 +36,12 @@ public class ChampSelect : NetworkBehaviour
             {
                 names[i].playerName = playersData[i].playerName;
             }
+            else
+            {
+                names[i].gameObject.SetActive(false);
+            }
         }
+        
     }
     public void AddPlayerToChampSelect(MobaPlayerData playerToAdd)
     {
@@ -48,8 +60,28 @@ public class ChampSelect : NetworkBehaviour
         {
             if (mobaPlayerData == NetworkClient.connection.identity.GetComponent<MobaPlayerData>())
             {
-               mobaPlayerData.CmdChangePrefab(championId);
+               mobaPlayerData.CmdChangePrefab(championId,championDisplayPositions[mobaPlayerData].position);
+               mobaPlayerData.CmdChangeReadyState(true);
             }
         }
+    }
+
+    public void StartGame()
+    {
+        bool allPlayersReady = true;
+
+        foreach (var player in playersData)
+        {
+            if (!player.IsReady)
+            {
+                allPlayersReady = false;
+                return;
+            }
+        }
+        if (allPlayersReady)
+        {
+            MobaNetworkRoomManager.singleton.ServerChangeScene("EnzoScene");
+        }
+       
     }
 }
