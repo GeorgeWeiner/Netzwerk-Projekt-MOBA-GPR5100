@@ -5,24 +5,24 @@ namespace S_Combat
 {
     public class Targeter : NetworkBehaviour
     {
-        private Targetable target;
+        private Targetable _target;
     
         [Command] 
         public void CmdSetTarget(GameObject targetGameObject)
         {
             if (!targetGameObject.TryGetComponent(out Targetable target)) return;
-            this.target = target;
+            this._target = target;
         }
 
         [Server]
         public void ClearTarget()
         {
-            target = null;
+            _target = null;
         }
 
         public Targetable GetTarget()
         {
-            return target;
+            return _target;
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BaseAttackProjectile : Projectile
 {
-    Targetable target;
+    private Targetable _target;
 
     void Update()
     {
@@ -15,23 +15,23 @@ public class BaseAttackProjectile : Projectile
     public override void Initialize(Transform forward, Targetable target, int dmg, float projectileSpeed)
     {
         this.dmg = dmg;
-        this.target = target;
+        this._target = target;
         this.projectileSpeed = projectileSpeed;
         transform.forward = forward.forward;
     }
     void MoveTowardsTarget()
     {
-        if (target == null)
+        if (_target == null)
         {
             Destroy(gameObject);
         }
-        transform.position = Vector3.MoveTowards(transform.position, target.GetAimAtPoint().position, Time.deltaTime * projectileSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, _target.GetAimAtPoint().position, Time.deltaTime * projectileSpeed);
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<Targetable>(out Targetable target))
+        if (other.gameObject.TryGetComponent<Targetable>(out var target))
         { 
-            if (target == this.target)
+            if (target == this._target)
             {
                 target.GetComponent<IDamageable>().TakeDmg(dmg);
                 Destroy(gameObject);

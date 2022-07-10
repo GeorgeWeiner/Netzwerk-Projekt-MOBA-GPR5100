@@ -5,21 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InputManager : BaseSingleton<InputManager>
 {
-    public bool PressedAbilityButton()
-    {
-        return Keyboard.current.digit1Key.wasPressedThisFrame;
-    }
-    
-    public bool ClickedRightMouseButton()
-    {
-        if (!Mouse.current.rightButton.wasPressedThisFrame) return false;
-        {
-            return true;
-        }
-    }
-    public Vector2 GetMousePos()
-    {
-        return Mouse.current.position.ReadValue();
-    }
-
+    public bool PressedAbilityButton() => Keyboard.current.digit1Key.wasPressedThisFrame;
+    public bool ClickedRightMouseButton() => Mouse.current.rightButton.wasPressedThisFrame;
+    public bool ClickedLeftMouseButton => Mouse.current.leftButton.wasPressedThisFrame;
+    public Vector2 GetMousePos() => Mouse.current.position.ReadValue();
 }

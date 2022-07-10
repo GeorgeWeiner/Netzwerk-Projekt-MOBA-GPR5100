@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subAbilityDelay: 1
   range: 0
-  projectile: {fileID: 3776202186778231783, guid: 254723b4141e0574fb305c004ddacec8,
+  projectile: {fileID: 6694978226375659141, guid: f8b9ff72ed0020949a9ed0544daa921c,
     type: 3}

@@ -13,7 +13,9 @@ namespace S_Manager
                 conn.identity.transform.rotation);
             NetworkServer.Spawn(heroInstance, conn);
         }
-        
+
+        #region Prefab Spawn
+
         public static void SpawnPrefab(GameObject go)
         {
             var goInstance = Instantiate(go);
@@ -31,5 +33,13 @@ namespace S_Manager
             var goInstance = Instantiate(go);
             NetworkServer.Spawn(goInstance, conn);
         }
+        
+        public static void SpawnPrefab(GameObject go, Transform spawnPoint, NetworkConnectionToClient conn)
+        {
+            var goInstance = Instantiate(go, spawnPoint.position, spawnPoint.rotation);
+            NetworkServer.Spawn(goInstance, conn);
+        }
+
+        #endregion
     }
 }

@@ -1,8 +1,11 @@
 using System;
+using Interfaces;
 using Mirror;
 using UnityEngine;
 
-public class Health : NetworkBehaviour, IDamageable
+namespace S_Combat
+{
+    public class Health : NetworkBehaviour, IDamageable, ICharacterStat
     {
         [SerializeField] private int maxHealth = 100;
 
@@ -10,7 +13,7 @@ public class Health : NetworkBehaviour, IDamageable
         [SerializeField] private int currentHealth;
 
         public event Action ServerOnDie;
-        public event Action<int, int> ClientOnHealthUpdated; 
+        public event Action<int, int> ClientOnStatUpdated;
 
         #region Server
 
@@ -32,14 +35,17 @@ public class Health : NetworkBehaviour, IDamageable
             Debug.Log("We died.");
         }
 
-    #endregion
+        #endregion
 
         #region Client
 
         private void HandleHealthUpdated(int oldHealth, int newHealth)
         {
-            ClientOnHealthUpdated?.Invoke(newHealth, maxHealth);
+            ClientOnStatUpdated?.Invoke(newHealth, maxHealth);
         }
 
         #endregion
+
+        
     }
+}
