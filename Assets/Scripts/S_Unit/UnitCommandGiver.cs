@@ -26,17 +26,34 @@ namespace S_Unit
                 SetMovePoint();
                 SetAttackPoint();
             }
+
+            if (InputManager.instance.ClickedLeftMouseButton)
+            {
+                SetTarget();
+            }
         }
-        
+
+        private void SetTarget()
+        {
+            var ray = _mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
+            var validAttackPos = Physics.Raycast(ray,out var hit,Mathf.Infinity,targetableLayer);
+            if (!validAttackPos || !hit.collider.TryGetComponent<Targetable>(out var target)) return;
+            
+            foreach (var selectedUnit in unitSelectionHandler.SelectedUnits)
+            {
+                if (!unitSelectionHandler.SelectedUnits.Contains(target.GetComponent<Unit>()))
+                {
+                    selectedUnit.Targeter.CmdSetTarget(target.gameObject);
+                }
+            }
+        }
+
         private void SetMovePoint()
         {
             Ray ray = _mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
-            
             bool validMovePos = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer);
-          
             if (!validMovePos) return;
-
-
+            
             foreach (var unitMovement in unitSelectionHandler.SelectedUnits)
             {
                 unitMovement.GetUnitMovement().CmdMove(hit.point);
@@ -46,7 +63,6 @@ namespace S_Unit
         void SetAttackPoint()
         {
             Ray ray = _mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
-
             bool validAttackPos = Physics.Raycast(ray,out RaycastHit hit,Mathf.Infinity,targetableLayer);
 
             if (!validAttackPos || !hit.collider.TryGetComponent<Targetable>(out Targetable target)) return;

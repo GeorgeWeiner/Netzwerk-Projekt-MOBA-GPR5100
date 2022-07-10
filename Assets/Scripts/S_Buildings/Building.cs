@@ -1,5 +1,6 @@
 ﻿using System;
 using Mirror;
+using S_Combat;
 using UnityEngine;
 
 namespace S_Buildings

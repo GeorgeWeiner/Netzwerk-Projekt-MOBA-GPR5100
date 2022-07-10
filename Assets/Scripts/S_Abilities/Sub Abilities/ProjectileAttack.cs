@@ -6,9 +6,19 @@ namespace S_Abilities
     public class ProjectileAttack : SubAbility
     {
         [SerializeField] private GameObject projectile;
+        
+        private Transform _spawnPoint;
+        
         public override void ExecuteSubAbility()
         {
-            AbilityHandler.SetPrefab(projectile);
+            AbilityHandler.SetPrefab(projectile, _spawnPoint);
+        }
+
+        public void InitializeSelf(Transform self, AbilityHandler handler, Transform projectileSpawnTransform)
+        {
+            TransformSelf = self;
+            AbilityHandler = handler;
+            _spawnPoint = projectileSpawnTransform;
         }
     }
 }
