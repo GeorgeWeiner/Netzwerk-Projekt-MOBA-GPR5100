@@ -32,7 +32,6 @@ namespace S_Player
         [Command]
         public void CmdMoveTowardsAttackTarget(Vector3 targetPos)
         {
-            agent.ResetPath();
             agent.SetDestination(targetPos);
         }
     }

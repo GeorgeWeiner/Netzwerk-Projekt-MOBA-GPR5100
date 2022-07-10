@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [SerializeField] bool destroyOnLoad;
     static public T instance;
 
     void Awake()
@@ -19,10 +20,12 @@ public class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else if (instance != null && instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
-
-        DontDestroyOnLoad(this);
+        if (!destroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
 }

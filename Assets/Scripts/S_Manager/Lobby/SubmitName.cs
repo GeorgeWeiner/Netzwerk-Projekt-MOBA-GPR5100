@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
@@ -8,10 +9,10 @@ using UnityEngine.UI;
 
 public class SubmitName : NetworkBehaviour
 {
+    [SerializeField] ChampSelect champSelection;
     [SerializeField] TMP_InputField nameInput;
     [SerializeField] GameObject submitMenu;
     [SerializeField] GameObject champSelect;
-    [SerializeField] ChampSelect displayNames;
     MobaPlayerData player;
     NetworkRoomPlayer roomPlayer;
 

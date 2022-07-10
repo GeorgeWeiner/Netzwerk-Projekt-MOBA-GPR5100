@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using S_Combat;
 using S_Player;
+using S_Unit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,11 +12,12 @@ using Random = System.Random;
 
 public class MobaNetworkRoomManager : NetworkRoomManager
 {
-    static public event Action<MobaPlayerData> OnPlayerEnterChampSelect; 
+    static public event Action<MobaPlayerData> OnPlayerEnterChampSelect;
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
         MobaPlayerData playerData = conn.identity.GetComponent<MobaPlayerData>();
+        autoCreatePlayer = false;
         OnPlayerEnterChampSelect?.Invoke(playerData);
     }
 
@@ -27,11 +30,12 @@ public class MobaNetworkRoomManager : NetworkRoomManager
             {
                 var player = networkRoomPlayer.GetComponent<MobaPlayerData>();
                 var instance = Instantiate(player.allChampionsAvailable[player.CurrentChampion].GetCurrentChampion());
+                instance.GetComponent<Targetable>().CurrentTeam = player.team;
                 NetworkServer.Spawn(instance,player.connectionToClient);
             }
         }
     }
-    
+
     public static void SpawnPrefab(GameObject go)
     {
         var goInstance = Instantiate(go);

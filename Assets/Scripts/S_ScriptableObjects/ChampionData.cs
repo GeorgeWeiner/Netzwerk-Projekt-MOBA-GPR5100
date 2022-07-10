@@ -10,7 +10,7 @@ using UnityEngine;
 public class ChampionData : ScriptableObject
 {
     [Header("ChampionDisplay")]
-    [SerializeField] string name;
+    [SerializeField] string championName;
     [SerializeField] GameObject heroPrefab;
     [SerializeField] GameObject heroVisuals;
     [SerializeField] Sprite championSprite;

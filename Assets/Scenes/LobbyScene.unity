@@ -1925,6 +1925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a275c8eadacd8674eb997117936b5d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnLoad: 0
 --- !u!4 &1995917526
 Transform:
   m_ObjectHideFlags: 0
@@ -2115,6 +2116,11 @@ PrefabInstance:
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
       propertyPath: autoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
+        type: 3}
+      propertyPath: playerSpawnMethod
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,

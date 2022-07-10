@@ -1,27 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Mirror;
 using UnityEngine;
 
+public enum Team
+{
+    redSide,
+    blueSide
+}
 public class MobaPlayerData : NetworkBehaviour
 {
     
     [SerializeField] public List<ChampionData> allChampionsAvailable;
     public readonly SyncList<int> allChampions = new SyncList<int>();
 
-    [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
-    [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
-    public bool IsReady{ get => isReady; }
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
+    public bool IsReady { get => isReady; }
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
-    [SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
-  
+    [HideInInspector][SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
     public int CurrentChampion { get => currentChampion; }
+    [SyncVar(hook = nameof(ChangeTeam))] public Team team;
+
 
 
     void Awake()
     {
         AddAllChampionsAvailable();
     }
+
     #region Commands
     [Command]
     public void CmdChangePrefab(int championToSpawn,Vector3 position)
@@ -37,6 +45,11 @@ public class MobaPlayerData : NetworkBehaviour
             currentChampion = allChampionsAvailable[championToSpawn].ChampionId;
             visualInstance = instance;
         }
+    }
+    [Command]
+    public void DestroyChampionOnLeave(MobaPlayerData playerData)
+    {
+        NetworkServer.Destroy(playerData.visualInstance);
     }
     [Command]
     public void CmdChangeName(string newName)
@@ -70,6 +83,11 @@ public class MobaPlayerData : NetworkBehaviour
     public void ChangeReadyState(bool old,bool newState)
     {
         isReady = newState;
+    }
+
+    public void ChangeTeam(Team old,Team newTeam)
+    {
+        this.team = newTeam;
     }
 
     #endregion

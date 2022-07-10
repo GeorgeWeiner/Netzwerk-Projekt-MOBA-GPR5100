@@ -53,7 +53,8 @@ namespace S_Unit
             {
                 foreach (var selectedUnit in unitSelectionHandler.SelectedUnits)
                 {
-                    if (!unitSelectionHandler.SelectedUnits.Contains(target.GetComponent<Unit>()))
+                    if (!unitSelectionHandler.SelectedUnits.Contains(target.GetComponent<Unit>()) && 
+                        target.CurrentTeam != selectedUnit.GetComponent<Targetable>().CurrentTeam)
                     {
                         selectedUnit.Targeter.CmdSetTarget(target.gameObject);
                         selectedUnit.GetUnitMovement().CmdMoveTowardsAttackTarget(target.transform.position);
