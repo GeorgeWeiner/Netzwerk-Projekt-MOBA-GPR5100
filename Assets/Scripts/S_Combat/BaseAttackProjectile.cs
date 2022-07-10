@@ -8,7 +8,6 @@ public class BaseAttackProjectile : Projectile
 {
     Targetable target;
 
-    [Server]
     void Update()
     {
         MoveTowardsTarget();
