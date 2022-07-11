@@ -7,17 +7,17 @@ namespace S_Unit
 {
     public class UnitSelectionHandler : MonoBehaviour
     {
-        public List<Unit> SelectedUnits = new List<Unit>();
-        private MobaPlayer mobaPlayer;
+        public List<Unit> selectedUnits = new List<Unit>();
+        private MobaPlayer _mobaPlayer;
 
         private void Update()
         {
-            if (mobaPlayer == null)
+            if (_mobaPlayer == null)
             {
-                mobaPlayer = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
+                _mobaPlayer = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
             }
             
-            SelectedUnits = mobaPlayer.GetMyUnits();
+            selectedUnits = _mobaPlayer.GetMyUnits();
         }
     }
 }

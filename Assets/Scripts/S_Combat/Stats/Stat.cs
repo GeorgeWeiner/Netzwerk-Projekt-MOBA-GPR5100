@@ -21,6 +21,8 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
     public int MaxValue{ get => maxValue; }
     [SyncVar(hook = nameof(HandleStatUpdated))] [SerializeField] protected int currentValue;
     public int CurrentValue{ get => currentValue; }
+    public int statRegenAmount;
+    public float statRegenTick;
     public event Action<StatType, int,int> ClientOnStatUpdated;
     protected MobaPlayerData playerDataForCallbacks;
 
@@ -29,8 +31,9 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
         playerDataForCallbacks = NetworkClient.connection.identity.GetComponent<MobaPlayerData>();
         Debug.Log(playerDataForCallbacks.currentlyPlayedChampion);
         currentValue = maxValue;
-        Debug.Log(currentValue);
+        StartCoroutine(PassiveStatRegen());
     }
+    
     public virtual void HandleStatUpdated(int oldValue, int newValue)
     {
         currentValue = newValue;
@@ -40,5 +43,15 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
     public void HandleMaxValueUpdated(int old,int newMaxValue)
     {
         maxValue = newMaxValue;
+    }
+
+    protected virtual IEnumerator PassiveStatRegen()
+    {
+        while (true)
+        {
+            currentValue += statRegenAmount;
+            currentValue = Mathf.Min(maxValue, currentValue);
+            yield return new WaitForSeconds(Mathf.Max(0.1f, statRegenTick));
+        }
     }
 }
