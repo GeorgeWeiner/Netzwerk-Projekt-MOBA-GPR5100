@@ -69,7 +69,7 @@ namespace S_Abilities
             if (!NetworkManager.singleton.spawnPrefabs.Contains(prefab)) return;
             match = NetworkManager.singleton.spawnPrefabs.Find(_ => prefab);
             
-            SpawnPrefab(match);
+            //SpawnPrefab(match);
         }
         
         public static void SetPrefab(GameObject prefab, Transform spawnPoint)
@@ -85,17 +85,17 @@ namespace S_Abilities
             if (!NetworkManager.singleton.spawnPrefabs.Contains(prefab)) return;
             match = NetworkManager.singleton.spawnPrefabs.Find(_ => prefab);
             
-            SpawnPrefab(match, spawnPoint);
+            //SpawnPrefab(match, spawnPoint);
         }
 
-        private static void SpawnPrefab(GameObject prefab)
-        {
-            MobaNetworkManager.SpawnPrefab(prefab);
-        }
-        
-        private static void SpawnPrefab(GameObject prefab, Transform spawnPoint)
-        {
-            MobaNetworkManager.SpawnPrefab(prefab, spawnPoint);
-        }
+        //private static void SpawnPrefab(GameObject prefab)
+        //{
+        //    MobaNetworkManager.SpawnPrefab(prefab);
+        //}
+        //
+        //private static void SpawnPrefab(GameObject prefab, Transform spawnPoint)
+        //{
+        //    MobaNetworkManager.SpawnPrefab(prefab, spawnPoint);
+        //}
     }
 }

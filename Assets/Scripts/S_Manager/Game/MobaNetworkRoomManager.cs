@@ -36,15 +36,15 @@ public class MobaNetworkRoomManager : NetworkRoomManager
         }
     }
 
-    public static void SpawnPrefab(GameObject go)
-    {
-        var goInstance = Instantiate(go);
-        NetworkServer.Spawn(goInstance);
-    }
-        
-    public static void SpawnPrefab(GameObject go, NetworkConnectionToClient conn)
-    {
-        var goInstance = Instantiate(go);
-        NetworkServer.Spawn(goInstance, conn);
-    }
+    //public static void SpawnPrefab(GameObject go)
+    //{
+    //    var goInstance = Instantiate(go);
+    //    NetworkServer.Spawn(goInstance);
+    //}
+    //    
+    //public static void SpawnPrefab(GameObject go, NetworkConnectionToClient conn)
+    //{
+    //    var goInstance = Instantiate(go);
+    //    NetworkServer.Spawn(goInstance, conn);
+    //}
 }

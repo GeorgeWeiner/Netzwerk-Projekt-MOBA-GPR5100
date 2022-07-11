@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5656.5947, g: 2517.9023, b: 1124.7188, a: 1}
+  m_IndirectSpecularColor: {r: 5661.3037, g: 2519.1445, b: 1123.6262, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1570,6 +1570,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD In-Game
       objectReference: {fileID: 0}
+    - target: {fileID: 6033826319603152940, guid: 63acf64cc616ece428da6155fa1c21c0,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6033826319603152942, guid: 63acf64cc616ece428da6155fa1c21c0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1684,6 +1689,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlaneDistance
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033826320205499360, guid: 63acf64cc616ece428da6155fa1c21c0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40.840088
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033826320274873755, guid: 63acf64cc616ece428da6155fa1c21c0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -102.1001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63acf64cc616ece428da6155fa1c21c0, type: 3}
@@ -1876,6 +1891,7 @@ GameObject:
   - component: {fileID: 1794494720}
   - component: {fileID: 1794494719}
   - component: {fileID: 1794494718}
+  - component: {fileID: 1794494721}
   m_Layer: 0
   m_Name: NetworkManager (1)
   m_TagString: Untagged
@@ -1972,6 +1988,32 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
+--- !u!114 &1794494721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794494716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  autoStartServerBuild: 1
+  serverTickRate: 30
+  offlineScene: 
+  onlineScene: 
+  transport: {fileID: 1794494720}
+  networkAddress: localhost
+  maxConnections: 100
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs: []
 --- !u!1 &1939523827
 GameObject:
   m_ObjectHideFlags: 0
