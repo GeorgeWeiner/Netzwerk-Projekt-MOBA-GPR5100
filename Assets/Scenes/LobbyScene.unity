@@ -2105,6 +2105,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
+      propertyPath: unitCommands
+      value: 
+      objectReference: {fileID: 5256718535195885420, guid: 753a0f1338a2de64ca0bc4a82a98c2c2,
+        type: 3}
+    - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
+        type: 3}
       propertyPath: nameInputField
       value: 
       objectReference: {fileID: 0}
@@ -2118,6 +2124,12 @@ PrefabInstance:
       propertyPath: autoCreatePlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
+        type: 3}
+      propertyPath: selectionHandler
+      value: 
+      objectReference: {fileID: 5256718535195885418, guid: 753a0f1338a2de64ca0bc4a82a98c2c2,
+        type: 3}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
       propertyPath: playerSpawnMethod

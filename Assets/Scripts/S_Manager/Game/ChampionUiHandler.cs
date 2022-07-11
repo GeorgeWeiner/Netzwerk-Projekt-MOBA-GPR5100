@@ -52,7 +52,6 @@ public class ChampionUiHandler : MonoBehaviour
     void InitializeChampionData()
     {
         championSprite.sprite = playerData.allChampionsAvailable[playerData.CurrentChampion].ChampionSprite;
-        Debug.Log(playerData.currentlyPlayedChampion);
         currentChampion = playerData.currentlyPlayedChampion;
         if (currentChampion != null)
         {

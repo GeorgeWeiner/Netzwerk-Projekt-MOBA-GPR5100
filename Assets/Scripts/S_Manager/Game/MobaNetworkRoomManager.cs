@@ -29,14 +29,7 @@ public class MobaNetworkRoomManager : NetworkRoomManager
     {
         if (SceneManager.GetActiveScene().name == "EnzoScene")
         {
-            foreach (var networkRoomPlayer in roomSlots)
-            {
-                var player = networkRoomPlayer.GetComponent<MobaPlayerData>();
-                var instance = Instantiate(player.allChampionsAvailable[player.CurrentChampion].GetCurrentChampion(),startPositions[networkRoomPlayer.index].position,Quaternion.identity);
-                instance.GetComponent<Targetable>().CurrentTeam = player.team;
-                NetworkServer.Spawn(instance,player.connectionToClient);
-                player.currentlyPlayedChampion = instance;
-            }
+           CreatePlayers();
         }
     }
 
@@ -46,9 +39,22 @@ public class MobaNetworkRoomManager : NetworkRoomManager
         NetworkServer.Spawn(goInstance);
     }
         
-    public static void SpawnPrefab(GameObject go, NetworkConnectionToClient conn)
+    public static void SpawnPrefab(GameObject go,Transform position, NetworkConnectionToClient conn)
     {
-        var goInstance = Instantiate(go);
+        var goInstance = Instantiate(go,position.position,Quaternion.identity);
         NetworkServer.Spawn(goInstance, conn);
+    }
+
+    void CreatePlayers()
+    {
+        foreach (var networkRoomPlayer in roomSlots)
+        {
+            var player = networkRoomPlayer.GetComponent<MobaPlayerData>();
+            var instance = Instantiate(player.allChampionsAvailable[player.CurrentChampion].GetCurrentChampion(), startPositions[networkRoomPlayer.index].position, Quaternion.identity);
+            instance.GetComponent<Targetable>().CurrentTeam = player.team;
+            NetworkServer.Spawn(instance, player.connectionToClient);
+            player.ChangedSceneToGameScene();
+            player.currentlyPlayedChampion = instance;
+        }
     }
 }

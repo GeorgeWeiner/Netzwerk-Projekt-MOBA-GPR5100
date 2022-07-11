@@ -32,9 +32,10 @@ public abstract class Attack : NetworkBehaviour
             if (canAttack && transform.position.GetSqredDistance(targeter.GetTarget().transform.position) < attackRange)
             {
                 agent.ResetPath();
-                attackRoutine =  StartCoroutine(AttackTarget(targeter.GetTarget().GetComponent<IDamageable>()));
+                attackRoutine = StartCoroutine(AttackTarget(targeter.GetTarget().GetComponent<IDamageable>()));
             }
         }
+
     }
     protected abstract IEnumerator AttackTarget(IDamageable target);
     void OnDrawGizmosSelected()

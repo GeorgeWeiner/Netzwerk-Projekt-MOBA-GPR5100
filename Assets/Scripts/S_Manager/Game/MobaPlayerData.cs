@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Mirror;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Team
 {
@@ -16,19 +18,23 @@ public class MobaPlayerData : NetworkBehaviour
     public readonly SyncList<int> allChampions = new SyncList<int>();
 
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
-    /*[HideInInspector]*/ [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
+    public int CurrentChampion { get => currentChampion; }
     [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
     public bool IsReady { get => isReady; }
+
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
-    [HideInInspector][SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
-    public int CurrentChampion { get => currentChampion; }
     [SyncVar(hook = nameof(ChangeTeam))] public Team team;
-
-
+    static public event Action<MobaPlayerData> OnPlayerEnterGame;
 
     void Awake()
     {
         AddAllChampionsAvailable();
+    }
+    public void ChangedSceneToGameScene()
+    {
+        OnPlayerEnterGame?.Invoke(this);
     }
 
     #region Commands

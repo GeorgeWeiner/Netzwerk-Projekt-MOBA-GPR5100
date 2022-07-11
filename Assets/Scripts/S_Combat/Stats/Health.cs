@@ -19,6 +19,7 @@ namespace S_Combat
             if (currentValue != 0) return;
 
             ServerOnDie?.Invoke();
+            GameManager.PlayerDiedCallback(playerDataForCallbacks);
 
             Debug.Log("We died.");
         }

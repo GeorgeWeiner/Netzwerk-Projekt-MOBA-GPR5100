@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7989209609957591735}
   - component: {fileID: -5127892347611435168}
   - component: {fileID: 3512845625358199301}
+  - component: {fileID: 4642970761763617080}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   allChampionsAvailable:
   - {fileID: 11400000, guid: a3f6b85098241a34699faf2fa0f65b52, type: 2}
   - {fileID: 11400000, guid: ac79bf864495d8042b10a601975b5f5b, type: 2}
+  currentlyPlayedChampion: {fileID: 0}
   playerName: 
   team: 0
 --- !u!114 &3512845625358199301
@@ -103,3 +105,19 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   myUnits: []
+--- !u!114 &4642970761763617080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512845625358199354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cca2246cefef57469bfbe4ee6dd0d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  deathTime: 20
+  isDead: 0

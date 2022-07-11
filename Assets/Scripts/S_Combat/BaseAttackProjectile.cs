@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BaseAttackProjectile : Projectile
 {
-    private Targetable target;
+     Targetable target;
 
     void Update()
     {
@@ -25,7 +25,10 @@ public class BaseAttackProjectile : Projectile
         {
             Destroy(gameObject);
         }
-        transform.position = Vector3.MoveTowards(transform.position, target.GetAimAtPoint().position, Time.deltaTime * projectileSpeed);
+        else if (target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.GetAimAtPoint().position, Time.deltaTime * projectileSpeed);
+        }
     }
     void OnTriggerEnter(Collider other)
     {

@@ -28,14 +28,15 @@ public class RangedAttack : Attack
             yield return new WaitForEndOfFrame();
         }
 
-        InitializeProjectile();
+        CmdInitializeProjectile();
 
         yield return new WaitForSeconds(timeBeetweenAttacks);
         canAttack = true;
     }
-
-    void InitializeProjectile()
+    [Command]
+    void CmdInitializeProjectile()
     {
+        Debug.Log("HEHEH");
         var tempProjcetlie = Instantiate(projectile, attackPoint.position, Quaternion.identity);
         tempProjcetlie.transform.forward = attackPoint.transform.forward;
         var projectileInstance = tempProjcetlie.GetComponent<BaseAttackProjectile>();

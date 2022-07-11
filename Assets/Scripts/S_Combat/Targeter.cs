@@ -4,8 +4,8 @@ using UnityEngine;
 namespace S_Combat
 {
     public class Targeter : NetworkBehaviour
-    {
-        private Targetable _target;
+    { 
+        public Targetable _target;
     
         [Command] 
         public void CmdSetTarget(GameObject targetGameObject)
