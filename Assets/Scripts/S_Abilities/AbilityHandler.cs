@@ -1,36 +1,64 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Mirror;
 using S_Combat;
 using S_Manager;
 using UnityEngine;
+
+public enum AbilitySlot
+{
+    AbilityOne,
+    AbilityTwo,
+    AbilityThree,
+    AbilityUltimate,
+    AbilityFour,
+    AbilityFive
+}
 
 namespace S_Abilities
 {
     public class AbilityHandler : NetworkBehaviour
     {
         //TODO: Replace this stuff with the actual logic of key bound abilities.
-        [SerializeField] private Ability ability;
+        [SerializeField] private List<Ability> abilities;
         [SerializeField] private Transform abilitySpawnOrigin;
         [SerializeField] private Mana mana;
 
-        private void Update()
+        private readonly Dictionary<AbilitySlot, Ability> _abilitySlots = new();
+
+        public override void OnStartServer()
         {
-            if (InputManager.instance.PressedAbilityButton())
+            InputManager.OnPressedAbility += CmdExecuteAbility;
+
+            for (var i = 0; i <= abilities.Count; i++)
             {
-                CmdExecuteAbility();
+                //Create instances so the same hero can be used multiple times in a game.
+                var ability = Instantiate(abilities[i]);
+                _abilitySlots.Add((AbilitySlot)i, ability);
             }
         }
 
         [Command]
-        private void CmdExecuteAbility()
+        private void CmdExecuteAbility(AbilitySlot slot)
         {
-            mana.UseMana(ability.manaCost, out var canUse);
-            if (!canUse) return;
+            if (!_abilitySlots.ContainsKey(slot))
+            {
+                Debug.Log("No ability assigned to this slot. Returning.");
+                return;
+            }
             
-            StartCoroutine(ExecuteAbilitySteps());
+            mana.UseMana(_abilitySlots[slot].manaCost, out var canUse);
+            if (!canUse)
+            {
+                print("Not enough mana left.");
+                return;
+            }
+
+            StartCoroutine(ExecuteAbilitySteps(_abilitySlots[slot]));
         }
         
-        private IEnumerator ExecuteAbilitySteps()
+        private IEnumerator ExecuteAbilitySteps(Ability ability)
         {
             while (ability.AbilityQueue.TryDequeue(out var subAbility))
             {
@@ -44,8 +72,7 @@ namespace S_Abilities
                         (transform, this, abilitySpawnOrigin);
                 }
                 
-                //TODO: If any termination conditions, such as a stun should occur
-                //TODO: in the middle of casting, break the loop.
+                //TODO: If any termination conditions, such as a stun should occur in the middle of casting, break the loop.
 
                 subAbility.ExecuteSubAbility();
                 yield return new WaitForSeconds(subAbility.subAbilityDelay);
@@ -69,7 +96,7 @@ namespace S_Abilities
             if (!NetworkManager.singleton.spawnPrefabs.Contains(prefab)) return;
             match = NetworkManager.singleton.spawnPrefabs.Find(_ => prefab);
             
-            //SpawnPrefab(match);
+            SpawnPrefab(match);
         }
         
         public static void SetPrefab(GameObject prefab, Transform spawnPoint)
@@ -85,7 +112,7 @@ namespace S_Abilities
             if (!NetworkManager.singleton.spawnPrefabs.Contains(prefab)) return;
             match = NetworkManager.singleton.spawnPrefabs.Find(_ => prefab);
             
-            //SpawnPrefab(match, spawnPoint);
+            SpawnPrefab(match, spawnPoint);
         }
 
         private static void SpawnPrefab(GameObject prefab)

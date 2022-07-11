@@ -39,9 +39,9 @@ namespace S_Unit
             var validAttackPos = Physics.Raycast(ray,out var hit,Mathf.Infinity,targetableLayer);
             if (!validAttackPos || !hit.collider.TryGetComponent<Targetable>(out var target)) return;
             
-            foreach (var selectedUnit in unitSelectionHandler.SelectedUnits)
+            foreach (var selectedUnit in unitSelectionHandler.selectedUnits)
             {
-                if (!unitSelectionHandler.SelectedUnits.Contains(target.GetComponent<Unit>()))
+                if (!unitSelectionHandler.selectedUnits.Contains(target.GetComponent<Unit>()))
                 {
                     selectedUnit.Targeter.CmdSetTarget(target.gameObject);
                 }
@@ -54,7 +54,7 @@ namespace S_Unit
             bool validMovePos = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer);
             if (!validMovePos) return;
             
-            foreach (var unitMovement in unitSelectionHandler.SelectedUnits)
+            foreach (var unitMovement in unitSelectionHandler.selectedUnits)
             {
                 unitMovement.GetUnitMovement().CmdMove(hit.point);
             }
@@ -67,9 +67,9 @@ namespace S_Unit
 
             if (!validAttackPos || !hit.collider.TryGetComponent<Targetable>(out Targetable target)) return;
             {
-                foreach (var selectedUnit in unitSelectionHandler.SelectedUnits)
+                foreach (var selectedUnit in unitSelectionHandler.selectedUnits)
                 {
-                    if (!unitSelectionHandler.SelectedUnits.Contains(target.GetComponent<Unit>()) && 
+                    if (!unitSelectionHandler.selectedUnits.Contains(target.GetComponent<Unit>()) && 
                         target.CurrentTeam != selectedUnit.GetComponent<Targetable>().CurrentTeam)
                     {
                         selectedUnit.Targeter.CmdSetTarget(target.gameObject);

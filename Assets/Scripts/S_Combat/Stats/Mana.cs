@@ -13,7 +13,7 @@ namespace S_Combat
             canUse = currentValue - amount > 0;
             if (!canUse) return;
             
-            currentValue-= amount;
+            currentValue -= amount;
         }
     }
 }
