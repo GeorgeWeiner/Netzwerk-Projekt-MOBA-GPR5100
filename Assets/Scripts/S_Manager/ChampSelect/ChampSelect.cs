@@ -94,7 +94,7 @@ public class ChampSelect : NetworkBehaviour
                 return;
             }
         }
-        if (allPlayersReady && _playerCount == 2)
+        if (allPlayersReady/* && _playerCount == 2*/)
         {
             MobaNetworkRoomManager.singleton.ServerChangeScene("EnzoScene");
         }

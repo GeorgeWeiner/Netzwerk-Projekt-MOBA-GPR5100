@@ -17,21 +17,25 @@ public class MobaNetworkRoomManager : NetworkRoomManager
     {
         base.OnServerAddPlayer(conn);
         MobaPlayerData playerData = conn.identity.GetComponent<MobaPlayerData>();
-        autoCreatePlayer = false;
         OnPlayerEnterChampSelect?.Invoke(playerData);
+    }
+
+    public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
+    {
+        return conn.identity.gameObject;
     }
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        base.OnServerSceneChanged(sceneName);
         if (SceneManager.GetActiveScene().name == "EnzoScene")
         {
             foreach (var networkRoomPlayer in roomSlots)
             {
                 var player = networkRoomPlayer.GetComponent<MobaPlayerData>();
-                var instance = Instantiate(player.allChampionsAvailable[player.CurrentChampion].GetCurrentChampion());
+                var instance = Instantiate(player.allChampionsAvailable[player.CurrentChampion].GetCurrentChampion(),startPositions[networkRoomPlayer.index].position,Quaternion.identity);
                 instance.GetComponent<Targetable>().CurrentTeam = player.team;
                 NetworkServer.Spawn(instance,player.connectionToClient);
+                player.currentlyPlayedChampion = instance;
             }
         }
     }

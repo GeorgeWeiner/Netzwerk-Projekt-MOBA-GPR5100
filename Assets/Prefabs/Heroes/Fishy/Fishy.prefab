@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8218255599728891129}
   - component: {fileID: 5475080710046545852}
   - component: {fileID: 6093679366838889631}
+  - component: {fileID: 213116089994570242}
   - component: {fileID: 5466403073800358521}
   - component: {fileID: 8982580568988328910}
   - component: {fileID: 1644134146656374372}
@@ -79,6 +80,7 @@ MonoBehaviour:
   syncInterval: 0.1
   ability: {fileID: 11400000, guid: da827120ddec6d14590cec4abf717b9c, type: 2}
   abilitySpawnOrigin: {fileID: 5717268716169178906}
+  mana: {fileID: 0}
 --- !u!114 &4739244059358363384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,8 +133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  maxHealth: 10
-  currentHealth: 0
+  statType: 0
+  maxValue: 300
+  currentValue: 0
 --- !u!114 &5475080710046545852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +173,23 @@ MonoBehaviour:
     type: 3}
   attackPoint: {fileID: 9134240840146885314}
   projectileSpeed: 5
+--- !u!114 &213116089994570242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320472783847641401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f676c8937c014ff58569bc8347a424ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  statType: 1
+  maxValue: 200
+  currentValue: 0
 --- !u!114 &5466403073800358521
 MonoBehaviour:
   m_ObjectHideFlags: 0

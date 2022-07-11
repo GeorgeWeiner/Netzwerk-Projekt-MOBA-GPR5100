@@ -4,6 +4,6 @@ namespace Interfaces
 {
     public interface ICharacterStat
     {
-        public event Action<int, int> ClientOnStatUpdated;
+        public event Action<StatType, int,int> ClientOnStatUpdated;
     }
 }

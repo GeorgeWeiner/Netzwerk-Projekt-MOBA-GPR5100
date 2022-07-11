@@ -90,12 +90,12 @@ namespace S_Abilities
 
         private static void SpawnPrefab(GameObject prefab)
         {
-            MobaNetworkManager.SpawnPrefab(prefab);
+            MobaNetworkRoomManager.SpawnPrefab(prefab);
         }
         
         private static void SpawnPrefab(GameObject prefab, Transform spawnPoint)
         {
-            MobaNetworkManager.SpawnPrefab(prefab, spawnPoint);
+            MobaNetworkRoomManager.SpawnPrefab(prefab);
         }
     }
 }

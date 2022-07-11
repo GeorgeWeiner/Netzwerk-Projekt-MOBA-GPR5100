@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/George.unity
     guid: 86025365880829c4b88417069f42577e
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: a032f6b1f67f6f548bd31d33588c6333
+  - enabled: 1
+    path: Assets/Scenes/ChampSelectScene.unity
+    guid: f1190319dee729f40a32ada553140350
+  - enabled: 1
+    path: Assets/Scenes/EnzoScene.unity
+    guid: 070c14e216bdd2040a2b3788671a2528
   m_configObjects: {}
