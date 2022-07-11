@@ -88,14 +88,14 @@ namespace S_Abilities
             //SpawnPrefab(match, spawnPoint);
         }
 
-        //private static void SpawnPrefab(GameObject prefab)
-        //{
-        //    MobaNetworkManager.SpawnPrefab(prefab);
-        //}
-        //
-        //private static void SpawnPrefab(GameObject prefab, Transform spawnPoint)
-        //{
-        //    MobaNetworkManager.SpawnPrefab(prefab, spawnPoint);
-        //}
+        private static void SpawnPrefab(GameObject prefab)
+        {
+            MobaNetworkRoomManager.SpawnPrefab(prefab);
+        }
+        
+        private static void SpawnPrefab(GameObject prefab, Transform spawnPoint)
+        {
+            MobaNetworkRoomManager.SpawnPrefab(prefab);
+        }
     }
 }

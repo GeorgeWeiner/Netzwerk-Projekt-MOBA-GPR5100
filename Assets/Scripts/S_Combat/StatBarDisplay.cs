@@ -9,17 +9,6 @@ namespace S_Combat
     {
         [SerializeField] private GameObject statBarParent;
         [SerializeField] private Image statBarImage;
-        private ICharacterStat _stat;
-
-        private void Awake()
-        {
-            _stat.ClientOnStatUpdated += HandleStatUpdated;
-        }
-
-        private void OnDestroy()
-        {
-            _stat.ClientOnStatUpdated -= HandleStatUpdated;
-        }
 
         private void OnMouseEnter()
         {

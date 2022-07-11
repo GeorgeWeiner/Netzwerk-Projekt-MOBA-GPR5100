@@ -16,6 +16,7 @@ public class MobaPlayerData : NetworkBehaviour
     public readonly SyncList<int> allChampions = new SyncList<int>();
 
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
+    /*[HideInInspector]*/ [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
     [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
     public bool IsReady { get => isReady; }
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
@@ -71,6 +72,10 @@ public class MobaPlayerData : NetworkBehaviour
     {
         visualInstance = newObject;
     }
+    public void ChangeCurrentlyPlayedChampion(GameObject old, GameObject newObject)
+    {
+        currentlyPlayedChampion = newObject;
+    }
     public void ChangeCurrentChampion(int old , int newChampionId)
     {
         currentChampion = newChampionId;
@@ -84,13 +89,14 @@ public class MobaPlayerData : NetworkBehaviour
     {
         isReady = newState;
     }
-
     public void ChangeTeam(Team old,Team newTeam)
     {
         this.team = newTeam;
     }
 
     #endregion
+
+    #region Client
 
     void AddAllChampionsAvailable()
     {
@@ -99,4 +105,7 @@ public class MobaPlayerData : NetworkBehaviour
             allChampions.Add(allChampionsAvailable[i].ChampionId);
         }
     }
+
+    #endregion
+
 }
