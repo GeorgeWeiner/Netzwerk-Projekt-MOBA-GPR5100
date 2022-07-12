@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7193840958300967841}
   - component: {fileID: -7339416586776186322}
-  - component: {fileID: 6455118606660949304}
   - component: {fileID: 4739244059358363384}
   - component: {fileID: -1691144618240240543}
   - component: {fileID: 8218255599728891129}
@@ -41,9 +40,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 9134240840146885314}
   - {fileID: 1564922010548802059}
   - {fileID: 4847676780598604531}
-  - {fileID: 9134240840146885314}
   - {fileID: 5717268716169178906}
   - {fileID: 356313544246228864}
   m_Father: {fileID: 0}
@@ -65,23 +64,6 @@ MonoBehaviour:
   syncInterval: 0.1
   targeter: {fileID: 4739244059358363384}
   chaseRange: 10
---- !u!114 &6455118606660949304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6320472783847641401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9851d79ee8224b26af6a942e26c61a71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  ability: {fileID: 11400000, guid: da827120ddec6d14590cec4abf717b9c, type: 2}
-  abilitySpawnOrigin: {fileID: 5717268716169178906}
-  mana: {fileID: 0}
 --- !u!114 &4739244059358363384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  _target: {fileID: 0}
 --- !u!114 &-1691144618240240543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,8 +118,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   statType: 0
-  maxValue: 300
+  maxValue: 10
   currentValue: 0
+  statRegenAmount: 0
+  statRegenTick: 0
 --- !u!114 &5475080710046545852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,10 +155,10 @@ MonoBehaviour:
   dmg: 5
   attackDelay: 0.3
   timeBeetweenAttacks: 1
+  projectileSpeed: 5
   projectile: {fileID: 6694978226375659141, guid: f8b9ff72ed0020949a9ed0544daa921c,
     type: 3}
   attackPoint: {fileID: 9134240840146885314}
-  projectileSpeed: 5
 --- !u!114 &213116089994570242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +176,8 @@ MonoBehaviour:
   statType: 1
   maxValue: 200
   currentValue: 0
+  statRegenAmount: 0
+  statRegenTick: 0
 --- !u!114 &5466403073800358521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,7 +743,7 @@ GameObject:
   m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -767,13 +754,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7053522008591046455}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5742484, y: 1.6669815, z: -0.18230341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.27, z: 0.683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7193840958300967841}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7489441789547035356
 GameObject:
@@ -838,7 +825,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7193840958300967841}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &950885028541484921
 MeshFilter:
@@ -932,7 +919,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7193840958300967841}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &438571275717407508
 PrefabInstance:

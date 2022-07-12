@@ -17,11 +17,12 @@ namespace S_Combat
             currentValue = currentValue = Mathf.Max(currentValue- dmg, 0);
 
             if (currentValue != 0) return;
-
+           
             ServerOnDie?.Invoke();
+            Debug.Log(playerDataForCallbacks.currentlyPlayedChampion.name);
             GameManager.PlayerDiedCallback(playerDataForCallbacks);
-
-            Debug.Log("We died.");
+            
+           
         }
 
         #endregion

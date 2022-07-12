@@ -44,7 +44,7 @@ namespace S_Unit
         [Server]
         private void ServerHandleDie()
         {
-            NetworkServer.Destroy(gameObject);
+            //NetworkServer.Destroy(gameObject);
         }
         
 

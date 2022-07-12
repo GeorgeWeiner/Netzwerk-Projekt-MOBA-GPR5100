@@ -24,16 +24,15 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
     public int statRegenAmount;
     public float statRegenTick;
     public event Action<StatType, int,int> ClientOnStatUpdated;
-    protected MobaPlayerData playerDataForCallbacks;
+    [SyncVar(hook = nameof(ChangePlayerDataForCallBacks))]public MobaPlayerData playerDataForCallbacks;
 
     void Start()
     {
-        playerDataForCallbacks = NetworkClient.connection.identity.GetComponent<MobaPlayerData>();
-        Debug.Log(playerDataForCallbacks.currentlyPlayedChampion);
+        //Todo thats why the whole chain doesnt work
+       
         currentValue = maxValue;
         StartCoroutine(PassiveStatRegen());
     }
-    
     public virtual void HandleStatUpdated(int oldValue, int newValue)
     {
         currentValue = newValue;
@@ -53,5 +52,10 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
             currentValue = Mathf.Min(maxValue, currentValue);
             yield return new WaitForSeconds(Mathf.Max(0.1f, statRegenTick));
         }
+    }
+
+    void ChangePlayerDataForCallBacks(MobaPlayerData  old, MobaPlayerData newData)
+    {
+        playerDataForCallbacks = newData;
     }
 }

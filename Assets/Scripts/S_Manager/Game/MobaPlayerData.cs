@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.SceneManagement;
 
 public enum Team
@@ -26,15 +27,10 @@ public class MobaPlayerData : NetworkBehaviour
 
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
     [SyncVar(hook = nameof(ChangeTeam))] public Team team;
-    static public event Action<MobaPlayerData> OnPlayerEnterGame;
 
     void Awake()
     {
         AddAllChampionsAvailable();
-    }
-    public void ChangedSceneToGameScene()
-    {
-        OnPlayerEnterGame?.Invoke(this);
     }
 
     #region Commands

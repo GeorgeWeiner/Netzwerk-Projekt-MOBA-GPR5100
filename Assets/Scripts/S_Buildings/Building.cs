@@ -27,7 +27,7 @@ namespace S_Buildings
         [Server]
         protected virtual void ServerHandleDie()
         {
-            NetworkServer.Destroy(gameObject);
+            
         }
     }
 }

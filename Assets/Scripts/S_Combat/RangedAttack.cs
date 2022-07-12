@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class RangedAttack : Attack
 {
+    [SerializeField] float projectileSpeed;
     [SerializeField] GameObject projectile;
     [SerializeField] Transform attackPoint;
-    [SerializeField] float projectileSpeed;
+   
     protected override IEnumerator AttackTarget(IDamageable target)
     {
         canAttack = false;
@@ -36,7 +37,6 @@ public class RangedAttack : Attack
     [Command]
     void CmdInitializeProjectile()
     {
-        Debug.Log("HEHEH");
         var tempProjcetlie = Instantiate(projectile, attackPoint.position, Quaternion.identity);
         tempProjcetlie.transform.forward = attackPoint.transform.forward;
         var projectileInstance = tempProjcetlie.GetComponent<BaseAttackProjectile>();
