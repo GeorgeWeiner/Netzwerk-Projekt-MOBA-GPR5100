@@ -41,10 +41,8 @@ namespace S_Abilities
 
         private void AbilityCallback(AbilitySlot slot)
         {
-            if (hasAuthority)
-            {
-                CmdExecuteAbility(slot);
-            }
+            if (!hasAuthority) return;
+            CmdExecuteAbility(slot);
         }
 
         [Command]

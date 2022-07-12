@@ -15,7 +15,7 @@ MonoBehaviour:
   championName: 
   heroPrefab: {fileID: 6320472783847641401, guid: a910aebbbe654fa4e9703e09f2547a7a,
     type: 3}
-  heroVisuals: {fileID: 1568787533456970559, guid: 585bf9513d14e5e4d99ef1fcdd410e77,
+  heroVisuals: {fileID: 3630106162073356484, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
     type: 3}
   championSprite: {fileID: 21300000, guid: 741772171d908ab459f634379136496f, type: 3}
   championId: 2
