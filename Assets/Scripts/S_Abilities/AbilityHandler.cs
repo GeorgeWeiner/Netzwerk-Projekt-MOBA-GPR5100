@@ -29,7 +29,7 @@ namespace S_Abilities
 
         public override void OnStartServer()
         {
-            InputManager.OnPressedAbility += CmdExecuteAbility;
+            InputManager.OnPressedAbility += AbilityCallback;
 
             for (var i = 0; i <= abilities.Count; i++)
             {
@@ -37,6 +37,12 @@ namespace S_Abilities
                 var ability = Instantiate(abilities[i]);
                 _abilitySlots.Add((AbilitySlot)i, ability);
             }
+        }
+
+        private void AbilityCallback(AbilitySlot slot)
+        {
+            if (!hasAuthority) return;
+            CmdExecuteAbility(slot);
         }
 
         [Command]
