@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using S_Player;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace S_Abilities
 {
     [CreateAssetMenu(menuName = "Ability", fileName = "New Ability")]
-    public class Ability : ScriptableObject
+    public sealed class Ability : ScriptableObject
     {
         //Base class for ability system.
         //Create a Queue of sub-abilities and loop through them.
@@ -23,10 +19,15 @@ namespace S_Abilities
 
         private void OnEnable()
         {
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             EnqueueSubAbilities();
         }
 
-        public virtual void EnqueueSubAbilities()
+        private void EnqueueSubAbilities()
         {
             if (subAbilities.Count == 0)
             {
