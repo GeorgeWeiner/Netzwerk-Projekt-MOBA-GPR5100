@@ -25,7 +25,6 @@ namespace S_Manager.S_Controls
 
             _unitSelectionHandler = FindObjectOfType<UnitSelectionHandler>();
 
-            InputManager.OnResetCamera += ResetCamera;
             
             if (camera != null) return;
             if (Camera.main != null) camera = Camera.main.gameObject;
@@ -49,14 +48,6 @@ namespace S_Manager.S_Controls
         {
             
         }
-        
-        private void ResetCamera()
-        {
-            var position = 
-            
-            
-        }
-        
         private void MiddleMouseMovement()
         {
             if (InputManager.instance.HoldingMiddleMouseButton)

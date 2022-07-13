@@ -13,12 +13,12 @@ using Random = System.Random;
 public class MobaNetworkRoomManager : NetworkRoomManager
 {
     static public event Action<MobaPlayerData> OnPlayerEnterChampSelect;
+    static public event Action<MobaPlayerData> OnPlayerDisconnect;
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
         MobaPlayerData playerData = conn.identity.GetComponent<MobaPlayerData>();
         OnPlayerEnterChampSelect?.Invoke(playerData);
-       
     }
 
     public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
@@ -30,6 +30,17 @@ public class MobaNetworkRoomManager : NetworkRoomManager
         if (SceneManager.GetActiveScene().name == "EnzoScene")
         {
            CreatePlayers();
+        }
+    }
+    public void CallBackForDisconnect()
+    {
+        foreach (var networkRoomPlayer in roomSlots)
+        {
+            if (networkRoomPlayer == NetworkServer.connections[networkRoomPlayer.index].identity
+                    .GetComponent<NetworkRoomPlayer>())
+            {
+                OnPlayerDisconnect?.Invoke(networkRoomPlayer.GetComponent<MobaPlayerData>());
+            }
         }
     }
     public static void SpawnPrefab(GameObject go)
