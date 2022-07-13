@@ -12,7 +12,8 @@ public class InputManager : BaseSingleton<InputManager>
     public bool ClickedLeftMouseButton => Mouse.current.leftButton.wasPressedThisFrame;
     public bool HoldingMiddleMouseButton => Mouse.current.middleButton.isPressed;
     public Vector2 GetMousePos() => Mouse.current.position.ReadValue();
-    public static event Action<AbilitySlot> OnPressedAbility; 
+    public static event Action<AbilitySlot> OnPressedAbility;
+    public static event Action OnResetCamera;
 
     public void SetUpPlayerInput(InputActionAsset inputActionAsset)
     {
@@ -50,6 +51,11 @@ public class InputManager : BaseSingleton<InputManager>
     public void OnAbilityUltimate()
     {
         OnPressedAbility?.Invoke(AbilitySlot.AbilityUltimate);
+    }
+
+    public void OnCameraReset()
+    {
+        OnResetCamera?.Invoke();
     }
 
     #endregion
