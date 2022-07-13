@@ -1,4 +1,5 @@
 ﻿using System;
+using S_Unit;
 using UnityEngine;
 using Screen = UnityEngine.Device.Screen;
 
@@ -13,12 +14,18 @@ namespace S_Manager.S_Controls
         private int _screenWidth, _screenHeight;
         private Vector2 _mousePositionLastFrame;
 
+        private UnitSelectionHandler _unitSelectionHandler;
+
         private void Start()
         {
             _screenWidth = Screen.width;
             _screenHeight = Screen.height;
 
             _mousePositionLastFrame = Vector2.zero;
+
+            _unitSelectionHandler = FindObjectOfType<UnitSelectionHandler>();
+
+            InputManager.OnResetCamera += ResetCamera;
             
             if (camera != null) return;
             if (Camera.main != null) camera = Camera.main.gameObject;
@@ -42,7 +49,13 @@ namespace S_Manager.S_Controls
         {
             
         }
-
+        
+        private void ResetCamera()
+        {
+            var position = 
+            
+            
+        }
         
         private void MiddleMouseMovement()
         {

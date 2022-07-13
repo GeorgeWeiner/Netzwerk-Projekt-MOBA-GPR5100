@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Interfaces;
-using S_Combat;
+﻿using System.Collections.Generic;
 using TypeReferences;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace S_Abilities
 {
@@ -49,7 +44,7 @@ namespace S_Abilities
                 }
             }
 
-            return targets.ToArray();
+            return targets;
         }
     }
 }
