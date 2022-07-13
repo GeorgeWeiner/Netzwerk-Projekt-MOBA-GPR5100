@@ -16,97 +16,78 @@ namespace S_Manager.Game
         [SerializeField] private TMP_Text currentAttackValue;
         [SerializeField] private TMP_Text currentDefenseValue;
 
-        private bool _initialized;
-        private Stat[] _stats;
-        private MobaPlayerData _playerData;
-        private GameObject _currentChampion;
-    
-        private readonly Dictionary<StatType, TMP_Text> _statValues = new();
+        private bool initialized;
+        private Stat[] stats;
+        private MobaPlayerData playerData;
+        private GameObject currentChampion;
+
+        private readonly Dictionary<StatType, TMP_Text> statValues = new();
 
         private void Update()
         {
-            if (_playerData == null)
+            if (playerData == null)
             {
-                _playerData = NetworkClient.connection.identity.GetComponent<MobaPlayerData>();
+                playerData = NetworkClient.connection.identity.GetComponent<MobaPlayerData>();
             }
 
-            if (_playerData != null && !_initialized)
+            if (playerData != null && !initialized)
             {
                 InitializeChampionData();
-                _initialized = true;
+                initialized = true;
             }
         }
-
-        private void UpdateUiForGivenStat(StatType statType,int currentValue,int maxValue)
+        private void UpdateUiForGivenStat(StatType statType, int currentValue, int maxValue)
         {
-            _statValues[statType].text = $"{currentValue} / {maxValue}";
+            statValues[statType].text = $"{currentValue} / {maxValue}";
             if (statType == StatType.health)
             {
                 healthBar.fillAmount = currentValue / maxValue;
             }
-        
+
             else if (statType == StatType.mana)
             {
                 manaBar.fillAmount = currentValue / maxValue;
             }
         }
-
-        private void InitializeChampionData()
+        void InitializeChampionData()
         {
-            healthBar.fillAmount = currentValue / maxValue;
-        }
-        else if (statType == StatType.mana)
-        {
-            manaBar.fillAmount = currentValue / maxValue;
-        }
-    }
-    void InitializeChampionData()
-    {
-        championSprite.sprite = playerData.allChampionsAvailable[playerData.CurrentChampion].ChampionSprite;
-        currentChampion = playerData.currentlyPlayedChampion;
-        if (currentChampion != null)
-        {
-            stats = currentChampion.GetComponents<Stat>();
-        }
-        foreach (var stat in stats)
-        {
-            if (!statValues.ContainsKey(stat.StatType))
+            championSprite.sprite = playerData.allChampionsAvailable[playerData.CurrentChampion].ChampionSprite;
+            currentChampion = playerData.currentlyPlayedChampion;
+            if (currentChampion != null)
             {
-                _stats = _currentChampion.GetComponents<Stat>();
+                stats = currentChampion.GetComponents<Stat>();
             }
-        
-            foreach (var stat in _stats)
+            foreach (var stat in stats)
             {
-                if (!_statValues.ContainsKey(stat.StatType))
+                if (!statValues.ContainsKey(stat.StatType))
                 {
                     stat.ClientOnStatUpdated += UpdateUiForGivenStat;
 
                     switch (stat.StatType)
                     {
                         case StatType.health:
-                            _statValues.Add(stat.StatType,championCurrentHealthValue);
-                            _statValues[stat.StatType].text = $"{stat.CurrentValue} / {stat.MaxValue}";
+                            statValues.Add(stat.StatType, championCurrentHealthValue);
+                            statValues[stat.StatType].text = $"{stat.CurrentValue} / {stat.MaxValue}";
                             break;
                         case StatType.mana:
-                            _statValues.Add(stat.StatType,championCurrentManaValue);
-                            _statValues[stat.StatType].text = $"{stat.CurrentValue} / {stat.MaxValue}";
-                            break; 
+                            statValues.Add(stat.StatType, championCurrentManaValue);
+                            statValues[stat.StatType].text = $"{stat.CurrentValue} / {stat.MaxValue}";
+                            break;
                         case StatType.attackValue:
-                            _statValues.Add(stat.StatType,currentAttackValue);
-                            _statValues[stat.StatType].text = $"{stat.CurrentValue}";
-                            break; 
+                            statValues.Add(stat.StatType, currentAttackValue);
+                            statValues[stat.StatType].text = $"{stat.CurrentValue}";
+                            break;
                         case StatType.defenseValue:
-                            _statValues.Add(stat.StatType,currentDefenseValue);
-                            _statValues[stat.StatType].text = $"{stat.CurrentValue}";
+                            statValues.Add(stat.StatType, currentDefenseValue);
+                            statValues[stat.StatType].text = $"{stat.CurrentValue}";
                             break;
                     }
                 }
             }
         }
-
-        private void OnDestroy()
+        void OnDestroy()
         {
-            foreach (var stat in _stats)
+            foreach (var stat in stats)
             {
                 stat.ClientOnStatUpdated -= UpdateUiForGivenStat;
             }

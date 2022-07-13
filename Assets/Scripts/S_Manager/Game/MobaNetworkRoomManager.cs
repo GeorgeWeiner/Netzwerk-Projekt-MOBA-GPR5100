@@ -58,7 +58,6 @@ public class MobaNetworkRoomManager : NetworkRoomManager
             NetworkServer.Spawn(instance, player.connectionToClient);
             player.currentlyPlayedChampion = instance;
             GameManager.Instance.AddPlayerToAllPlayersList(player);
-            Debug.Log(player.playerName);
         }
     }
 }

@@ -28,8 +28,6 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
 
     void Start()
     {
-        //Todo thats why the whole chain doesnt work
-       
         currentValue = maxValue;
         StartCoroutine(PassiveStatRegen());
     }

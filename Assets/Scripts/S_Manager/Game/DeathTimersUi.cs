@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeathTimersUi : NetworkBehaviour
+public class DeathTimersUi : BaseNetworkBehaviourSingleton<DeathTimersUi>
 {
     [SerializeField] Sprite Tes;
     [SerializeField] Image[] playerDeathCounterImages;
@@ -41,8 +41,22 @@ public class DeathTimersUi : NetworkBehaviour
             {
                playerDeathCounterImages[i].gameObject.SetActive(true);
                playerDeathTimers[i].gameObject.SetActive(true);
-               Debug.Log(i);
                return;
+            }
+            i++;
+        }
+    }
+    [ClientRpc]
+    public void DeActivateDeathCounterUI(MobaPlayerData player)
+    {
+        int i = 0;
+        foreach (var instanceDeathTimer in GameManager.Instance.deathTimers)
+        {
+            if (instanceDeathTimer.Key == player)
+            {
+                playerDeathCounterImages[i].gameObject.SetActive(false);
+                playerDeathTimers[i].gameObject.SetActive(false);
+                return;
             }
             i++;
         }

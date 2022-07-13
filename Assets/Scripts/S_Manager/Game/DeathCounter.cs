@@ -7,23 +7,16 @@ using UnityEngine.UI;
 
 public class DeathCounter : NetworkBehaviour
 {
-    [SerializeField][SyncVar(hook = nameof(UpdateDeathTimersUI))] DeathTimersUi deathTimerUi;
     public TMP_Text deathTimer;
     [SyncVar(hook = nameof(SyncDeathTime))]public float deathTime;
     public bool isDead;
 
     public IEnumerator StartDeathCountdown(float deathTimeToAdd,MobaPlayerData player)
     {
-        if (deathTimerUi == null)
-        {
-            deathTimerUi = FindObjectOfType<DeathTimersUi>();
-        }
-        deathTimerUi.ActivateDeathCounterUI(player);
+        DeathTimersUi.instance.ActivateDeathCounterUI(player);
+
         float initialDeathTime = deathTime;
-        if (deathTimerUi == null)
-        {
-            deathTimerUi = FindObjectOfType<DeathTimersUi>();
-        }
+      
         while (deathTime > 0)
         {
             deathTime -= Time.deltaTime;
@@ -31,8 +24,10 @@ public class DeathCounter : NetworkBehaviour
             isDead = true;
             yield return new WaitForEndOfFrame();
         }
+        DeathTimersUi.instance.DeActivateDeathCounterUI(player);
+        GameManager.Instance.RevivePlayer(player);
 
-        deathTime += deathTimeToAdd;
+        deathTime += initialDeathTime + deathTimeToAdd;
         isDead = false;
         
     }
@@ -40,10 +35,5 @@ public class DeathCounter : NetworkBehaviour
     {
         deathTime = newValue;
         deathTimer.text = Mathf.RoundToInt(deathTime).ToString();
-    }
-
-    void UpdateDeathTimersUI(DeathTimersUi old, DeathTimersUi newDeathTimer)
-    {
-        deathTimerUi = newDeathTimer;
     }
 }
