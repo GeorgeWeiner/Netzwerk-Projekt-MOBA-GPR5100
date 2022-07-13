@@ -856,6 +856,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shit Version of IO
       objectReference: {fileID: 0}
+    - target: {fileID: 3630106162073356486, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_RootOrder
@@ -864,32 +869,32 @@ PrefabInstance:
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.026661
+      value: -0.031462
       objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.83
+      value: 1.3961
       objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.006169
+      value: -0.0072798
       objectReference: {fileID: 0}
     - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
         type: 3}
@@ -925,6 +930,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630106162073356487, guid: f12d63e35ccd3c944b9a1bc066b0bca8,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f12d63e35ccd3c944b9a1bc066b0bca8, type: 3}

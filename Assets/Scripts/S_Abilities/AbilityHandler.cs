@@ -66,6 +66,7 @@ namespace S_Abilities
         
         private IEnumerator ExecuteAbilitySteps(Ability ability)
         {
+            ability.Initialize();
             while (ability.AbilityQueue.TryDequeue(out var subAbility))
             {
                 subAbility.InitializeSelf(transform, this);
@@ -83,9 +84,7 @@ namespace S_Abilities
                 subAbility.ExecuteSubAbility();
                 yield return new WaitForSeconds(subAbility.subAbilityDelay);
             }
-            
-            ability.EnqueueSubAbilities();
-            
+
             Debug.Log($"Finished executing {ability.abilityName}.");
         }
 
