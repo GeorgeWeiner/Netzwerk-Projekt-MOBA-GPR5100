@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dd5ffc003e6d347be21412eaccde56, type: 3}
   m_Name: Balrog
   m_EditorClassIdentifier: 
-  name: Balrog
+  championName: 
   heroPrefab: {fileID: 6320472783847641401, guid: ca696d5809438ca46ab70c885485e29e,
     type: 3}
   heroVisuals: {fileID: 7659629319323680590, guid: e331619dda985774f8a897165780218d,
