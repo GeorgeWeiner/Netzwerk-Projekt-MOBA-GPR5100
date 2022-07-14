@@ -34,13 +34,9 @@ public class RangedAttack : Attack
         yield return new WaitForSeconds(timeBeetweenAttacks);
         canAttack = true;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     void CmdInitializeProjectile()
     {
-        var tempProjcetlie = Instantiate(projectile, attackPoint.position, Quaternion.identity);
-        tempProjcetlie.transform.forward = attackPoint.transform.forward;
-        var projectileInstance = tempProjcetlie.GetComponent<BaseAttackProjectile>();
-        projectileInstance.Initialize(transform, targeter.GetTarget(), dmg, projectileSpeed);
-        NetworkServer.Spawn(tempProjcetlie, connectionToClient);
+        MobaNetworkRoomManager.SpawnPrefab(projectile,attackPoint,null,dmg,projectileSpeed,targeter.GetTarget());
     }
 }

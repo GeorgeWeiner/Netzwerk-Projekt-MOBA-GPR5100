@@ -13,7 +13,7 @@ using Random = System.Random;
 public class MobaNetworkRoomManager : NetworkRoomManager
 {
     static public event Action<MobaPlayerData> OnPlayerEnterChampSelect;
-    static public event Action<MobaPlayerData> OnPlayerDisconnect;
+
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
@@ -32,27 +32,30 @@ public class MobaNetworkRoomManager : NetworkRoomManager
            CreatePlayers();
         }
     }
-    public void CallBackForDisconnect()
-    {
-        foreach (var networkRoomPlayer in roomSlots)
-        {
-            if (networkRoomPlayer == NetworkServer.connections[networkRoomPlayer.index].identity
-                    .GetComponent<NetworkRoomPlayer>())
-            {
-                OnPlayerDisconnect?.Invoke(networkRoomPlayer.GetComponent<MobaPlayerData>());
-            }
-        }
-    }
     public static void SpawnPrefab(GameObject go)
     {
         var goInstance = Instantiate(go);
         NetworkServer.Spawn(goInstance);
     }
-        
-    public static void SpawnPrefab(GameObject go,Transform position, NetworkConnectionToClient conn)
+    /// <summary>
+    /// Spawns a projectileBaseAttack
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="position"></param>
+    /// <param name="conn"></param>
+    public static void SpawnPrefab(GameObject go,Transform position, NetworkConnectionToClient conn,int dmg,float projectileSpeed,Targetable target)
     {
         var goInstance = Instantiate(go,position.position,Quaternion.identity);
-        NetworkServer.Spawn(goInstance, conn);
+        goInstance.GetComponent<Projectile>().Initialize(position,target,dmg,projectileSpeed);
+        if (conn != null)
+        {
+            NetworkServer.Spawn(goInstance, conn);
+        }
+        else
+        {
+            NetworkServer.Spawn(goInstance);
+        }
+       
     }
     void CreatePlayers()
     {

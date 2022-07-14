@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class BaseAttackProjectile : Projectile
 {
-     Targetable target;
+     public Targetable target;
 
+    [Server]
     void Update()
     {
         MoveTowardsTarget();
@@ -21,13 +22,9 @@ public class BaseAttackProjectile : Projectile
     }
     void MoveTowardsTarget()
     {
-        if (target == null)
+        if (target != null)
         {
-            Destroy(gameObject);
-        }
-        else if (target != null)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target.GetAimAtPoint().position, Time.deltaTime * projectileSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, target.GetAimAtPoint().position, Time.deltaTime * 5);
         }
     }
     void OnTriggerEnter(Collider other)
@@ -37,7 +34,8 @@ public class BaseAttackProjectile : Projectile
             if (target == this.target)
             {
                 target.GetComponent<IDamageable>().TakeDmg(dmg);
-                Destroy(gameObject);
+                Debug.Log(target.GetComponent<Health>().CurrentValue);
+                NetworkServer.Destroy(gameObject);
             }
         }
     }

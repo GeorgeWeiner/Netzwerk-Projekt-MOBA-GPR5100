@@ -45,9 +45,11 @@ public class GameManager : NetworkBehaviour
         players.Add(data);
         deathTimers.Add(data, data.gameObject.GetComponent<DeathCounter>());
     }
-   
+
     #endregion
-    #region 
+
+    #region PlayerCallbacks
+
     public void PlayerDiedCallback(MobaPlayerData player)
     {
         OnPlayerDieUI?.Invoke();
@@ -60,7 +62,6 @@ public class GameManager : NetworkBehaviour
         {
             var deathTimer = deathTimers[player];
 
-            Debug.Log("started");
             StartCoroutine(deathTimer.StartDeathCountdown(2f, player));
         }
     }
@@ -72,15 +73,16 @@ public class GameManager : NetworkBehaviour
     void RespawnPlayer(MobaPlayerData playerToRespawn)
     {
         playerToRespawn.currentlyPlayedChampion.GetComponent<NavMeshAgent>().ResetPath();
+
         if (playerToRespawn.team == Team.blueSide)
         {
-            playerToRespawn.gameObject.transform.position = respawnPosForBlueSide.position;                                     
+            playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
         }
         else if (playerToRespawn.team == Team.redSide)
         {
-            playerToRespawn.gameObject.transform.position = respawnPosForRedSide.position;
+            playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForRedSide.position;
         }
     }
-
     #endregion
+
 }

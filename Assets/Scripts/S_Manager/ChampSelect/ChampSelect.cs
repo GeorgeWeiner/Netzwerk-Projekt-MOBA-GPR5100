@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using S_Player;
+using Telepathy;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,18 +19,18 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     public readonly SyncDictionary<MobaPlayerData, NameDisplayField> names = new();
     public readonly SyncList<MobaPlayerData> playersData = new SyncList<MobaPlayerData>();
     public readonly SyncDictionary<MobaPlayerData, Transform> championDisplayPositions = new();
-
+    Coroutine routine;
     [Server]
     private void Awake()
     {
         MobaNetworkRoomManager.OnPlayerEnterChampSelect += AddPlayerToChampSelect;
-        MobaNetworkRoomManager.OnPlayerDisconnect += LeaveGame;
     }
 
     [Server]
     void Start()
     {
         SetHostMenuInActive(startButton.gameObject);
+        StartCoroutine(OnPlayerLeaveGame());
     }
 
     void Update()
@@ -40,16 +41,17 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     void OnDestroy()
     {
         MobaNetworkRoomManager.OnPlayerEnterChampSelect -= AddPlayerToChampSelect;
-        MobaNetworkRoomManager.OnPlayerDisconnect -= LeaveGame;
     }
 
     public void AddPlayerToChampSelect(MobaPlayerData playerToAdd)
     {
-        playersData.Add(playerToAdd);
-        championDisplayPositions.Add(playerToAdd,
-            championDisplaySpawnPositions[NetworkManager.singleton.numPlayers - 1]);
-        names.Add(playerToAdd, nameDisplayFields[NetworkManager.singleton.numPlayers - 1]);
-
+        if (!playersData.Contains(playerToAdd) && !names.ContainsKey(playerToAdd))
+        {
+            playerToAdd.playerNumber = NetworkManager.singleton.numPlayers;
+            names.Add(playerToAdd, nameDisplayFields[NetworkManager.singleton.numPlayers - 1]);
+            championDisplayPositions.Add(playerToAdd, championDisplaySpawnPositions[NetworkManager.singleton.numPlayers - 1]);
+            playersData.Add(playerToAdd);
+        }
         if (NetworkManager.singleton.numPlayers <= 1)
         {
             playerToAdd.team = Team.blueSide;
@@ -99,7 +101,10 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     {
         for (int i = 0; i < playersData.Count; i++)
         {
-            names[playersData[i]].playerName = playersData[i].playerName;
+            if (names.ContainsKey(playersData[i]))
+            {
+                names[playersData[i]].playerName = playersData[i].playerName;
+            }
         }
     }
 
@@ -116,47 +121,41 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             }
         }
 
-        if (allPlayersReady && MobaNetworkRoomManager.singleton.numPlayers == 2)
+        if (allPlayersReady /*&& NetworkManager.singleton.numPlayers == 2*/)
         {
-            MobaNetworkRoomManager.singleton.ServerChangeScene("EnzoScene");
+            NetworkManager.singleton.ServerChangeScene("EnzoScene");
         }
 
     }
-
-    public void LeaveButton()
+    public void LeaveGame()
     {
-        var networkManager = FindObjectOfType<MobaNetworkRoomManager>();
-        networkManager.CallBackForDisconnect();
-    }
-
-    void LeaveGame(MobaPlayerData player)
-    {
-        Debug.Log("REACHED");
-        playersData.Remove(player);
-        championDisplayPositions.Remove(player);
-        names.Remove(player);
-        StartCoroutine(Disconnect());
-    }
-
-    IEnumerator Disconnect()
-    {
-        yield return new WaitForSeconds(0.2f);
 
         if (!NetworkClient.isHostClient)
         {
             NetworkClient.DestroyAllClientObjects();
             NetworkClient.Disconnect();
-            //SceneManager.LoadScene("LobbyScene");
-
-
+            SceneManager.LoadScene("LobbyScene");
         }
         else
         {
-            //NetworkClient.DestroyAllClientObjects();
-            //MobaNetworkRoomManager.singleton.StopHost();
-            //SceneManager.LoadScene("LobbyScene");
+            NetworkClient.DestroyAllClientObjects();
+            MobaNetworkRoomManager.singleton.StopHost();
+            SceneManager.LoadScene("LobbyScene");
         }
-
-        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator OnPlayerLeaveGame()
+    {
+        yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < playersData.Count; i++)
+        {
+            if (playersData[i] == null)
+            {
+                names[playersData[i]].playerName = String.Empty;
+                championDisplayPositions.Remove(playersData[i]);
+                names.Remove(playersData[i]);
+                playersData.Remove(playersData[i]);
+            }
+        }
+        StartCoroutine(OnPlayerLeaveGame());
     }
 }

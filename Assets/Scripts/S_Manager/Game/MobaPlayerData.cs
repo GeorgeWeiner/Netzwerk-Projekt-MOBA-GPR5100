@@ -13,8 +13,8 @@ public enum Team
     blueSide
 }
 public class MobaPlayerData : NetworkBehaviour
-{
-    
+{ 
+       
     [SerializeField] public List<ChampionData> allChampionsAvailable;
     public readonly SyncList<int> allChampions = new SyncList<int>();
 
@@ -24,7 +24,7 @@ public class MobaPlayerData : NetworkBehaviour
     public int CurrentChampion { get => currentChampion; }
     [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
     public bool IsReady { get => isReady; }
-
+    [SyncVar] public int playerNumber;
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
     [SyncVar(hook = nameof(ChangeTeam))] public Team team;
 
@@ -32,7 +32,13 @@ public class MobaPlayerData : NetworkBehaviour
     {
         AddAllChampionsAvailable();
     }
-
+    void OnDestroy()
+    {
+        if (visualInstance != null)
+        {
+            NetworkServer.Destroy(visualInstance);
+        }
+    }
     #region Commands
     [Command]
     public void CmdChangePrefab(int championToSpawn,Vector3 position)
@@ -48,11 +54,6 @@ public class MobaPlayerData : NetworkBehaviour
             currentChampion = allChampionsAvailable[championToSpawn].ChampionId;
             visualInstance = instance;
         }
-    }
-    [Command]
-    public void DestroyChampionOnLeave(MobaPlayerData playerData)
-    {
-        NetworkServer.Destroy(playerData.visualInstance);
     }
     [Command]
     public void CmdChangeName(string newName)
@@ -99,7 +100,6 @@ public class MobaPlayerData : NetworkBehaviour
     #endregion
 
     #region Client
-
     void AddAllChampionsAvailable()
     {
         for (int i = 0; i < allChampionsAvailable.Count; i++)

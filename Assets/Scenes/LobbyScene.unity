@@ -2299,6 +2299,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
+      propertyPath: serverTickRate
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
+        type: 3}
       propertyPath: adressInputField
       value: 
       objectReference: {fileID: 10314540}
