@@ -8,6 +8,8 @@ namespace S_Combat
     public class Health : Stat, IDamageable
     {
         public event Action ServerOnDie;
+        bool isDead = false;
+        public bool IsDead { get => isDead; }
 
         public override void OnStartClient()
         {
@@ -25,10 +27,12 @@ namespace S_Combat
            
             ServerOnDie?.Invoke();
             GameManager.Instance.PlayerDiedCallback(playerDataForCallbacks);
+            isDead = true;
         }
 
         public void OnRevive(MobaPlayerData player)
         {
+            isDead = false;
             currentValue = MaxValue;
         }
         #endregion

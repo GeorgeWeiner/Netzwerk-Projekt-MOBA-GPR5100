@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : BaseSingleton<InputManager>
 {
+    public bool PressedInteractionKey() => Keyboard.current.cKey.wasPressedThisFrame;
     public bool PressedAbilityButton() => Keyboard.current.digit1Key.wasPressedThisFrame;
     public bool ClickedRightMouseButton() => Mouse.current.rightButton.wasPressedThisFrame;
     public bool ClickedLeftMouseButton => Mouse.current.leftButton.wasPressedThisFrame;
@@ -57,6 +58,7 @@ public class InputManager : BaseSingleton<InputManager>
     {
         OnResetCamera?.Invoke();
     }
+
 
     #endregion
 }

@@ -12,6 +12,8 @@ public class GameManager : NetworkBehaviour
 {
     [SerializeField] Transform respawnPosForBlueSide;
     [SerializeField] Transform respawnPosForRedSide;
+    [SerializeField] Transform bombSpawnPos;
+    [SerializeField] GameObject bombPrefab;
 
     readonly SyncList<MobaPlayerData> players= new SyncList<MobaPlayerData>();
     public readonly SyncDictionary<MobaPlayerData,DeathCounter> deathTimers = new SyncDictionary<MobaPlayerData, DeathCounter>();
@@ -33,6 +35,11 @@ public class GameManager : NetworkBehaviour
         
         OnPlayerDie += StartDeathCountDown;
         OnPlayerRevive += RespawnPlayer;
+    }
+    void Start()
+    {
+        //TODO Reactivate for respawning bomb after each round
+        //MobaNetworkRoomManager.SpawnPrefab(bombPrefab,bombSpawnPos);
     }
     void OnDestroy()
     {

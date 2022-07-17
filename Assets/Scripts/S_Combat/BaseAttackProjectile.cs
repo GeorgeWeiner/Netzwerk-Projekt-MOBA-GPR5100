@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class BaseAttackProjectile : Projectile
 {
-     public Targetable target;
+    public Targetable target;
 
-    [Server]
     void Update()
     {
         MoveTowardsTarget();

@@ -2017,6 +2017,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnLoad: 0
+  OnPickUpBombKey: {fileID: -7338617387391350890, guid: c270d7e87e6d46842a38c9673dce3940,
+    type: 3}
 --- !u!1 &2004558462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,12 +2260,12 @@ PrefabInstance:
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
       propertyPath: RoomScene
-      value: Assets/Scenes/ChampSelectScene.unity
+      value: Assets/Scenes/EnzoScene/ChampSelectScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
       propertyPath: onlineScene
-      value: Assets/Scenes/ChampSelectScene.unity
+      value: Assets/Scenes/EnzoScene/ChampSelectScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
@@ -2273,7 +2275,7 @@ PrefabInstance:
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
       propertyPath: offlineScene
-      value: Assets/Scenes/LobbyScene.unity
+      value: Assets/Scenes/EnzoScene/LobbyScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
@@ -2287,6 +2289,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5256718535195885420, guid: 753a0f1338a2de64ca0bc4a82a98c2c2,
         type: 3}
+    - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
+        type: 3}
+      propertyPath: GameplayScene
+      value: Assets/Scenes/EnzoScene/EnzoScene.unity
+      objectReference: {fileID: 0}
     - target: {fileID: 2241773618516713982, guid: aaddff44a88a8504d9086e50c21a2bbd,
         type: 3}
       propertyPath: maxConnections

@@ -37,6 +37,11 @@ public class MobaNetworkRoomManager : NetworkRoomManager
         var goInstance = Instantiate(go);
         NetworkServer.Spawn(goInstance);
     }
+    public static void SpawnPrefab(GameObject go,Transform spawnPoint)
+    {
+        var goInstance = Instantiate(go,spawnPoint.position,Quaternion.identity);
+        NetworkServer.Spawn(goInstance);
+    }
     /// <summary>
     /// Spawns a projectileBaseAttack
     /// </summary>
