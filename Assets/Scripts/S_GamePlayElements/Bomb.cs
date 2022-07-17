@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Bomb : NetworkBehaviour
 {
+    [SerializeField] Image timer;
     [SerializeField] Vector3 pickUpZoneSize;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float timeForPickup;
 
+    [SyncVar(hook = nameof(UpdateTimer))] float pickupTime;
     [SyncVar(hook = nameof(UpdateBombState))] public bool isGettingPickedUp;
     [SyncVar(hook = nameof(UpdateBombIsPickedUpState))] public bool isPickedUp = false;
     public bool IsPickedUp{ get => isPickedUp; }
     Coroutine routine;
 
-    void Update()
-    {
-        Debug.Log(Physics.CheckBox(transform.position, pickUpZoneSize / 2, transform.rotation, playerLayer));
-    }
+    [ClientRpc]
     public void OnPickUp(BombCarrier carrier)
     {
         if (routine != null) return;
         {
+            isGettingPickedUp = true;
             routine = StartCoroutine(PickUpTimer(carrier));
         }
     }
@@ -34,23 +34,26 @@ public class Bomb : NetworkBehaviour
     }
     IEnumerator PickUpTimer(BombCarrier carrier)
     {
-        float pickupTime = this.timeForPickup;
+        pickupTime = this.timeForPickup;
+        timer.gameObject.SetActive(isGettingPickedUp);
 
         while (pickupTime > 0 && Physics.CheckBox(transform.position, pickUpZoneSize / 2,transform.rotation,playerLayer) )
         {
-            Debug.Log("HEHEHE");
+            timer.fillAmount = pickupTime / timeForPickup;
             pickupTime -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         if(pickupTime <= 0)
         {
+            isGettingPickedUp = false;
+            timer.gameObject.SetActive(isGettingPickedUp);
             carrier.carriedBomb = this;
             isPickedUp = true;
         }
         else
         {
-            Debug.Log("HEHEHEStopped");
             isGettingPickedUp = false;
+            timer.gameObject.SetActive(isGettingPickedUp);
             StopCoroutine(routine);
             routine = null;
         }
@@ -74,6 +77,11 @@ public class Bomb : NetworkBehaviour
     void UpdateBombIsPickedUpState(bool old, bool newValue)
     {
         isPickedUp = newValue;
+    }
+
+    void UpdateTimer(float old,float newValue)
+    {
+        pickupTime = newValue;
     }
 
     #endregion

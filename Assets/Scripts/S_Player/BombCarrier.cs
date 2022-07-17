@@ -87,7 +87,6 @@ public class BombCarrier : NetworkBehaviour
             {
                 if (bomb1.isPickedUp || bomb1.isGettingPickedUp) return;
                 {
-                    bomb1.isGettingPickedUp = true;
                     bomb1.OnPickUp(this);
                 }
             }
