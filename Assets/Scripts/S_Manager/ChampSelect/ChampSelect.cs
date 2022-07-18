@@ -16,6 +16,7 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     [SerializeField] Button startButton;
     [SerializeField] NameDisplayField[] nameDisplayFields;
     [SerializeField] Transform[] championDisplaySpawnPositions;
+    [SerializeField] private string sceneToChangeTo;
     public readonly SyncDictionary<MobaPlayerData, NameDisplayField> names = new();
     public readonly SyncList<MobaPlayerData> playersData = new SyncList<MobaPlayerData>();
     public readonly SyncDictionary<MobaPlayerData, Transform> championDisplayPositions = new();
@@ -123,7 +124,7 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
 
         if (allPlayersReady /*&& NetworkManager.singleton.numPlayers == 2*/)
         {
-            NetworkManager.singleton.ServerChangeScene("EnzoScene");
+            NetworkManager.singleton.ServerChangeScene(sceneToChangeTo);
         }
 
     }

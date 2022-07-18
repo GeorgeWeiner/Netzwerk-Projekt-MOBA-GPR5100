@@ -49,9 +49,13 @@ public class BombCarrier : NetworkBehaviour
             interactionText.gameObject.SetActive(true);
             return true;
         }
-        if (interactionText.gameObject.activeSelf && hasAuthority)
+
+        if (interactionText != null)
         {
-            interactionText.gameObject.SetActive(false);
+            if (interactionText.gameObject.activeSelf && hasAuthority)
+            {
+                interactionText.gameObject.SetActive(false);
+            }
         }
         return false;
     }
