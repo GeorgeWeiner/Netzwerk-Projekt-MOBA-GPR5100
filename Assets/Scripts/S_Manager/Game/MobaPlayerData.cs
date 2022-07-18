@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using Mirror;
 using UnityEngine;
-using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public enum Team
@@ -20,6 +19,7 @@ public class MobaPlayerData : NetworkBehaviour
 
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
+    public NavMeshAgent agentOfCurrentlyPlayedChampion { get => currentlyPlayedChampion.GetComponent<NavMeshAgent>(); }
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
     public int CurrentChampion { get => currentChampion; }
     [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;

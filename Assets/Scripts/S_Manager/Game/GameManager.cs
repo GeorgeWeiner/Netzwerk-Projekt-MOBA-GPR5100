@@ -62,6 +62,7 @@ public class GameManager : NetworkBehaviour
     {
         OnRoundWon?.Invoke();
     }
+    [Command(requiresAuthority = false)]
     void ResetRound()
     {
         foreach (var player in players)
@@ -69,10 +70,12 @@ public class GameManager : NetworkBehaviour
             if (player.team == Team.blueSide)
             {
                 player.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+                player.agentOfCurrentlyPlayedChampion.ResetPath();
             }
             else if (player.team == Team.redSide)
             {
                 player.currentlyPlayedChampion.transform.position = respawnPosForRedSide.position;
+                player.agentOfCurrentlyPlayedChampion.ResetPath();
             }
         }
         MobaNetworkRoomManager.SpawnPrefab(bombPrefab, bombSpawnPos);
@@ -104,10 +107,12 @@ public class GameManager : NetworkBehaviour
         if (playerToRespawn.team == Team.blueSide)
         {
             playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+            playerToRespawn.agentOfCurrentlyPlayedChampion.ResetPath();
         }
         else if (playerToRespawn.team == Team.redSide)
         {
-            playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForRedSide.position;
+            playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+            playerToRespawn.agentOfCurrentlyPlayedChampion.ResetPath();
         }
     }
     #endregion

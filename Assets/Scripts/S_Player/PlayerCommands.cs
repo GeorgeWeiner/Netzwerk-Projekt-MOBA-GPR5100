@@ -23,7 +23,7 @@ namespace S_Player
 
         private void Update()
         {
-            if (_agent.velocity.magnitude < 0.3)
+            if (_agent.velocity.magnitude < 0.3 && hasAuthority && _animationHandler != null)
             {
                 _animationHandler.SetAnimationState(AnimationStates.Idle);
             }
@@ -31,11 +31,11 @@ namespace S_Player
             if (targeter.GetTarget() == null) return;
 
             //Cool extension method invocation thing.
-            if (transform.position.Distance(targeter.GetTarget().transform.position) < chaseRange)
+            if (transform.position.Distance(targeter.GetTarget().transform.position) < chaseRange && hasAuthority)
             {
                 CmdAttack();
             }
-            else
+            else if (hasAuthority)
             {
                 //To stop the command from being called every frame.
                 if (Time.frameCount % 30 != 0) return;

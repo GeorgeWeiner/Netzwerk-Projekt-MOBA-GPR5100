@@ -57,13 +57,16 @@ public class Bomb : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void OnEnteringDropZone(float timeForExplosion)
     {
+        Debug.Log("HEHEHEHEHDROPPED");
         explosionRoutine = StartCoroutine(ExplodeBomb(timeForExplosion));
     }
     [Command(requiresAuthority = false)]
     public void OnPlayerExitDropZone()
     {
-        if(explosionRoutine != null)
+        Debug.Log("HEHEHEHEHDROPPED2");
+        if (explosionRoutine != null)
         {
+            Debug.Log("HEHEHEHEHDROPPED3");
             StopCoroutine(explosionRoutine);
             explosionRoutine = null;
         }

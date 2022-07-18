@@ -16,7 +16,7 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     [SerializeField] Button startButton;
     [SerializeField] NameDisplayField[] nameDisplayFields;
     [SerializeField] Transform[] championDisplaySpawnPositions;
-    [SerializeField] private string sceneToChangeTo;
+    [SerializeField][Scene] string sceneToChangeTo;
     public readonly SyncDictionary<MobaPlayerData, NameDisplayField> names = new();
     public readonly SyncList<MobaPlayerData> playersData = new SyncList<MobaPlayerData>();
     public readonly SyncDictionary<MobaPlayerData, Transform> championDisplayPositions = new();
