@@ -1,48 +1,46 @@
 ﻿using System.Collections.Generic;
-using TypeReferences;
+using System.Linq;
+using Interfaces;
+using S_Combat;
 using UnityEngine;
 
 namespace S_Abilities
 {
     [CreateAssetMenu(menuName = "Sub Abilities/Box Overlap", fileName = "New Box Overlap")]
-    public class GetOverlapBoxTargets : SubAbility 
+    public class GetOverlapBoxTargets : SubAbility, IListGenerator
     {
-        //https://github.com/SolidAlloy/ClassTypeReference-for-Unity
-        [Inherits(typeof(Component), IncludeBaseType = true)]
-        [SerializeField] private TypeReference queryType;
+        [HideInInspector]
+        public List<Health> _targets = new();
         
-        public IEnumerable<Component> Targets { get; private set; }
+        [SerializeField] private float boxWidth, boxHeight, boxLength;
+        [SerializeField] private bool hostileSpell;
+        [SerializeField] private bool canTargetSelf;
         
-        [SerializeField] 
-        private float boxWidth, boxHeight, boxLength;
-        
-        //Type Reference can be used in stead of System.Type.
         public override void ExecuteSubAbility()
         {
-            var methodInfo = typeof(GetOverlapBoxTargets).GetMethod(nameof(FindTargets));
-            if (methodInfo == null) return;
-            
-            var method = methodInfo.MakeGenericMethod(queryType);
-            method.Invoke(CreateInstance<GetOverlapBoxTargets>(), null);
+            //Add extra functionality here if you please.
         }
 
-        //Pass the type of component you want to query the colliders for.
-        private IEnumerable<T> FindTargets<T>() where T : Component
+        public List<Health> GetList<T>()
         {
-            var center = TransformSelf.position + new Vector3(boxWidth, 0f, boxLength);
+            var targets = new List<Health>();
+            
+            var center = TransformSelf.position + TransformSelf.forward * boxLength;
             var halfExtends = new Vector3(boxWidth, boxHeight, boxLength);
             var colliders = Physics.OverlapBox(center, halfExtends, TransformSelf.rotation);
 
-            var targets = new List<T>();
-
             foreach (var col in colliders)
             {
-                if (col.TryGetComponent(out T component))
+                if (col.TryGetComponent(out Health health))
                 {
-                    targets.Add(component);
-                    Debug.Log($"Found component! {component.name}");
+                    if (!canTargetSelf && col.gameObject == TransformSelf.gameObject) continue;
+                    
+                    targets.Add(health);
+                    Debug.Log($"Found health! {health.gameObject.name}");
                 }
             }
+            
+            Debug.Log("Targets Length:" + targets.Count);
 
             return targets;
         }

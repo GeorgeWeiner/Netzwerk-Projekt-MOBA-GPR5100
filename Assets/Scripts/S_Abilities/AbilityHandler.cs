@@ -26,7 +26,7 @@ namespace S_Abilities
         [SerializeField] private Mana mana;
 
         private readonly Dictionary<AbilitySlot, Ability> _abilitySlots = new();
-
+        public List<Ability> Abilities => abilities;
         public static event Action<SubAbility> SubAbilityExecuted;
 
         public override void OnStartServer()
@@ -36,8 +36,12 @@ namespace S_Abilities
             for (var i = 0; i <= abilities.Count; i++)
             {
                 //Create instances so the same hero can be used multiple times in a game.
-                var ability = Instantiate(abilities[i]);
-                _abilitySlots.Add((AbilitySlot)i, ability);
+                var abilityInstance = Instantiate(abilities[i]);
+                foreach (var subAbility in abilityInstance.instancedSubAbilities)
+                {
+                    subAbility.InitializeSelf(transform, this, abilityInstance);
+                }
+                _abilitySlots.Add((AbilitySlot)i, abilityInstance);
             }
         }
 
@@ -68,10 +72,9 @@ namespace S_Abilities
         
         private IEnumerator ExecuteAbilitySteps(Ability ability)
         {
-            ability.Initialize();
-            while (ability.AbilityQueue.TryDequeue(out var subAbility))
+            foreach (var subAbility in ability.instancedSubAbilities)
             {
-                subAbility.InitializeSelf(transform, this);
+                subAbility.InitializeSelf(transform, this, ability);
                 
                 //TODO: Make this more extendable by following open-closed principle.
                 if (subAbility.GetType() == typeof(ProjectileAttack))

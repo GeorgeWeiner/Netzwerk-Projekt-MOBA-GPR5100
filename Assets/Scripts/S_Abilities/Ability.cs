@@ -16,31 +16,22 @@ namespace S_Abilities
         public float coolDown;
         
         public List<SubAbility> subAbilities;
-        public readonly Queue<SubAbility> AbilityQueue = new ();
 
         public VisualEffect visualEffect;
 
+        public List<SubAbility> instancedSubAbilities = new();
+        
         private void OnEnable()
         {
-            Initialize();
+            CreateInstances();
         }
 
-        public void Initialize()
+        private void CreateInstances()
         {
-            EnqueueSubAbilities();
-        }
-
-        private void EnqueueSubAbilities()
-        {
-            if (subAbilities.Count == 0)
-            {
-                Debug.LogWarning($"Ability {abilityName} has no sub abilities!.");
-                return;
-            }
             foreach (var subAbility in subAbilities)
             {
                 var instance = Instantiate(subAbility);
-                AbilityQueue.Enqueue(instance);
+                instancedSubAbilities.Add(instance);
             }
         }
     }

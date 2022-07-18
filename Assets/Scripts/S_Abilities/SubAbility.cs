@@ -15,6 +15,7 @@ namespace S_Abilities
 
         protected Transform TransformSelf;
         protected AbilityHandler AbilityHandler;
+        protected Ability AbilityInstance;
         
         public abstract void ExecuteSubAbility();
 
@@ -23,10 +24,11 @@ namespace S_Abilities
             TransformSelf = self;
         }
         
-        public void InitializeSelf(Transform self, AbilityHandler handler)
+        public void InitializeSelf(Transform self, AbilityHandler handler, Ability ability)
         {
             TransformSelf = self;
             AbilityHandler = handler;
+            AbilityInstance = ability;
         }
     }
 }

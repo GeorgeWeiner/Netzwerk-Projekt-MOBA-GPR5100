@@ -18,6 +18,12 @@ namespace S_Animations
         [SerializeField] private Animator animator;
         private static readonly int State = Animator.StringToHash("AnimationState");
 
+        public void SetAnimationStateCallback(AnimationStates animationState)
+        {
+            if (!hasAuthority) return;
+            SetAnimationState(animationState);
+        }
+        
         [Command]
         public void SetAnimationState(AnimationStates animationState)
         {
