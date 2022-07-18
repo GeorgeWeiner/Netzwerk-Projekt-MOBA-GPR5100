@@ -10,7 +10,8 @@ public enum AnimationType
     attacking,
     jump,
     roll,
-    transition
+    transition,
+    idle
 }
 
 public enum AnimationValueType

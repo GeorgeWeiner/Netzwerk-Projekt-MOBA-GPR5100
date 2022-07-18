@@ -9,7 +9,7 @@ public class AnimationManagerEditor : Editor
 {
     Animator animator;
     AnimationManager animationManager;
-    const string savePath = "Assets/Animations/AnimationController/";
+    const string savePath = "Assets/Meshes & Animations/Animator";
     void Awake()
     {
         animationManager = (AnimationManager)target;

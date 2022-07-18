@@ -29,8 +29,7 @@ namespace S_Player
             }
             
             if (targeter.GetTarget() == null) return;
-            print("Targeters Target is not null");
-            
+
             //Cool extension method invocation thing.
             if (transform.position.Distance(targeter.GetTarget().transform.position) < chaseRange)
             {
