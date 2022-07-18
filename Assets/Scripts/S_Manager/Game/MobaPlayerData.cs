@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
 
 public enum Team
 {
@@ -10,27 +13,32 @@ public enum Team
     blueSide
 }
 public class MobaPlayerData : NetworkBehaviour
-{
-    
+{ 
+       
     [SerializeField] public List<ChampionData> allChampionsAvailable;
     public readonly SyncList<int> allChampions = new SyncList<int>();
 
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
-    /*[HideInInspector]*/ [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
+    public int CurrentChampion { get => currentChampion; }
     [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
     public bool IsReady { get => isReady; }
+    [SyncVar] public int playerNumber;
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
-    [HideInInspector][SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
-    public int CurrentChampion { get => currentChampion; }
     [SyncVar(hook = nameof(ChangeTeam))] public Team team;
-
-
 
     void Awake()
     {
         AddAllChampionsAvailable();
     }
-
+    void OnDestroy()
+    {
+        if (visualInstance != null)
+        {
+            NetworkServer.Destroy(visualInstance);
+        }
+    }
     #region Commands
     [Command]
     public void CmdChangePrefab(int championToSpawn,Vector3 position)
@@ -46,11 +54,6 @@ public class MobaPlayerData : NetworkBehaviour
             currentChampion = allChampionsAvailable[championToSpawn].ChampionId;
             visualInstance = instance;
         }
-    }
-    [Command]
-    public void DestroyChampionOnLeave(MobaPlayerData playerData)
-    {
-        NetworkServer.Destroy(playerData.visualInstance);
     }
     [Command]
     public void CmdChangeName(string newName)
@@ -97,7 +100,6 @@ public class MobaPlayerData : NetworkBehaviour
     #endregion
 
     #region Client
-
     void AddAllChampionsAvailable()
     {
         for (int i = 0; i < allChampionsAvailable.Count; i++)

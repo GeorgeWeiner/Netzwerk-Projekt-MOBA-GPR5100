@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
@@ -32,9 +33,18 @@ public abstract class Attack : NetworkBehaviour
             if (canAttack && transform.position.GetSqredDistance(targeter.GetTarget().transform.position) < attackRange)
             {
                 agent.ResetPath();
-                attackRoutine =  StartCoroutine(AttackTarget(targeter.GetTarget().GetComponent<IDamageable>()));
+                LookAtTarget();
+                attackRoutine = StartCoroutine(AttackTarget(targeter.GetTarget().GetComponent<IDamageable>()));
             }
         }
+
+    }
+
+    void LookAtTarget()
+    {
+        Vector3 direction = targeter._target.transform.position - transform.position;
+        direction.Normalize();
+        transform.forward = direction;
     }
     protected abstract IEnumerator AttackTarget(IDamageable target);
     void OnDrawGizmosSelected()

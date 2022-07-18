@@ -10,14 +10,19 @@ namespace S_Unit
         public List<Unit> selectedUnits = new List<Unit>();
         private MobaPlayer _mobaPlayer;
 
+        
         private void Update()
         {
             if (_mobaPlayer == null)
             {
                 _mobaPlayer = NetworkClient.connection.identity.GetComponent<MobaPlayer>();
             }
+
+            if (_mobaPlayer != null)
+            {
+                selectedUnits = _mobaPlayer.GetMyUnits();
+            }
             
-            selectedUnits = _mobaPlayer.GetMyUnits();
         }
     }
 }

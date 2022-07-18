@@ -127,7 +127,7 @@ namespace S_Abilities
         
         private static void SpawnPrefab(GameObject prefab, Transform spawnPoint)
         {
-            MobaNetworkRoomManager.SpawnPrefab(prefab);
+            MobaNetworkRoomManager.SpawnPrefab(prefab,spawnPoint);
         }
     }
 }

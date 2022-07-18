@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
 using Mirror;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum StatType
@@ -16,24 +17,29 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
 {
     [SerializeField] StatType statType;
     public StatType StatType{ get => statType; }
-    [SerializeField] int maxValue;
+    [SyncVar][SerializeField] int maxValue;
     public int MaxValue{ get => maxValue; }
     [SyncVar(hook = nameof(HandleStatUpdated))] [SerializeField] protected int currentValue;
     public int CurrentValue{ get => currentValue; }
     public int statRegenAmount;
     public float statRegenTick;
     public event Action<StatType, int,int> ClientOnStatUpdated;
-    // Start is called before the first frame update
-    public override void OnStartServer()
+    [SyncVar(hook = nameof(ChangePlayerDataForCallBacks))]public MobaPlayerData playerDataForCallbacks;
+
+    void Start()
     {
         currentValue = maxValue;
         StartCoroutine(PassiveStatRegen());
     }
-    
     public virtual void HandleStatUpdated(int oldValue, int newValue)
     {
         currentValue = newValue;
         ClientOnStatUpdated?.Invoke(statType,currentValue,maxValue);
+    }
+
+    public void HandleMaxValueUpdated(int old,int newMaxValue)
+    {
+        maxValue = newMaxValue;
     }
 
     protected virtual IEnumerator PassiveStatRegen()
@@ -44,5 +50,10 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
             currentValue = Mathf.Min(maxValue, currentValue);
             yield return new WaitForSeconds(Mathf.Max(0.1f, statRegenTick));
         }
+    }
+
+    void ChangePlayerDataForCallBacks(MobaPlayerData  old, MobaPlayerData newData)
+    {
+        playerDataForCallbacks = newData;
     }
 }
