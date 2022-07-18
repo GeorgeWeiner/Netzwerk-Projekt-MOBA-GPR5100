@@ -3428,7 +3428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4847676780598604531}
   m_Layer: 0
-  m_Name: AimAtPoint
+  m_Name: xX_AimAtPoint_Xx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
