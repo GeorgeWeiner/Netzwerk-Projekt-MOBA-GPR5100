@@ -181,8 +181,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   interactionText: {fileID: 8232504228204844812}
-  pickUpRadius: 3
+  pickUpRadius: 2
   bombCarrySpeed: 4
+  carriedBomb: {fileID: 0}
 --- !u!114 &213116089994570242
 MonoBehaviour:
   m_ObjectHideFlags: 0

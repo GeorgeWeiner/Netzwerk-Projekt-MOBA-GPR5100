@@ -2403,7 +2403,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   interactionText: {fileID: 8841481453336420769}
-  pickUpRadius: 5
+  pickUpRadius: 2
   bombCarrySpeed: 5
   carriedBomb: {fileID: 0}
 --- !u!114 &5466403073800358521
