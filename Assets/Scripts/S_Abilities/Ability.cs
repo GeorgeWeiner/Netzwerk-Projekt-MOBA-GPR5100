@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace S_Abilities
 {
@@ -16,6 +17,8 @@ namespace S_Abilities
         
         public List<SubAbility> subAbilities;
         public readonly Queue<SubAbility> AbilityQueue = new ();
+
+        public VisualEffect visualEffect;
 
         private void OnEnable()
         {

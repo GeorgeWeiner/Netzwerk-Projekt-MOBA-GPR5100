@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.VFX;
 
 namespace S_Abilities
 {
@@ -11,7 +12,7 @@ namespace S_Abilities
         
         public float subAbilityDelay;
         public float range;
-        
+
         protected Transform TransformSelf;
         protected AbilityHandler AbilityHandler;
         

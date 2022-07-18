@@ -27,6 +27,8 @@ namespace S_Abilities
 
         private readonly Dictionary<AbilitySlot, Ability> _abilitySlots = new();
 
+        public static event Action<SubAbility> SubAbilityExecuted;
+
         public override void OnStartServer()
         {
             InputManager.OnPressedAbility += AbilityCallback;
@@ -82,6 +84,7 @@ namespace S_Abilities
                 //TODO: If any termination conditions, such as a stun should occur in the middle of casting, break the loop.
 
                 subAbility.ExecuteSubAbility();
+                SubAbilityExecuted?.Invoke(subAbility);
                 yield return new WaitForSeconds(subAbility.subAbilityDelay);
             }
 
