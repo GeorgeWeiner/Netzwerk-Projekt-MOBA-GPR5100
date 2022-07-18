@@ -17,8 +17,10 @@ public class GameManager : NetworkBehaviour
 
     readonly SyncList<MobaPlayerData> players= new SyncList<MobaPlayerData>();
     public readonly SyncDictionary<MobaPlayerData,DeathCounter> deathTimers = new SyncDictionary<MobaPlayerData, DeathCounter>();
+
     public event Action<MobaPlayerData> OnPlayerDie;
     public event Action<MobaPlayerData> OnPlayerRevive;
+    public event Action OnRoundWon;
     public event Action OnPlayerDieUI;
     static public GameManager Instance;
 
@@ -32,7 +34,7 @@ public class GameManager : NetworkBehaviour
         {
             Destroy(this);
         }
-        
+        OnRoundWon += ResetRound;
         OnPlayerDie += StartDeathCountDown;
         OnPlayerRevive += RespawnPlayer;
     }
@@ -55,8 +57,26 @@ public class GameManager : NetworkBehaviour
 
     #endregion
 
-    #region PlayerCallbacks
-
+    #region Callbacks
+    public void RoundWonCallBack()
+    {
+        OnRoundWon?.Invoke();
+    }
+    void ResetRound()
+    {
+        foreach (var player in players)
+        {
+            if (player.team == Team.blueSide)
+            {
+                player.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+            }
+            else if (player.team == Team.redSide)
+            {
+                player.currentlyPlayedChampion.transform.position = respawnPosForRedSide.position;
+            }
+        }
+        MobaNetworkRoomManager.SpawnPrefab(bombPrefab, bombSpawnPos);
+    }
     public void PlayerDiedCallback(MobaPlayerData player)
     {
         OnPlayerDieUI?.Invoke();
@@ -91,5 +111,4 @@ public class GameManager : NetworkBehaviour
         }
     }
     #endregion
-
 }

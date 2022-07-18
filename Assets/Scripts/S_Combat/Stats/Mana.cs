@@ -11,6 +11,7 @@ namespace S_Combat
         public override void OnStartClient()
         {
             GameManager.Instance.OnPlayerDie += OnRevive;
+            GameManager.Instance.OnRoundWon += OnRoundReset;
         }
         public void UseMana(int amount, out bool canUse)
         {
@@ -19,7 +20,16 @@ namespace S_Combat
             
             currentValue -= amount;
         }
-        public void OnRevive(MobaPlayerData player)
+        void OnDestroy()
+        {
+            GameManager.Instance.OnPlayerDie -= OnRevive;
+            GameManager.Instance.OnRoundWon -= OnRoundReset;
+        }
+        void OnRevive(MobaPlayerData player)
+        {
+            currentValue = MaxValue;
+        }
+        void OnRoundReset()
         {
             currentValue = MaxValue;
         }
