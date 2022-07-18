@@ -73,7 +73,7 @@ namespace S_Unit
                         target.CurrentTeam != selectedUnit.GetComponent<Targetable>().CurrentTeam)
                     {
                         selectedUnit.Targeter.CmdSetTarget(target.gameObject);
-                        selectedUnit.GetUnitMovement().CmdMoveTowardsAttackTarget(target.transform.position);
+                        selectedUnit.GetUnitMovement().CmdMoveTowardsAttackTarget();
                     }
                 }
             }

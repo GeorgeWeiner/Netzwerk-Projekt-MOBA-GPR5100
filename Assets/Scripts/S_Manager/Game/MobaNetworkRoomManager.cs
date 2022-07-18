@@ -27,9 +27,10 @@ public class MobaNetworkRoomManager : NetworkRoomManager
     }
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (SceneManager.GetActiveScene().name == "EnzoScene")
+        if (SceneManager.GetActiveScene().path == GameplayScene)
         {
-           CreatePlayers();
+            print(GameplayScene);
+            CreatePlayers();
         }
     }
     public static void SpawnPrefab(GameObject go)

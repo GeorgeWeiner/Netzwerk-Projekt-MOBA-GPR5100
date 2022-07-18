@@ -59,6 +59,15 @@ public class InputManager : BaseSingleton<InputManager>
         OnResetCamera?.Invoke();
     }
 
+    public void OnMoveTowards()
+    {
+        //Insert Mouse Logic here.
+    }
+    
+    public void OnTarget()
+    {
+        //Insert Mouse Logic here.
+    }
 
     #endregion
 }

@@ -1,13 +1,12 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using S_Combat;
+using S_Animations;
 using UnityEngine;
 
 public class MeleeAttack : Attack
 {
     protected override IEnumerator AttackTarget(IDamageable damageTarget)
     {
+        animationHandler.SetAnimationState(AnimationStates.Attacking);
         canAttack = false;
         float attackDelay = base.attackDelay;
 
