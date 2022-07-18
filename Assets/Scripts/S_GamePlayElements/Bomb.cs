@@ -55,14 +55,14 @@ public class Bomb : NetworkBehaviour
         lineRenderer.enabled = true;
     }
     [Command(requiresAuthority = false)]
-    public void OnEnteringDropZone(float timeForExplosion)
+    public void OnEnteringDropZone(float timeForExplosion,Team teamWhichDroppedBomb)
     {
-        explosionRoutine = StartCoroutine(ExplodeBomb(timeForExplosion));
+        explosionRoutine = StartCoroutine(ExplodeBomb(timeForExplosion,teamWhichDroppedBomb));
     }
     [Command(requiresAuthority = false)]
     public void OnPlayerExitDropZone()
     {
-        if(explosionRoutine != null)
+        if (explosionRoutine != null)
         {
             StopCoroutine(explosionRoutine);
             explosionRoutine = null;
@@ -97,11 +97,12 @@ public class Bomb : NetworkBehaviour
         pickUpRoutine = null;
     }
 
-    IEnumerator ExplodeBomb(float timeForExplosion)
+    IEnumerator ExplodeBomb(float timeForExplosion,Team teamWhichDroppedBomb)
     {
         Debug.Log("TimesTicking");
         yield return new WaitForSeconds(timeForExplosion);
         Debug.Log("EXploded");
+        GameManager.Instance.AddPointToTeam(teamWhichDroppedBomb);
         GameManager.Instance.RoundWonCallBack();
         NetworkServer.Destroy(this.gameObject);
     }

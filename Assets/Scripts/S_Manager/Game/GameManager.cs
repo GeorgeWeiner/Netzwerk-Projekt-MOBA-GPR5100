@@ -16,8 +16,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] GameObject bombPrefab;
 
     readonly SyncList<MobaPlayerData> players= new SyncList<MobaPlayerData>();
+    public readonly SyncDictionary<Team, int> points = new();
     public readonly SyncDictionary<MobaPlayerData,DeathCounter> deathTimers = new SyncDictionary<MobaPlayerData, DeathCounter>();
-
+    
     public event Action<MobaPlayerData> OnPlayerDie;
     public event Action<MobaPlayerData> OnPlayerRevive;
     public event Action OnRoundWon;
@@ -38,8 +39,14 @@ public class GameManager : NetworkBehaviour
         OnPlayerDie += StartDeathCountDown;
         OnPlayerRevive += RespawnPlayer;
     }
+    [Server]
     void Start()
     {
+        if (!points.ContainsKey(Team.blueSide) || points.ContainsKey(Team.redSide))
+        {
+            points.Add(Team.blueSide, 0);
+            points.Add(Team.redSide, 0);
+        }
         //TODO Reactivate for respawning bomb after each round
         //MobaNetworkRoomManager.SpawnPrefab(bombPrefab,bombSpawnPos);
     }
@@ -62,6 +69,7 @@ public class GameManager : NetworkBehaviour
     {
         OnRoundWon?.Invoke();
     }
+    [Command(requiresAuthority = false)]
     void ResetRound()
     {
         foreach (var player in players)
@@ -69,10 +77,12 @@ public class GameManager : NetworkBehaviour
             if (player.team == Team.blueSide)
             {
                 player.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+                player.agentOfCurrentlyPlayedChampion.ResetPath();
             }
             else if (player.team == Team.redSide)
             {
                 player.currentlyPlayedChampion.transform.position = respawnPosForRedSide.position;
+                player.agentOfCurrentlyPlayedChampion.ResetPath();
             }
         }
         MobaNetworkRoomManager.SpawnPrefab(bombPrefab, bombSpawnPos);
@@ -104,11 +114,18 @@ public class GameManager : NetworkBehaviour
         if (playerToRespawn.team == Team.blueSide)
         {
             playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+            playerToRespawn.agentOfCurrentlyPlayedChampion.ResetPath();
         }
         else if (playerToRespawn.team == Team.redSide)
         {
-            playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForRedSide.position;
+            playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
+            playerToRespawn.agentOfCurrentlyPlayedChampion.ResetPath();
         }
+    }
+    [Command(requiresAuthority = false)]
+    public void AddPointToTeam(Team team)
+    {
+        points[team] += 1;
     }
     #endregion
 }

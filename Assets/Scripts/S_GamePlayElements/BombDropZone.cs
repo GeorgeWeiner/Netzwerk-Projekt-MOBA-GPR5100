@@ -23,7 +23,7 @@ public class BombDropZone : NetworkBehaviour
             
             if (teamSide != playerEnteringZone.team && bomb != null )
             {
-                bomb.OnEnteringDropZone(timeForBombToExplode);
+                bomb.OnEnteringDropZone(timeForBombToExplode,playerEnteringZone.team);
             }
         }
     }
