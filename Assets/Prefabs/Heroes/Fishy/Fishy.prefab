@@ -813,7 +813,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5717268716169178906}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1198,6 +1198,11 @@ PrefabInstance:
     - target: {fileID: 1766947644281925234, guid: 49a34653394718844b3cea0fd551c468,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2372711052240337758, guid: 49a34653394718844b3cea0fd551c468,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2479316744949226015, guid: 49a34653394718844b3cea0fd551c468,

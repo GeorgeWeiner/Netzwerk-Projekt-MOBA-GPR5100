@@ -12,7 +12,7 @@ static public class ExtensionMehtods
     /// <param name="container"></param>
     /// <param name="radius"></param>
     /// <param name="lineWidth"></param>
-    public static void DrawCircle(this GameObject container, float radius, float lineWidth)
+    static public void DrawCircle(this GameObject container, float radius, float lineWidth)
     {
         if (!container.TryGetComponent<LineRenderer>(out LineRenderer lineRenderer))
         {
@@ -37,6 +37,45 @@ static public class ExtensionMehtods
         }
 
         lineRenderer.SetPositions(points);
+    }
+    static public void DrawRectangle(this GameObject center,LineRenderer lineRenderer,Vector3 size)
+    {
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.positionCount = 0;
+
+        Vector3[] edgePoints = new Vector3[5];
+        Vector3 centerPos = center.transform.position;
+
+        float width = size.x;
+        float height = size.z;
+        float angle = center.transform.rotation.y;
+
+        Vector3 topRightCorner = new(0, centerPos.y, 0);
+        Vector3 topLeftCorner = new(0, centerPos.y, 0);
+        Vector3 bottomRightCorner = new(0, centerPos.y, 0);
+        Vector3 bottomLeftCorner = new(0, centerPos.y, 0);
+
+        topRightCorner.x = centerPos.x + ((width / 2) * Mathf.Cos(angle)) - ((height / 2) * Mathf.Sin(angle));
+        topRightCorner.z = centerPos.z + ((width / 2) * Mathf.Sin(angle)) + ((height / 2) * Mathf.Cos(angle));
+
+        topLeftCorner.x = centerPos.x - ((width / 2) * Mathf.Cos(angle)) - ((height / 2) * Mathf.Sin(angle));
+        topLeftCorner.z = centerPos.z - ((width / 2) * Mathf.Sin(angle)) + ((height / 2) * Mathf.Cos(angle));
+
+        bottomLeftCorner.x = centerPos.x - ((width / 2) * Mathf.Cos(angle)) + ((height / 2) * Mathf.Sin(angle));
+        bottomLeftCorner.z = centerPos.z - ((width / 2) * Mathf.Sin(angle)) - ((height / 2) * Mathf.Cos(angle));
+                                                
+        bottomRightCorner.x = centerPos.x + ((width / 2) * Mathf.Cos(angle)) + ((height / 2) * Mathf.Sin(angle));
+        bottomRightCorner.z = centerPos.z + ((width / 2) * Mathf.Sin(angle)) - ((height / 2) * Mathf.Cos(angle));
+
+        edgePoints[0] = topRightCorner;
+        edgePoints[1] = topLeftCorner;
+        edgePoints[2] = bottomLeftCorner;
+        edgePoints[3] = bottomRightCorner;
+        edgePoints[4] = topRightCorner;
+
+        lineRenderer.positionCount = 5;
+        lineRenderer.SetPositions(edgePoints);
     }
     /// <summary>
     /// A method for adding methods to the EventTrigger Component
