@@ -14,6 +14,12 @@ namespace S_Combat
         public override void OnStartClient()
         {
             GameManager.Instance.OnPlayerRevive += OnRevive;
+            GameManager.Instance.OnRoundWon += OnRoundReset;
+        }
+        void OnDestroy()
+        {
+            GameManager.Instance.OnPlayerRevive -= OnRevive;
+            GameManager.Instance.OnRoundWon -= OnRoundReset;
         }
         #region Server
 
@@ -30,7 +36,12 @@ namespace S_Combat
             isDead = true;
         }
 
-        public void OnRevive(MobaPlayerData player)
+        void OnRevive(MobaPlayerData player)
+        {
+            isDead = false;
+            currentValue = MaxValue;
+        }
+        void OnRoundReset()
         {
             isDead = false;
             currentValue = MaxValue;

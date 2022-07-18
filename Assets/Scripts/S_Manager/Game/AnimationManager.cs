@@ -10,7 +10,8 @@ public enum AnimationType
     attacking,
     jump,
     roll,
-    transition
+    transition,
+    idle,
 }
 
 public enum AnimationValueType
@@ -18,7 +19,8 @@ public enum AnimationValueType
     trigger,
     floatValue,
     intValue,
-    boolValue
+    boolValue,
+    none
 }
 public class AnimationManager : MonoBehaviour
 {

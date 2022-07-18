@@ -55,7 +55,6 @@ public class BombCarrier : NetworkBehaviour
         }
         return false;
     }
-
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position,pickUpRadius);
@@ -85,14 +84,13 @@ public class BombCarrier : NetworkBehaviour
         {
             if (!collider1.gameObject.TryGetComponent<Bomb>(out Bomb bomb1)) return;
             {
-                if (bomb1.isPickedUp || bomb1.isGettingPickedUp) return;
+                if (bomb1.IsPickedUp || bomb1.IsGettingPickedUp) return;
                 {
                     bomb1.OnPickUp(this);
                 }
             }
         }
     }
-
     #endregion
 
     #region Rpcs
@@ -100,7 +98,7 @@ public class BombCarrier : NetworkBehaviour
     [ClientRpc]
     void RpcMoveBomb()
     {
-        if (carriedBomb != null && carriedBomb.isPickedUp)
+        if (carriedBomb != null && carriedBomb.IsPickedUp)
         {
             carriedBomb.transform.position = Vector3.MoveTowards(carriedBomb.transform.position,
                 transform.position - transform.forward, Time.deltaTime * bombCarrySpeed);

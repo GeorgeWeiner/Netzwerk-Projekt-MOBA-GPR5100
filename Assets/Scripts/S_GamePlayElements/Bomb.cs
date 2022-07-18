@@ -4,33 +4,69 @@ using Mirror;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-
+[RequireComponent(typeof(LineRenderer))]
 public class Bomb : NetworkBehaviour
 {
+    [SerializeField] LineRenderer lineRenderer;
     [SerializeField] Image timer;
     [SerializeField] Vector3 pickUpZoneSize;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float timeForPickup;
 
     [SyncVar(hook = nameof(UpdateTimer))] float pickupTime;
-    [SyncVar(hook = nameof(UpdateBombState))] public bool isGettingPickedUp;
-    [SyncVar(hook = nameof(UpdateBombIsPickedUpState))] public bool isPickedUp = false;
+    [SyncVar(hook = nameof(UpdateBombState))]  bool isGettingPickedUp;
+    public bool IsGettingPickedUp{ get => isGettingPickedUp; }
+    [SyncVar(hook = nameof(UpdateBombIsPickedUpState))]  bool isPickedUp = false;
     public bool IsPickedUp{ get => isPickedUp; }
-    Coroutine routine;
+    Coroutine pickUpRoutine;
+    Coroutine explosionRoutine;
 
+    void Start()
+    {
+        gameObject.DrawRectangle(lineRenderer, pickUpZoneSize);
+    }
     [ClientRpc]
     public void OnPickUp(BombCarrier carrier)
     {
-        if (routine != null) return;
+        if (pickUpRoutine != null) return;
         {
+            lineRenderer.enabled = true;
             isGettingPickedUp = true;
-            routine = StartCoroutine(PickUpTimer(carrier));
+            pickUpRoutine = StartCoroutine(PickUpTimer(carrier));
         }
     }
+    [ClientRpc]
     public void OnDrop()
     {
+        if (explosionRoutine != null)
+        {
+            StopCoroutine(explosionRoutine);
+            explosionRoutine = null;
+        }
+        if (pickUpRoutine != null)
+        {
+            StopCoroutine(pickUpRoutine);
+            pickUpRoutine = null;
+        }
+
+        gameObject.DrawRectangle(lineRenderer, pickUpZoneSize);
         isGettingPickedUp = false;
         isPickedUp = false;
+        lineRenderer.enabled = true;
+    }
+    [Command(requiresAuthority = false)]
+    public void OnEnteringDropZone(float timeForExplosion)
+    {
+        explosionRoutine = StartCoroutine(ExplodeBomb(timeForExplosion));
+    }
+    [Command(requiresAuthority = false)]
+    public void OnPlayerExitDropZone()
+    {
+        if(explosionRoutine != null)
+        {
+            StopCoroutine(explosionRoutine);
+            explosionRoutine = null;
+        }
     }
     IEnumerator PickUpTimer(BombCarrier carrier)
     {
@@ -49,24 +85,25 @@ public class Bomb : NetworkBehaviour
             timer.gameObject.SetActive(isGettingPickedUp);
             carrier.carriedBomb = this;
             isPickedUp = true;
+            lineRenderer.enabled = false;
         }
         else
         {
             isGettingPickedUp = false;
             timer.gameObject.SetActive(isGettingPickedUp);
-            StopCoroutine(routine);
-            routine = null;
+            StopCoroutine(pickUpRoutine);
+            pickUpRoutine = null;
         }
-        routine = null;
+        pickUpRoutine = null;
     }
 
-    void OnDrawGizmos()
+    IEnumerator ExplodeBomb(float timeForExplosion)
     {
-        if (!isPickedUp)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawCube(transform.position, pickUpZoneSize);
-        }
+        Debug.Log("TimesTicking");
+        yield return new WaitForSeconds(timeForExplosion);
+        Debug.Log("EXploded");
+        GameManager.Instance.RoundWonCallBack();
+        NetworkServer.Destroy(this.gameObject);
     }
     #region Hooks
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3444257607735412461}
   - component: {fileID: 8680630628527490404}
   - component: {fileID: 5703571973086778485}
+  - component: {fileID: 3975124269392366409}
   m_Layer: 5
   m_Name: CanPickUpBomb
   m_TagString: Untagged
@@ -135,6 +136,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3975124269392366409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372711052240337758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6d970ba1d08684d832f9cbc7bb31f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3812841245841474956
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,8 +159,6 @@ GameObject:
   - component: {fileID: 1766947644281925234}
   - component: {fileID: 2670831104346592473}
   - component: {fileID: 2479316744949226015}
-  - component: {fileID: 2347284362618969544}
-  - component: {fileID: 227626948472758378}
   m_Layer: 5
   m_Name: InGameInteractionDisplays
   m_TagString: Untagged
@@ -220,32 +231,3 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &2347284362618969544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3812841245841474956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &227626948472758378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3812841245841474956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec6d970ba1d08684d832f9cbc7bb31f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
