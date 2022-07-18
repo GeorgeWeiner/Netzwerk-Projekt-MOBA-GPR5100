@@ -16,8 +16,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] GameObject bombPrefab;
 
     readonly SyncList<MobaPlayerData> players= new SyncList<MobaPlayerData>();
+    public readonly SyncDictionary<Team, int> points = new();
     public readonly SyncDictionary<MobaPlayerData,DeathCounter> deathTimers = new SyncDictionary<MobaPlayerData, DeathCounter>();
-
+    
     public event Action<MobaPlayerData> OnPlayerDie;
     public event Action<MobaPlayerData> OnPlayerRevive;
     public event Action OnRoundWon;
@@ -38,8 +39,14 @@ public class GameManager : NetworkBehaviour
         OnPlayerDie += StartDeathCountDown;
         OnPlayerRevive += RespawnPlayer;
     }
+    [Server]
     void Start()
     {
+        if (!points.ContainsKey(Team.blueSide) || points.ContainsKey(Team.redSide))
+        {
+            points.Add(Team.blueSide, 0);
+            points.Add(Team.redSide, 0);
+        }
         //TODO Reactivate for respawning bomb after each round
         //MobaNetworkRoomManager.SpawnPrefab(bombPrefab,bombSpawnPos);
     }
@@ -114,6 +121,11 @@ public class GameManager : NetworkBehaviour
             playerToRespawn.currentlyPlayedChampion.transform.position = respawnPosForBlueSide.position;
             playerToRespawn.agentOfCurrentlyPlayedChampion.ResetPath();
         }
+    }
+    [Command(requiresAuthority = false)]
+    public void AddPointToTeam(Team team)
+    {
+        points[team] += 1;
     }
     #endregion
 }
