@@ -10,8 +10,8 @@ public class JoinOrHostLobby : MonoBehaviour
 
     public void JoinGame()
     {
-        string adress = adressInput.text;
-        MobaNetworkRoomManager.singleton.networkAddress = adress;
+        string address = adressInput.text;
+        MobaNetworkRoomManager.singleton.networkAddress = address;
         MobaNetworkRoomManager.singleton.StartClient();
     }
 
