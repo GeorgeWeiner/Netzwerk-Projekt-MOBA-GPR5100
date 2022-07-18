@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using S_Animations;
 using S_Combat;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,11 +17,13 @@ public abstract class Attack : NetworkBehaviour
     protected Targeter targeter;
     NavMeshAgent agent;
     protected bool canAttack = true;
+    protected AnimationHandler animationHandler;
 
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         targeter = GetComponent<Targeter>();
+        animationHandler = GetComponent<AnimationHandler>();
     }
     void Update()
     {

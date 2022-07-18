@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  attackRange: 1
+  attackRange: 3
   dmg: 4
   attackDelay: 0.4
   timeBeetweenAttacks: 0.5
