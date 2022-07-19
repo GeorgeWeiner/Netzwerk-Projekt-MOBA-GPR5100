@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = System.Random;
 
+/// <summary>
+/// handles the whole champ select process
+/// </summary>
 public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
 {
     [SerializeField] SubmitName nameSubmitButton;
@@ -43,7 +46,10 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     {
         MobaNetworkRoomManager.OnPlayerEnterChampSelect -= AddPlayerToChampSelect;
     }
-
+    /// <summary>
+    /// Adds the players to the collections so that you can use and manipulate their data
+    /// </summary>
+    /// <param name="playerToAdd"></param>
     public void AddPlayerToChampSelect(MobaPlayerData playerToAdd)
     {
         if (!playersData.Contains(playerToAdd) && !names.ContainsKey(playerToAdd))
@@ -62,7 +68,10 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             playerToAdd.team = Team.redSide;
         }
     }
-
+    /// <summary>
+    /// Changes the champion prefab of a player to the champion with the cahmpion id
+    /// </summary>
+    /// <param name="championId"></param>
     public void ChangeChampionPrefabOfPlayer(int championId)
     {
         foreach (var mobaPlayerData in playersData)
@@ -74,7 +83,10 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             }
         }
     }
-
+    /// <summary>
+    /// Sets the host menu for starting the game inactive if youre a client
+    /// </summary>
+    /// <param name="menu"></param>
     public void SetHostMenuInActive(GameObject menu)
     {
         if (NetworkClient.connection.identity.isClientOnly)
@@ -86,7 +98,10 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             menu.SetActive(true);
         }
     }
-
+    /// <summary>
+    /// Changes the name of a given player
+    /// </summary>
+    /// <param name="nameToChangeTo"></param>
     public void UpdatePlayersName(string nameToChangeTo)
     {
         foreach (var mobaPlayerData in playersData)
@@ -97,7 +112,9 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             }
         }
     }
-
+    /// <summary>
+    /// Updates the displaed names in champ select visually by looping over each player
+    /// </summary>
     void UpdateDisplayedNames()
     {
         for (int i = 0; i < playersData.Count; i++)
@@ -108,7 +125,9 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             }
         }
     }
-
+    /// <summary>
+    /// Starts the game if there are enough players in the lobby and everybody is ready means selected a champion
+    /// </summary>
     public void StartGame()
     {
         bool allPlayersReady = true;
@@ -128,6 +147,9 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
         }
 
     }
+    /// <summary>
+    /// Leaves the game you cann reconnect to the champ select
+    /// </summary>
     public void LeaveGame()
     {
 
@@ -144,6 +166,10 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
             SceneManager.LoadScene("LobbyScene");
         }
     }
+    /// <summary>
+    /// Coroutine that starts at the beginning and checks if somebody left the game and clears him from the list
+    /// </summary>
+    /// <returns></returns>
     IEnumerator OnPlayerLeaveGame()
     {
         yield return new WaitForSeconds(0.3f);

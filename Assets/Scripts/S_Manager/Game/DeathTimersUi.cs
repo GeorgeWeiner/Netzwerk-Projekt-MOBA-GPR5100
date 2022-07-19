@@ -5,23 +5,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// handles the deathtimers visually
+/// </summary>
 public class DeathTimersUi : BaseNetworkBehaviourSingleton<DeathTimersUi>
 {
-    [SerializeField] Sprite Tes;
     [SerializeField] Image[] playerDeathCounterImages;
     [SerializeField] Image[] PlayerChampionSprite;
     [SerializeField] TMP_Text[] playerDeathTimers;
 
     void Start()
     {
-        DeathCounterImages();
+        InitializeDeathCounterImages();
     }
     /// <summary>
-    /// Sets the deathcounterimages in order and sets the deathcounter image
+    /// Sets the deathcounter images in order and sets the deathcounter image for each player with their champion
     /// </summary>
     /// <param name="player"></param>
     /// <param name="playerData"></param>
-    void DeathCounterImages()
+    void InitializeDeathCounterImages()
     {
         int i = 0;
         foreach (var instanceDeathTimer in GameManager.Instance.deathTimers)
@@ -31,6 +33,10 @@ public class DeathTimersUi : BaseNetworkBehaviourSingleton<DeathTimersUi>
             i++;
         }
     }
+    /// <summary>
+    /// Activates the death counter of a given player for all players
+    /// </summary>
+    /// <param name="player"></param>
     [ClientRpc]
     public void ActivateDeathCounterUI(MobaPlayerData player)
     {
@@ -46,6 +52,10 @@ public class DeathTimersUi : BaseNetworkBehaviourSingleton<DeathTimersUi>
             i++;
         }
     }
+    /// <summary>
+    /// Rpc for deactivating the death counter ui on all clients
+    /// </summary>
+    /// <param name="player"></param>
     [ClientRpc]
     public void DeActivateDeathCounterUI(MobaPlayerData player)
     {

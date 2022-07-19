@@ -25,6 +25,10 @@ public class Bomb : NetworkBehaviour
     {
         gameObject.DrawRectangle(lineRenderer, pickUpZoneSize);
     }
+    /// <summary>
+    /// Rpc taht handles ehat happens when somebody picks up the bomb
+    /// </summary>
+    /// <param name="carrier"></param>
     [ClientRpc]
     public void OnPickUp(BombCarrier carrier)
     {
@@ -35,6 +39,9 @@ public class Bomb : NetworkBehaviour
             pickUpRoutine = StartCoroutine(PickUpTimer(carrier));
         }
     }
+    /// <summary>
+    /// Rpc that handles what happens if somebody drops the bomb
+    /// </summary>
     [ClientRpc]
     public void OnDrop()
     {
@@ -54,11 +61,19 @@ public class Bomb : NetworkBehaviour
         isPickedUp = false;
         lineRenderer.enabled = true;
     }
+    /// <summary>
+    /// Command for what happens if you enter the drop zone with the bomb
+    /// </summary>
+    /// <param name="timeForExplosion"></param>
+    /// <param name="teamWhichDroppedBomb"></param>
     [Command(requiresAuthority = false)]
     public void OnEnteringDropZone(float timeForExplosion,Team teamWhichDroppedBomb)
     {
         explosionRoutine = StartCoroutine(ExplodeBomb(timeForExplosion,teamWhichDroppedBomb));
     }
+    /// <summary>
+    /// Command that handles what happens when a bomb carrier leaves the bomb zone
+    /// </summary>
     [Command(requiresAuthority = false)]
     public void OnPlayerExitDropZone()
     {
@@ -68,6 +83,11 @@ public class Bomb : NetworkBehaviour
             explosionRoutine = null;
         }
     }
+    /// <summary>
+    /// Starts if somebody tries pickung up the bomb
+    /// </summary>
+    /// <param name="carrier"></param>
+    /// <returns></returns>
     IEnumerator PickUpTimer(BombCarrier carrier)
     {
         pickupTime = this.timeForPickup;
@@ -96,7 +116,12 @@ public class Bomb : NetworkBehaviour
         }
         pickUpRoutine = null;
     }
-
+    /// <summary>
+    /// Starts if you enter the bomb zone as a bomb carrier
+    /// </summary>
+    /// <param name="timeForExplosion"></param>
+    /// <param name="teamWhichDroppedBomb"></param>
+    /// <returns></returns>
     IEnumerator ExplodeBomb(float timeForExplosion,Team teamWhichDroppedBomb)
     {
         Debug.Log("TimesTicking");

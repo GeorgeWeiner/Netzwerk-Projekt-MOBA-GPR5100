@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace S_Manager.Game
 {
+    /// <summary>
+    /// handles the ingame UI for champions
+    /// </summary>
     public class ChampionUiHandler : MonoBehaviour
     {
         [SerializeField] private Image healthBar;
@@ -36,6 +39,12 @@ namespace S_Manager.Game
                 initialized = true;
             }
         }
+        /// <summary>
+        /// Updates the ui for a given stat hooks up to the onClient stat updated event in the stat class
+        /// </summary>
+        /// <param name="statType"></param>
+        /// <param name="currentValue"></param>
+        /// <param name="maxValue"></param>
         private void UpdateUiForGivenStat(StatType statType, int currentValue, int maxValue)
         {
             statValues[statType].text = $"{currentValue} / {maxValue}";
@@ -49,6 +58,9 @@ namespace S_Manager.Game
                 manaBar.fillAmount = currentValue / maxValue;
             }
         }
+        /// <summary>
+        /// Initializes the ui for displaying stats by looping over all stats on the champion and connecting the on stat updated event to it
+        /// </summary>
         void InitializeChampionData()
         {
             championSprite.sprite = playerData.allChampionsAvailable[playerData.CurrentChampion].ChampionSprite;

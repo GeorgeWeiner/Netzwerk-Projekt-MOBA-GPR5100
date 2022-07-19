@@ -5,12 +5,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// A simple death counter which displays how long youre dead and when the player on revive should be invoked
+/// </summary>
 public class DeathCounter : NetworkBehaviour
 {
     public TMP_Text deathTimer;
     [SyncVar(hook = nameof(SyncDeathTime))]public float deathTime;
     public bool isDead;
-
+    /// <summary>
+    /// Invokes Revive player after the timer ran out and deactivates the death timer for the player
+    /// </summary>
+    /// <param name="deathTimeToAdd"></param>
+    /// <param name="player"></param>
+    /// <returns></returns>
     public IEnumerator StartDeathCountdown(float deathTimeToAdd,MobaPlayerData player)
     {
         DeathTimersUi.instance.ActivateDeathCounterUI(player);
@@ -31,6 +39,11 @@ public class DeathCounter : NetworkBehaviour
         isDead = false;
         
     }
+    /// <summary>
+    /// Updates the death timer text for both clients
+    /// </summary>
+    /// <param name="old"></param>
+    /// <param name="newValue"></param>
     void SyncDeathTime(float old,float newValue)
     {
         deathTime = newValue;

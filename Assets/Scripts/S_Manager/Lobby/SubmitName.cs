@@ -7,6 +7,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class which handles changing the name of a player
+/// </summary>
 public class SubmitName : NetworkBehaviour
 {
     [SerializeField] ChampSelect champSelection;
