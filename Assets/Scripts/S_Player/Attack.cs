@@ -31,7 +31,7 @@ public abstract class Attack : NetworkBehaviour
     }
     void CheckIfIsInAttackRange()
     {
-        if (targeter.GetTarget() == null) return;
+        if (targeter.GetTarget() == null || !hasAuthority) return;
         {
             if (canAttack && transform.position.GetSqredDistance(targeter.GetTarget().transform.position) < attackRange)
             {
