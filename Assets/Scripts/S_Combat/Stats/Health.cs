@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace S_Combat
 {
+    /// <summary>
+    /// Health class for champions minions etc
+    /// </summary>
     public class Health : Stat, IDamageable
     {
         public event Action ServerOnDie;

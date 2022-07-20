@@ -4,6 +4,9 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Displays the name of a player
+/// </summary>
 public class NameDisplayField : NetworkBehaviour
 {
     [SerializeField] TMP_Text playerNameField;

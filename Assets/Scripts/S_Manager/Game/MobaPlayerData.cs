@@ -11,6 +11,9 @@ public enum Team
     redSide,
     blueSide
 }
+/// <summary>
+/// Handles the player data for all clients
+/// </summary>
 public class MobaPlayerData : NetworkBehaviour
 { 
        
@@ -40,6 +43,11 @@ public class MobaPlayerData : NetworkBehaviour
         }
     }
     #region Commands
+    /// <summary>
+    /// Changes the prefab for a player in champ select and spawns their visual instance
+    /// </summary>
+    /// <param name="championToSpawn"></param>
+    /// <param name="position"></param>
     [Command]
     public void CmdChangePrefab(int championToSpawn,Vector3 position)
     {
@@ -55,12 +63,19 @@ public class MobaPlayerData : NetworkBehaviour
             visualInstance = instance;
         }
     }
+    /// <summary>
+    /// Changes the name of a player on the server
+    /// </summary>
+    /// <param name="newName"></param>
     [Command]
     public void CmdChangeName(string newName)
     {
         playerName = newName;
     }
-
+    /// <summary>
+    /// Changes the state in the champ select from unready to ready
+    /// </summary>
+    /// <param name="isReady"></param>
     [Command]
     public void CmdChangeReadyState(bool isReady)
     {
@@ -100,6 +115,9 @@ public class MobaPlayerData : NetworkBehaviour
     #endregion
 
     #region Client
+    /// <summary>
+    /// Adds all champions of the players champion pool to the available champions list
+    /// </summary>
     void AddAllChampionsAvailable()
     {
         for (int i = 0; i < allChampionsAvailable.Count; i++)

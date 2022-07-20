@@ -7,21 +7,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-
+/// <summary>
+/// Handles the whole game flow from reviving players to counting points etc
+/// </summary>
 public class GameManager : NetworkBehaviour
 {
+    [SerializeField] TMP_Text displayForWhoWonGame;
     [SerializeField] Transform respawnPosForBlueSide;
     [SerializeField] Transform respawnPosForRedSide;
-    [SerializeField] Transform bombSpawnPos;
+    [SerializeField] Transform bombSpawnPos;//the span pos for the bomb when the round gets reseted
     [SerializeField] GameObject bombPrefab;
 
-    readonly SyncList<MobaPlayerData> players= new SyncList<MobaPlayerData>();
-    public readonly SyncDictionary<Team, int> points = new();
-    public readonly SyncDictionary<MobaPlayerData,DeathCounter> deathTimers = new SyncDictionary<MobaPlayerData, DeathCounter>();
+    readonly SyncList<MobaPlayerData> players= new SyncList<MobaPlayerData>();// stores all players data for reseting them or getting their team etc
+    public readonly SyncDictionary<Team, int> points = new();//stores both teams and their points
+    public readonly SyncDictionary<MobaPlayerData,DeathCounter> deathTimers = new SyncDictionary<MobaPlayerData, DeathCounter>();// stores all the deathtimers with the specific player
     
-    public event Action<MobaPlayerData> OnPlayerDie;
-    public event Action<MobaPlayerData> OnPlayerRevive;
-    public event Action OnRoundWon;
+    public event Action<MobaPlayerData> OnPlayerDie;// for disabling the players ability to move etc
+    public event Action<MobaPlayerData> OnPlayerRevive;//Same but while the round is active for resetting stats usw
+    public event Action OnRoundWon;// event to which you cann hook up when you want to reset smthing like health etc when smbody won the round
     public event Action OnPlayerDieUI;
     static public GameManager Instance;
 
@@ -36,9 +39,13 @@ public class GameManager : NetworkBehaviour
             Destroy(this);
         }
         OnRoundWon += ResetRound;
+        OnRoundWon += DisplayWhoWonGame;
         OnPlayerDie += StartDeathCountDown;
         OnPlayerRevive += RespawnPlayer;
     }
+    /// <summary>
+    /// Initializes the points sync dictionairy
+    /// </summary>
     [Server]
     void Start()
     {
@@ -52,7 +59,10 @@ public class GameManager : NetworkBehaviour
     }
     void OnDestroy()
     {
+        OnRoundWon -= ResetRound;
+        OnRoundWon -= DisplayWhoWonGame;
         OnPlayerDie -= StartDeathCountDown;
+        OnPlayerRevive -= RespawnPlayer;
     }
     #region EventCallbacks
 
@@ -65,10 +75,16 @@ public class GameManager : NetworkBehaviour
     #endregion
 
     #region Callbacks
+    /// <summary>
+    /// Callback which gets called from the bomb when a player explodes the bomb
+    /// </summary>
     public void RoundWonCallBack()
     {
         OnRoundWon?.Invoke();
     }
+    /// <summary>
+    /// Resets the round by reseting the players positions 
+    /// </summary>
     [Command(requiresAuthority = false)]
     void ResetRound()
     {
@@ -87,12 +103,19 @@ public class GameManager : NetworkBehaviour
         }
         MobaNetworkRoomManager.SpawnPrefab(bombPrefab, bombSpawnPos);
     }
+    /// <summary>
+    /// Call bcak when a player dies which ionvokes events for the ui and the player
+    /// </summary>
+    /// <param name="player"></param>
     public void PlayerDiedCallback(MobaPlayerData player)
     {
         OnPlayerDieUI?.Invoke();
         OnPlayerDie?.Invoke(player);
     }
-
+    /// <summary>
+    /// Starts the death countdown of a specific player
+    /// </summary>
+    /// <param name="player"></param>
     void StartDeathCountDown(MobaPlayerData player)
     {
         if (deathTimers.ContainsKey(player))
@@ -102,11 +125,18 @@ public class GameManager : NetworkBehaviour
             StartCoroutine(deathTimer.StartDeathCountdown(2f, player));
         }
     }
+    /// <summary>
+    /// Revive callback for when the death timer runs out etc
+    /// </summary>
+    /// <param name="playerToRevive"></param>
     public void RevivePlayer(MobaPlayerData playerToRevive)
     {
         OnPlayerRevive?.Invoke(playerToRevive);
     }
-
+    /// <summary>
+    /// Respawns a player on their given side and resets their way point theyve got
+    /// </summary>
+    /// <param name="playerToRespawn"></param>
     void RespawnPlayer(MobaPlayerData playerToRespawn)
     {
         playerToRespawn.currentlyPlayedChampion.GetComponent<NavMeshAgent>().ResetPath();
@@ -122,10 +152,54 @@ public class GameManager : NetworkBehaviour
             playerToRespawn.agentOfCurrentlyPlayedChampion.ResetPath();
         }
     }
+    /// <summary>
+    /// Adds a point to the given team
+    /// </summary>
+    /// <param name="team"></param>
     [Command(requiresAuthority = false)]
     public void AddPointToTeam(Team team)
     {
-        points[team] += 1;
+        if (points[team] < 3)
+        {
+            points[team] += 1;
+        }
+    }
+
+    [ClientRpc]
+    void DisplayWhoWonGame()
+    {
+        StartCoroutine(CheckIfSomebodyWonGame());
+    }
+
+    IEnumerator CheckIfSomebodyWonGame()
+    {
+        yield return new WaitForSeconds(2f);
+        foreach (var team in points)
+        {
+            if (team.Key == Team.blueSide && team.Value == 1)
+            {
+                displayForWhoWonGame.gameObject.SetActive(true);
+                displayForWhoWonGame.text = "Blue Team Won";
+                StartCoroutine(ReloadLobbyScene());
+            }
+            else if (team.Key == Team.blueSide && team.Value == 3)
+            {
+                displayForWhoWonGame.gameObject.SetActive(true);
+                displayForWhoWonGame.text = "Red Team Won";
+                StartCoroutine(ReloadLobbyScene());
+            }
+        }
+    }
+    IEnumerator ReloadLobbyScene()
+    {
+        yield return new WaitForSeconds(5f);
+        NetworkClient.Disconnect();
+        if (NetworkClient.isHostClient)
+        {
+            NetworkManager.singleton.StartHost();
+        }
+        NetworkManager.singleton.ServerChangeScene("LobbyScene");
+
     }
     #endregion
 }

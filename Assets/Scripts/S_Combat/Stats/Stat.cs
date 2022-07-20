@@ -13,6 +13,9 @@ public enum StatType
     attackValue,
     defenseValue,
 }
+/// <summary>
+/// Baseclass for all stats
+/// </summary>
 public abstract class Stat : NetworkBehaviour, ICharacterStat
 {
     [SerializeField] StatType statType;
@@ -31,12 +34,21 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
         currentValue = maxValue;
         StartCoroutine(PassiveStatRegen());
     }
+    /// <summary>
+    /// hook for the stat Update also invokes an event for cllients to listen to like ui etc
+    /// </summary>
+    /// <param name="oldValue"></param>
+    /// <param name="newValue"></param>
     public virtual void HandleStatUpdated(int oldValue, int newValue)
     {
         currentValue = newValue;
         ClientOnStatUpdated?.Invoke(statType,currentValue,maxValue);
     }
-
+    /// <summary>
+    /// Hook for syncong the max health for example if we lvl up or something else
+    /// </summary>
+    /// <param name="old"></param>
+    /// <param name="newMaxValue"></param>
     public void HandleMaxValueUpdated(int old,int newMaxValue)
     {
         maxValue = newMaxValue;
@@ -51,7 +63,11 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
             yield return new WaitForSeconds(Mathf.Max(0.1f, statRegenTick));
         }
     }
-
+    /// <summary>
+    /// Hook for syncing the player data
+    /// </summary>
+    /// <param name="old"></param>
+    /// <param name="newData"></param>
     void ChangePlayerDataForCallBacks(MobaPlayerData  old, MobaPlayerData newData)
     {
         playerDataForCallbacks = newData;

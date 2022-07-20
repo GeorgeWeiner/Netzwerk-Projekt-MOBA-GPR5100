@@ -46,12 +46,12 @@ GameObject:
   - component: {fileID: -1691144618240240543}
   - component: {fileID: 8218255599728891129}
   - component: {fileID: 5475080710046545852}
-  - component: {fileID: 4761209586883762508}
-  - component: {fileID: 2757262918577184043}
-  - component: {fileID: 2928961882651480337}
-  - component: {fileID: 213116089994570242}
+  - component: {fileID: -2936992766211786434}
+  - component: {fileID: 5009108338367789796}
+  - component: {fileID: 7765003019183575931}
   - component: {fileID: 5466403073800358521}
   - component: {fileID: 8982580568988328910}
+  - component: {fileID: 5455743136678564803}
   - component: {fileID: 1644134146656374372}
   - component: {fileID: -2823662903073081699}
   - component: {fileID: -8748289578980493745}
@@ -100,7 +100,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   targeter: {fileID: 4739244059358363384}
-  chaseRange: 3
+  chaseRange: 4
+  audioManager: {fileID: 5009108338367789796}
 --- !u!114 &4739244059358363384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,12 +262,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  statType: 1
-  maxValue: 200
-  currentValue: 0
-  statRegenAmount: 0
-  statRegenTick: 0
-  playerDataForCallbacks: {fileID: 0}
+  bombLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  interactionText: {fileID: 8841481453336420769}
+  pickUpRadius: 2
+  bombCarrySpeed: 5
+  carriedBomb: {fileID: 0}
+--- !u!114 &5009108338367789796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320472783847641401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae351dcabcf2bb479c6de2dd1c90a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  audioPrefab: {fileID: 2840542472049245894, guid: 8fedabc594edfbf42a9da78d3fb8339d,
+    type: 3}
+  audioFiles:
+  - index: 0
+    type: 0
+    audioClip: {fileID: 8300000, guid: 630e3b32d20bccd4783b070048c9dd83, type: 3}
+  - index: 1
+    type: 0
+    audioClip: {fileID: 8300000, guid: 498c46032d635bf499c66bb69eefd481, type: 3}
+--- !u!114 &7765003019183575931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320472783847641401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e202d70ed94b359bc013d28c17ab2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  animator: {fileID: 1562870663625752671}
 --- !u!114 &5466403073800358521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +358,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &5455743136678564803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320472783847641401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 1562870663625752671}
 --- !u!195 &1644134146656374372
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -830,7 +886,7 @@ Animator:
   m_GameObject: {fileID: 6320472783847641401}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7ae10a197a8fe834a9f2c25bf92c7b16, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4dbf49c97a3eb9848aa623fe21d6eda9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

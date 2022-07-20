@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// The class which is responsible for displaying the points of each team
+/// </summary>
 public class PointsDisplay : MonoBehaviour
 {
     [SerializeField] TMP_Text pointsRedTeam;
@@ -11,7 +14,9 @@ public class PointsDisplay : MonoBehaviour
     {
         DisplayPoints();
     }
-
+    /// <summary>
+    /// this functions loop over both teams and sets their points visually
+    /// </summary>
     void DisplayPoints()
     {
         foreach (var team in GameManager.Instance.points)

@@ -11,6 +11,7 @@ namespace S_Player
     {
         [SerializeField] private Targeter targeter;
         [SerializeField] private float chaseRange = 10f;
+        [SerializeField] NetworkAudioManager audioManager;
         
         private NavMeshAgent _agent;
         private AnimationHandler _animationHandler;
@@ -25,7 +26,9 @@ namespace S_Player
         {
             if (_agent.velocity.magnitude < 0.3 && hasAuthority && _animationHandler != null)
             {
+              
                 _animationHandler.SetAnimationState(AnimationStates.Idle);
+                audioManager.PlayServerAudioFile(AudioFileType.walking, 1);
             }
             
             if (targeter.GetTarget() == null) return;
@@ -33,6 +36,7 @@ namespace S_Player
             //Cool extension method invocation thing.
             if (transform.position.Distance(targeter.GetTarget().transform.position) < chaseRange && hasAuthority)
             {
+                audioManager.PlayServerAudioFile(AudioFileType.walking, 0);
                 CmdAttack();
             }
             else if (hasAuthority)
@@ -42,7 +46,6 @@ namespace S_Player
                 CmdMoveTowardsAttackTarget();
             }
         }
-
         [Command]
         public void CmdMove(Vector3 position)
         {
@@ -67,7 +70,7 @@ namespace S_Player
         }
         
         [Command]
-        private void CmdAttack()
+        public void CmdAttack()
         {
             _agent.ResetPath();
             _animationHandler.SetAnimationState(AnimationStates.Attacking);

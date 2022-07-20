@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
+/// <summary>
+/// Automatically creates a singleton for networkBehaviours
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class BaseNetworkBehaviourSingleton<T> : NetworkBehaviour where T: NetworkBehaviour
 {
     [SerializeField] bool destroyOnLoad;

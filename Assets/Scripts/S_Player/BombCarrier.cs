@@ -6,6 +6,9 @@ using S_Combat;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// The class which handles bomb pulling picking it up 
+/// </summary>
 public class BombCarrier : NetworkBehaviour
 {
     [SerializeField] LayerMask bombLayer;
@@ -32,6 +35,9 @@ public class BombCarrier : NetworkBehaviour
             CmdDropBomb();
         }
     }
+    /// <summary>
+    /// Checks if you can pick up the bomb and if you press the right key if you can pick it up
+    /// </summary>
     void TryPickUpBomb()
     {
         if (!CanPickUpBomb()) return;
@@ -42,6 +48,10 @@ public class BombCarrier : NetworkBehaviour
             }
         }
     }
+    /// <summary>
+    /// Function which returns if the bomb is pickupable and activates and deactivates the indicator for it
+    /// </summary>
+    /// <returns></returns>
     bool CanPickUpBomb()
     {
         if (Physics.CheckSphere(transform.position,pickUpRadius, bombLayer) && hasAuthority && carriedBomb == null)
@@ -65,6 +75,9 @@ public class BombCarrier : NetworkBehaviour
     }
 
     #region ClientCommands
+    /// <summary>
+    /// A command for updating the bombs position
+    /// </summary>
     [Command]
     void CmdCarryBomb()
     {
@@ -79,6 +92,9 @@ public class BombCarrier : NetworkBehaviour
             carriedBomb = null;
         }
     }
+    /// <summary>
+    /// A command that gets called if the bomb gets picked up
+    /// </summary>
     [Command]
     void CmdPickUpBomb()
     {
@@ -98,7 +114,9 @@ public class BombCarrier : NetworkBehaviour
     #endregion
 
     #region Rpcs
-
+    /// <summary>
+    /// Rpc for moving the bomb which gets called by the carry bomb command
+    /// </summary>
     [ClientRpc]
     void RpcMoveBomb()
     {
