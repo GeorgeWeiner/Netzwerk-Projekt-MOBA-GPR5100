@@ -51,6 +51,7 @@ public class NetworkAudioManager : NetworkBehaviour
         {
             if (audioFile.type == audioFileType && audioFile.CanPlayAudioFile() && audioFile.Index == index)
             {
+                Debug.Log("HEEYPLAYERD");
                 var go = Instantiate(audioPrefab,position,Quaternion.identity);
                 NetworkServer.Spawn(go); 
                 PlayAudioOnServer(go,audioFileType,audioFile.Index);

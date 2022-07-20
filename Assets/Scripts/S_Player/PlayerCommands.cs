@@ -27,8 +27,8 @@ namespace S_Player
             if (_agent.velocity.magnitude < 0.3 && hasAuthority && _animationHandler != null)
             {
               
-                _animationHandler.SetAnimationStateCallback(AnimationStates.Idle);
-                audioManager.PlayServerAudioFile(AudioFileType.walking, 1);
+                _animationHandler.SetAnimationState(AnimationStates.Idle);
+                audioManager.PlayServerAudioFile(AudioFileType.walking, 0);
             }
             
             if (targeter.GetTarget() == null) return;

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dd5ffc003e6d347be21412eaccde56, type: 3}
   m_Name: Fishy
   m_EditorClassIdentifier: 
-  championName: 
+  championName: Fishy
   heroPrefab: {fileID: 6320472783847641401, guid: 2e0cd3aee8b48a744bdb10e15a9f7964,
     type: 3}
   heroVisuals: {fileID: 1568787533456970559, guid: f70f3c5e6378e694a8aa8facc9586ad3,
     type: 3}
   championSprite: {fileID: 21300000, guid: 2de7933b1e4f4d04695304e7fe0b7939, type: 3}
-  championId: 1
+  championId: 0

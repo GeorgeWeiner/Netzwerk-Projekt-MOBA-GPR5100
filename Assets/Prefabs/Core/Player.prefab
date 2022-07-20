@@ -85,7 +85,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   allChampionsAvailable:
-  - {fileID: 11400000, guid: a3f6b85098241a34699faf2fa0f65b52, type: 2}
   - {fileID: 11400000, guid: ac79bf864495d8042b10a601975b5f5b, type: 2}
   - {fileID: 11400000, guid: f8222a622ff4d784ebff4b234cee608f, type: 2}
   currentlyPlayedChampion: {fileID: 0}
