@@ -33,7 +33,7 @@ namespace S_Abilities
         {
             InputManager.OnPressedAbility += AbilityCallback;
 
-            for (var i = 0; i <= abilities.Count; i++)
+            for (var i = 0; i < abilities.Count; i++)
             {
                 //Create instances so the same hero can be used multiple times in a game.
                 var abilityInstance = Instantiate(abilities[i]);

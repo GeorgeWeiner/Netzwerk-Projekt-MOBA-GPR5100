@@ -28,7 +28,7 @@ namespace S_Player
             {
               
                 _animationHandler.SetAnimationState(AnimationStates.Idle);
-                audioManager.PlayServerAudioFile(AudioFileType.walking, 1);
+                audioManager.PlayServerAudioFile(AudioFileType.walking, 0);
             }
             
             if (targeter.GetTarget() == null) return;
