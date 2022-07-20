@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using S_Combat;
 using S_Manager;
@@ -33,15 +34,16 @@ namespace S_Abilities
         {
             InputManager.OnPressedAbility += AbilityCallback;
 
-            for (var i = 0; i <= abilities.Count; i++)
+            if (abilities.Count == 0) return;
+            
+            for (var i = 0; i < abilities.Count; i++)
             {
                 //Create instances so the same hero can be used multiple times in a game.
-                var abilityInstance = Instantiate(abilities[i]);
-                foreach (var subAbility in abilityInstance.instancedSubAbilities)
+                foreach (var subAbility in abilities[i].subAbilities)
                 {
-                    subAbility.InitializeSelf(transform, this, abilityInstance);
+                    subAbility.InitializeSelf(transform, this, abilities[i]);
                 }
-                _abilitySlots.Add((AbilitySlot)i, abilityInstance);
+                _abilitySlots.Add((AbilitySlot)i, abilities[i]);
             }
         }
 
@@ -60,7 +62,7 @@ namespace S_Abilities
                 return;
             }
             
-            mana.UseMana(_abilitySlots[slot].manaCost, out var canUse);
+            mana.UseMana(_abilitySlots[slot].manaCost, out bool canUse);
             if (!canUse)
             {
                 print("Not enough mana left.");

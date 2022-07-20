@@ -924,7 +924,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!1 &209013231
 GameObject:
@@ -3148,7 +3148,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 557608592}
-  - {fileID: 1114447772}
   m_Father: {fileID: 1312072978}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -4857,116 +4856,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &1114447771
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 793278156}
-    m_Modifications:
-    - target: {fileID: 525205975200737952, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 525205975200737952, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_Parameters.numCapVertices
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 525205975200737952, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_Parameters.numCornerVertices
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 589805541654695172, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_Name
-      value: Dragon Knight
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460623285549569604, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: sceneId
-      value: 2465012580
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4502079435915774730, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7171540602573778495, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8173434442678434806, guid: a001275df4ac17a458eeeb10a268e0ef,
-        type: 3}
-      propertyPath: sceneId
-      value: 1413602831
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a001275df4ac17a458eeeb10a268e0ef, type: 3}
---- !u!4 &1114447772 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4344871642989498268, guid: a001275df4ac17a458eeeb10a268e0ef,
-    type: 3}
-  m_PrefabInstance: {fileID: 1114447771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1123441466
 PrefabInstance:
   m_ObjectHideFlags: 0

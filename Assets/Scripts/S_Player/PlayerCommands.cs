@@ -27,7 +27,7 @@ namespace S_Player
             if (_agent.velocity.magnitude < 0.3 && hasAuthority && _animationHandler != null)
             {
               
-                _animationHandler.SetAnimationState(AnimationStates.Idle);
+                _animationHandler.SetAnimationStateCallback(AnimationStates.Idle);
                 audioManager.PlayServerAudioFile(AudioFileType.walking, 1);
             }
             
@@ -57,7 +57,7 @@ namespace S_Player
             if (!validPosition) return;
             
             _agent.SetDestination(hit.position);
-            _animationHandler.SetAnimationState(AnimationStates.Walking);
+            _animationHandler.SetAnimationStateCallback(AnimationStates.Walking);
         }
 
         [Command]
@@ -66,14 +66,14 @@ namespace S_Player
             var target = targeter.GetTarget();
 
             _agent.SetDestination(target.transform.position);
-            _animationHandler.SetAnimationState(AnimationStates.Walking);
+            _animationHandler.SetAnimationStateCallback(AnimationStates.Walking);
         }
         
         [Command]
         public void CmdAttack()
         {
             _agent.ResetPath();
-            _animationHandler.SetAnimationState(AnimationStates.Attacking);
+            _animationHandler.SetAnimationStateCallback(AnimationStates.Attacking);
         }
     }
 }

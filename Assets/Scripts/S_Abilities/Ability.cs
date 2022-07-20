@@ -23,16 +23,16 @@ namespace S_Abilities
         
         private void OnEnable()
         {
-            CreateInstances();
+            //CreateInstances();
         }
 
-        private void CreateInstances()
-        {
-            foreach (var subAbility in subAbilities)
-            {
-                var instance = Instantiate(subAbility);
-                instancedSubAbilities.Add(instance);
-            }
-        }
+        //private void CreateInstances()
+        //{
+        //    foreach (var subAbility in subAbilities)
+        //    {
+        //        var instance = Instantiate(subAbility);
+        //        instancedSubAbilities.Add(instance);
+        //    }
+        //}
     }
 }
