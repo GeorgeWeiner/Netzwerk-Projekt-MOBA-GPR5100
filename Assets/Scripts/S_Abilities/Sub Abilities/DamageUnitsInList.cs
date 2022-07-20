@@ -15,7 +15,7 @@ namespace S_Abilities
 
         public override void ExecuteSubAbility()
         {
-            var listGenerator = AbilityInstance.instancedSubAbilities.OfType<IListGenerator>().FirstOrDefault();
+            var listGenerator = AbilityInstance.subAbilities.OfType<IListGenerator>().FirstOrDefault();
             List<Health> targets = listGenerator?.GetList<Health>();
 
             if (targets == null)

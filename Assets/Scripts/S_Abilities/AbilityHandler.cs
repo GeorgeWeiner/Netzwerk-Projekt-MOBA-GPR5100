@@ -72,7 +72,7 @@ namespace S_Abilities
         
         private IEnumerator ExecuteAbilitySteps(Ability ability)
         {
-            foreach (var subAbility in ability.instancedSubAbilities)
+            foreach (var subAbility in ability.subAbilities)
             {
                 subAbility.InitializeSelf(transform, this, ability);
                 
