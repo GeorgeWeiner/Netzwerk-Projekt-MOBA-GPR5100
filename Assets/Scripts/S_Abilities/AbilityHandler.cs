@@ -23,12 +23,15 @@ namespace S_Abilities
     {
         //TODO: Replace this stuff with the actual logic of key bound abilities.
         [SerializeField] private List<Ability> abilities;
+        [SerializeField] private List<Ability> abilityVFX;
         [SerializeField] private Transform abilitySpawnOrigin;
         [SerializeField] private Mana mana;
 
-        private readonly Dictionary<AbilitySlot, Ability> _abilitySlots = new();
+        private readonly Dictionary<AbilitySlot, Ability> _abilitySlots = new();        
+        private readonly Dictionary<AbilitySlot, Ability> _abilityVfx = new();
+
         public List<Ability> Abilities => abilities;
-        public static event Action<SubAbility> SubAbilityExecuted;
+        public event Action<SubAbility> SubAbilityExecuted;
 
         public override void OnStartServer()
         {

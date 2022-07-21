@@ -16,7 +16,11 @@ namespace S_Abilities
         protected Transform TransformSelf;
         protected AbilityHandler AbilityHandler;
         protected Ability AbilityInstance;
-        
+
+        [Header("Visual Effects")]
+        public VisualEffectAsset visualEffectAsset;
+        public float visualEffectPlaybackSpeed = 1f;
+
         public abstract void ExecuteSubAbility();
 
         public void InitializeSelf(Transform self)

@@ -16,23 +16,5 @@ namespace S_Abilities
         public float coolDown;
         
         public List<SubAbility> subAbilities;
-
-        public VisualEffect visualEffect;
-
-        public List<SubAbility> instancedSubAbilities = new();
-        
-        private void OnEnable()
-        {
-            //CreateInstances();
-        }
-
-        //private void CreateInstances()
-        //{
-        //    foreach (var subAbility in subAbilities)
-        //    {
-        //        var instance = Instantiate(subAbility);
-        //        instancedSubAbilities.Add(instance);
-        //    }
-        //}
     }
 }

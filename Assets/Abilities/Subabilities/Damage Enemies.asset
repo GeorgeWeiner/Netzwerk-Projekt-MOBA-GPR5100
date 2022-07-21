@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subAbilityDelay: 0
   range: 0
+  visualEffectAsset: {fileID: 8926484042661614526, guid: 2895017779581e149959a47dea32d2ad,
+    type: 3}
+  visualEffectPlaybackSpeed: 1
   damageAmount: 10
