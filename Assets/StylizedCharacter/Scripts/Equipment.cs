@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NHance.Assets.Scripts.Items;
 using UnityEngine;
@@ -9,8 +8,8 @@ namespace NHance.Assets.Scripts
     public class Equipment : MonoBehaviour
     {
         public Transform Target;
-        
-        void Start()
+
+        private void Start()
         {
             var boneMap = new Dictionary<string, Transform>();
             GetAllSkinnedMeshRenderers(ref boneMap, Target);
@@ -40,7 +39,7 @@ namespace NHance.Assets.Scripts
             }
         }
 
-        void GetAllSkinnedMeshRenderers(ref Dictionary<string, Transform> map, Transform target)
+        private void GetAllSkinnedMeshRenderers(ref Dictionary<string, Transform> map, Transform target)
         {
             if(!map.ContainsKey(target.name))
                 map.Add(target.name, target);

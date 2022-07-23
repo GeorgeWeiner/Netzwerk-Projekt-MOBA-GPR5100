@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using NHance.Assets.Scripts.Attributes;
 using NHance.Assets.Scripts.Enums;
 using NHance.Assets.Scripts.Items;
 using NHance.Assets.Scripts.Utils;
@@ -434,7 +432,7 @@ namespace NHance.Assets.Scripts
                 }
         }
 
-        Transform RecursiveFindChild(Transform parent, string childName)
+        private Transform RecursiveFindChild(Transform parent, string childName)
         {
             foreach (Transform child in parent)
             {

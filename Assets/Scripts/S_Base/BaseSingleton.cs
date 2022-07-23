@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    [SerializeField] bool destroyOnLoad;
-    static public T instance;
+    [SerializeField] private bool destroyOnLoad;
+    public static T instance;
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -9,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class NameDisplayField : NetworkBehaviour
 {
-    [SerializeField] TMP_Text playerNameField;
+    [SerializeField] private TMP_Text playerNameField;
     [SyncVar(hook = nameof(UpdatePlayerName))] public string playerName;
 
     [ClientRpc]
@@ -17,7 +15,8 @@ public class NameDisplayField : NetworkBehaviour
     {
         playerName = newName;
     }
-    void UpdatePlayerName(string old, string newName)
+
+    private void UpdatePlayerName(string old, string newName)
     {
         playerNameField.text = newName;
     }

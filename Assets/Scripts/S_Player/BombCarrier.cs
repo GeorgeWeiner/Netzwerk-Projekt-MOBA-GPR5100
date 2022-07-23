@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using S_Combat;
 using TMPro;
@@ -11,19 +8,20 @@ using UnityEngine;
 /// </summary>
 public class BombCarrier : NetworkBehaviour
 {
-    [SerializeField] LayerMask bombLayer;
-    [SerializeField] TMP_Text interactionText;
-    [SerializeField] float pickUpRadius;
-    [SerializeField] float bombCarrySpeed;
+    [SerializeField] private LayerMask bombLayer;
+    [SerializeField] private TMP_Text interactionText;
+    [SerializeField] private float pickUpRadius;
+    [SerializeField] private float bombCarrySpeed;
     [SyncVar(hook = nameof(UpdateBombState))]public  Bomb carriedBomb;
-    Health health;
+    private Health health;
 
-    void Start()
+    private void Start()
     {
         health = GetComponent<Health>();
         health.ServerOnDie += CmdDropBomb;
     }
-    void Update()
+
+    private void Update()
     {
         TryPickUpBomb();
         if (hasAuthority && carriedBomb != null)
@@ -38,7 +36,7 @@ public class BombCarrier : NetworkBehaviour
     /// <summary>
     /// Checks if you can pick up the bomb and if you press the right key if you can pick it up
     /// </summary>
-    void TryPickUpBomb()
+    private void TryPickUpBomb()
     {
         if (!CanPickUpBomb()) return;
         {
@@ -52,7 +50,7 @@ public class BombCarrier : NetworkBehaviour
     /// Function which returns if the bomb is pickupable and activates and deactivates the indicator for it
     /// </summary>
     /// <returns></returns>
-    bool CanPickUpBomb()
+    private bool CanPickUpBomb()
     {
         if (Physics.CheckSphere(transform.position,pickUpRadius, bombLayer) && hasAuthority && carriedBomb == null)
         {
@@ -69,7 +67,8 @@ public class BombCarrier : NetworkBehaviour
         }
         return false;
     }
-    void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position,pickUpRadius);
     }
@@ -79,12 +78,12 @@ public class BombCarrier : NetworkBehaviour
     /// A command for updating the bombs position
     /// </summary>
     [Command]
-    void CmdCarryBomb()
+    private void CmdCarryBomb()
     {
         RpcMoveBomb();
     }
     [Command]
-    void CmdDropBomb()
+    private void CmdDropBomb()
     {
         if (carriedBomb != null)
         {
@@ -96,7 +95,7 @@ public class BombCarrier : NetworkBehaviour
     /// A command that gets called if the bomb gets picked up
     /// </summary>
     [Command]
-    void CmdPickUpBomb()
+    private void CmdPickUpBomb()
     {
         Collider[] bomb = Physics.OverlapSphere(transform.position, pickUpRadius, bombLayer);
 
@@ -118,7 +117,7 @@ public class BombCarrier : NetworkBehaviour
     /// Rpc for moving the bomb which gets called by the carry bomb command
     /// </summary>
     [ClientRpc]
-    void RpcMoveBomb()
+    private void RpcMoveBomb()
     {
         if (carriedBomb != null && carriedBomb.IsPickedUp)
         {
@@ -131,7 +130,7 @@ public class BombCarrier : NetworkBehaviour
 
     #region Hooks
 
-    void UpdateBombState(Bomb old,Bomb newBomb)
+    private void UpdateBombState(Bomb old,Bomb newBomb)
     {
         carriedBomb = newBomb;
     }

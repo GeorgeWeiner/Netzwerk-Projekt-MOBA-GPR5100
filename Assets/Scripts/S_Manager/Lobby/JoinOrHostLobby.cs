@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Mirror;
 using TMPro;
 using UnityEngine;
 
 public class JoinOrHostLobby : MonoBehaviour
 {
-    [SerializeField] TMP_InputField adressInput;
+    [SerializeField] private TMP_InputField adressInput;
 
     /// <summary>
     /// Joins the game via a button callback with the given adress from the input name field

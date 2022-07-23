@@ -1,5 +1,4 @@
 using System;
-using Interfaces;
 using Mirror;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace S_Combat
     public class Health : Stat, IDamageable
     {
         public event Action ServerOnDie;
-        bool isDead = false;
+        private bool isDead = false;
         public bool IsDead { get => isDead; }
 
         public override void OnStartClient()
@@ -19,7 +18,8 @@ namespace S_Combat
             GameManager.Instance.OnPlayerRevive += OnRevive;
             GameManager.Instance.OnRoundWon += OnRoundReset;
         }
-        void OnDestroy()
+
+        private void OnDestroy()
         {
             GameManager.Instance.OnPlayerRevive -= OnRevive;
             GameManager.Instance.OnRoundWon -= OnRoundReset;
@@ -39,12 +39,13 @@ namespace S_Combat
             isDead = true;
         }
 
-        void OnRevive(MobaPlayerData player)
+        private void OnRevive(MobaPlayerData player)
         {
             isDead = false;
             currentValue = MaxValue;
         }
-        void OnRoundReset()
+
+        private void OnRoundReset()
         {
             isDead = false;
             currentValue = MaxValue;

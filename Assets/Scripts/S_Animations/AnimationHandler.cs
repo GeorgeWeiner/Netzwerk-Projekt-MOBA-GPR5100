@@ -1,7 +1,5 @@
-﻿using System;
-using Mirror;
+﻿using Mirror;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace S_Animations
 {

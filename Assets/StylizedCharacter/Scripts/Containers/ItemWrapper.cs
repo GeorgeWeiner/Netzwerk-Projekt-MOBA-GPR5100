@@ -1,7 +1,6 @@
 ﻿using System;
 using NHance.Assets.Scripts.Enums;
 using NHance.Assets.Scripts.Items;
-using UnityEngine;
 
 namespace NHance.Assets.StylizedCharacter.Scripts
 {

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public enum AnimationType
@@ -24,13 +20,13 @@ public enum AnimationValueType
 }
 public class AnimationManager : MonoBehaviour
 {
-    [SerializeField] bool useDefaultTransitions;
+    [SerializeField] private bool useDefaultTransitions;
     public bool UseDefaultTransitions{ get => useDefaultTransitions; }
-    [SerializeField] string name;
+    [SerializeField] private string name;
     public string Name{ get => name; }
-    [SerializeField] Animator animator;
+    [SerializeField] private Animator animator;
     public Animator Animator { get => animator; set => animator = value; }
-    [SerializeField] AnimationFile[] files;
+    [SerializeField] private AnimationFile[] files;
     public AnimationFile[] Files{ get => files; }
 
     /// <summary>
@@ -159,15 +155,15 @@ public class AnimationManager : MonoBehaviour
 [System.Serializable]
 public class AnimationFile
 {
-    [SerializeField] AnimationValueType valueType;
+    [SerializeField] private AnimationValueType valueType;
     public AnimationValueType ValueType{ get => valueType; }
-    [SerializeField] AnimationType animationType;
+    [SerializeField] private AnimationType animationType;
     public AnimationType AnimationType { get => animationType; }
-    [SerializeField] string animationName;
+    [SerializeField] private string animationName;
     public string AnimationName{ get => animationName; }
-    [SerializeField] Motion animation;
+    [SerializeField] private Motion animation;
     public Motion Animation{ get => animation; }
-    [SerializeField] bool hasExitTime;
+    [SerializeField] private bool hasExitTime;
     public bool HasExitTime{ get => hasExitTime; }
 
     /// <summary>

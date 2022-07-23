@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public enum Team
 {
@@ -18,24 +15,28 @@ public class MobaPlayerData : NetworkBehaviour
 { 
        
     [SerializeField] public List<ChampionData> allChampionsAvailable;
-    public readonly SyncList<int> allChampions = new SyncList<int>();
+    public readonly SyncList<int> allChampions = new();
 
-    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))] GameObject visualInstance;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampionVisualDisplay))]
+    private GameObject visualInstance;
     [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentlyPlayedChampion) )] public GameObject currentlyPlayedChampion;
     public NavMeshAgent agentOfCurrentlyPlayedChampion { get => currentlyPlayedChampion.GetComponent<NavMeshAgent>(); }
-    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampion))] int currentChampion;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeCurrentChampion))]
+    private int currentChampion;
     public int CurrentChampion { get => currentChampion; }
-    [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))] bool isReady;
+    [HideInInspector] [SyncVar(hook = nameof(ChangeReadyState))]
+    private bool isReady;
     public bool IsReady { get => isReady; }
     [SyncVar] public int playerNumber;
     [SyncVar(hook = nameof(ChangeName))] public string playerName;
     [SyncVar(hook = nameof(ChangeTeam))] public Team team;
 
-    void Awake()
+    private void Awake()
     {
         AddAllChampionsAvailable();
     }
-    void OnDestroy()
+
+    private void OnDestroy()
     {
         if (visualInstance != null)
         {
@@ -118,7 +119,7 @@ public class MobaPlayerData : NetworkBehaviour
     /// <summary>
     /// Adds all champions of the players champion pool to the available champions list
     /// </summary>
-    void AddAllChampionsAvailable()
+    private void AddAllChampionsAvailable()
     {
         for (int i = 0; i < allChampionsAvailable.Count; i++)
         {

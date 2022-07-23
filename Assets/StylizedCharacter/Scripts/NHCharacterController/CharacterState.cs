@@ -1,6 +1,4 @@
-﻿using NHance.Assets.Scripts.Enums;
-
-namespace NHance.Assets.Scripts
+﻿namespace NHance.Assets.Scripts
 {
     public class CharacterState
     {

@@ -1,20 +1,20 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
 public enum AudioFileType
 {
-    walking
+    walking,
+    ability
 }
 public class NetworkAudioManager : NetworkBehaviour
 {
-    [SerializeField] GameObject audioPrefab;
-    [SerializeField] List<AudioFile> audioFiles;
+    [SerializeField] private GameObject audioPrefab;
+    [SerializeField] private List<AudioFile> audioFiles;
 
     /// <summary>
-    /// Plays a audioFIle on the server by Taking in the index and the AudioFileType and the index the index is responsible if youve got several attack sounds you can tag them with the index to find the one you want to play
+    /// Plays a audioFile on the server by taking in the index and the AudioFileType and the index. The index is
+    /// responsible if you've got several attack sounds you can tag them with the index to find the one you want to play
     /// </summary>
     /// <param name="type"></param>
     /// <param name="index"></param>
@@ -45,7 +45,7 @@ public class NetworkAudioManager : NetworkBehaviour
         }
     }
     [Command]
-    void CreateAudioObject(Vector3 position,AudioFileType audioFileType,int index)
+    private void CreateAudioObject(Vector3 position, AudioFileType audioFileType, int index)
     {
         foreach (var audioFile in audioFiles)
         {
@@ -62,7 +62,7 @@ public class NetworkAudioManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    void PlayAudioOnServer(GameObject audioObject,AudioFileType audioFileType,int index)
+    private void PlayAudioOnServer(GameObject audioObject, AudioFileType audioFileType, int index)
     {
         foreach (var audioFile in audioFiles)
         {
@@ -81,26 +81,22 @@ public class NetworkAudioManager : NetworkBehaviour
 [System.Serializable]
 public class AudioFile
 {
-    [Tooltip("This is the solution icam up with if youve got several attacks sounds or things tagged with the same enum")]
-    [SerializeField]int index;
-    public int Index{ get => index; }
+    [Tooltip("This is the solution I came up with if you've got several attacks sounds or things tagged with the same enum")]
+    [SerializeField] private int index;
+    public int Index => index;
     public AudioFileType type;
     public AudioClip audioClip;
-    float lastTimePLayed;
+    private float _lastTimePlayed;
     
     public void SetTimer()
     {
-        lastTimePLayed = Time.time;
-        lastTimePLayed += audioClip.length;
+        _lastTimePlayed = Time.time;
+        _lastTimePlayed += audioClip.length;
     }
 
     public bool CanPlayAudioFile()
     {
-        if (Time.time > lastTimePLayed)
-        {
-            return true;
-        }
-        else return false;
+        return Time.time > _lastTimePlayed;
     }
 
 }

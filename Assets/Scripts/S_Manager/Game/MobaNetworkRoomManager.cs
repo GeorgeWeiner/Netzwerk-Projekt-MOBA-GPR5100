@@ -1,18 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using S_Combat;
-using S_Player;
-using S_Unit;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = System.Random;
 
 public class MobaNetworkRoomManager : NetworkRoomManager
 {
-    static public event Action<MobaPlayerData> OnPlayerEnterChampSelect;
+    public static event Action<MobaPlayerData> OnPlayerEnterChampSelect;
 
     /// <summary>
     /// sets the player data and invokes a event to which everybody who needs the player data listens like for list etc
@@ -88,7 +82,7 @@ public class MobaNetworkRoomManager : NetworkRoomManager
     /// <summary>
     /// Creates all players bzw instantiates their playable champion
     /// </summary>
-    void CreatePlayers()
+    private void CreatePlayers()
     {
         //Gets the network roomPlayer and spawns in their choosen champion
         foreach (var networkRoomPlayer in roomSlots)
@@ -103,6 +97,8 @@ public class MobaNetworkRoomManager : NetworkRoomManager
             instance.GetComponent<Targetable>().CurrentTeam = player.team;
             NetworkServer.Spawn(instance, player.connectionToClient);
             player.currentlyPlayedChampion = instance;
+            //player.currentlyPlayedChampion.GetComponent<NetworkIdentity>()
+            //    .AssignClientAuthority(networkRoomPlayer.connectionToClient);
             GameManager.Instance.AddPlayerToAllPlayersList(player);
         }
     }

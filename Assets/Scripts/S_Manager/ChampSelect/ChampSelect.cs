@@ -1,29 +1,24 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using S_Player;
-using Telepathy;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Random = System.Random;
 
 /// <summary>
 /// handles the whole champ select process
 /// </summary>
 public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
 {
-    [SerializeField] SubmitName nameSubmitButton;
-    [SerializeField] Button startButton;
-    [SerializeField] NameDisplayField[] nameDisplayFields;
-    [SerializeField] Transform[] championDisplaySpawnPositions;
-    [SerializeField][Scene] string sceneToChangeTo;
+    [SerializeField] private SubmitName nameSubmitButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private NameDisplayField[] nameDisplayFields;
+    [SerializeField] private Transform[] championDisplaySpawnPositions;
+    [SerializeField][Scene] private string sceneToChangeTo;
     public readonly SyncDictionary<MobaPlayerData, NameDisplayField> names = new();
     public readonly SyncList<MobaPlayerData> playersData = new SyncList<MobaPlayerData>();
     public readonly SyncDictionary<MobaPlayerData, Transform> championDisplayPositions = new();
-    Coroutine routine;
+    private Coroutine routine;
     [Server]
     private void Awake()
     {
@@ -31,18 +26,18 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     }
 
     [Server]
-    void Start()
+    private void Start()
     {
         SetHostMenuInActive(startButton.gameObject);
         StartCoroutine(OnPlayerLeaveGame());
     }
 
-    void Update()
+    private void Update()
     {
         UpdateDisplayedNames();
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         MobaNetworkRoomManager.OnPlayerEnterChampSelect -= AddPlayerToChampSelect;
     }
@@ -115,7 +110,7 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     /// <summary>
     /// Updates the displaed names in champ select visually by looping over each player
     /// </summary>
-    void UpdateDisplayedNames()
+    private void UpdateDisplayedNames()
     {
         for (int i = 0; i < playersData.Count; i++)
         {
@@ -170,7 +165,7 @@ public class ChampSelect : BaseNetworkBehaviourSingleton<ChampSelect>
     /// Coroutine that starts at the beginning and checks if somebody left the game and clears him from the list
     /// </summary>
     /// <returns></returns>
-    IEnumerator OnPlayerLeaveGame()
+    private IEnumerator OnPlayerLeaveGame()
     {
         yield return new WaitForSeconds(0.3f);
         for (int i = 0; i < playersData.Count; i++)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -8,16 +6,17 @@ using UnityEngine;
 /// </summary>
 public class PointsDisplay : MonoBehaviour
 {
-    [SerializeField] TMP_Text pointsRedTeam;
-    [SerializeField] TMP_Text pointsBlueTeam;
-    void Update()
+    [SerializeField] private TMP_Text pointsRedTeam;
+    [SerializeField] private TMP_Text pointsBlueTeam;
+
+    private void Update()
     {
         DisplayPoints();
     }
     /// <summary>
     /// this functions loop over both teams and sets their points visually
     /// </summary>
-    void DisplayPoints()
+    private void DisplayPoints()
     {
         foreach (var team in GameManager.Instance.points)
         {

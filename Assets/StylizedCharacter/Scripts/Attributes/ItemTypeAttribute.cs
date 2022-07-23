@@ -4,7 +4,7 @@ using NHance.Assets.Scripts.Enums;
 namespace NHance.Assets.Scripts.Attributes
 {  
     [AttributeUsage(AttributeTargets.All, Inherited = false)]
-    sealed class ItemTypeAttribute : Attribute
+    internal sealed class ItemTypeAttribute : Attribute
     {
         public ItemTypeEnum TypeEnum;
 

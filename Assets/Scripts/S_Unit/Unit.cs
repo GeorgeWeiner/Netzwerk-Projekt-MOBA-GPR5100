@@ -9,7 +9,7 @@ namespace S_Unit
 {
     public class Unit : NetworkBehaviour
     {
-        [SerializeField] Attack attack;
+        [SerializeField] private Attack attack;
         [SerializeField] private PlayerCommands _unitCommands;
         [SerializeField] private Targeter targeter;
         public Targeter Targeter{ get => targeter; set => targeter = value; }

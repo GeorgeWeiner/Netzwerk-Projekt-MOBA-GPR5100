@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,6 +25,7 @@ public class InputManager : BaseSingleton<InputManager>
     public void OnAbilityOne()
     {
         OnPressedAbility?.Invoke(AbilitySlot.AbilityOne);
+        Debug.Log("Ability pressed.");
     }
     
     public void OnAbilityTwo()

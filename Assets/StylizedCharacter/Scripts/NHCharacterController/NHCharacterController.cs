@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using NHance.Assets.StylizedCharacter.Scripts;
 using UnityEngine;
 
 namespace NHance.Assets.Scripts
@@ -16,7 +12,7 @@ namespace NHance.Assets.Scripts
         private CharacterInput _characterInput;
         private CharacterState _state;
 
-        void Awake()
+        private void Awake()
         {
             _characterAnimator = new CharacterAnimator(settings);
             _characterEngine = new CharacterEngine(settings);

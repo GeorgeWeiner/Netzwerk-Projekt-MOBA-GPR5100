@@ -61,7 +61,7 @@ namespace S_Manager.Game
         /// <summary>
         /// Initializes the ui for displaying stats by looping over all stats on the champion and connecting the on stat updated event to it
         /// </summary>
-        void InitializeChampionData()
+        private void InitializeChampionData()
         {
             championSprite.sprite = playerData.allChampionsAvailable[playerData.CurrentChampion].ChampionSprite;
             currentChampion = playerData.currentlyPlayedChampion;
@@ -97,7 +97,8 @@ namespace S_Manager.Game
                 }
             }
         }
-        void OnDestroy()
+
+        private void OnDestroy()
         {
             foreach (var stat in stats)
             {

@@ -9,7 +9,8 @@ namespace S_Player
     public class MobaPlayer : NetworkBehaviour
     {
         [SerializeField] private List<Unit> myUnits = new List<Unit>();
-        void Start()
+
+        private void Start()
         {
             NetworkClient.ready = true;
         }

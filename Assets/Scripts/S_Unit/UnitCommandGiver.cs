@@ -60,7 +60,7 @@ namespace S_Unit
             }
         }
 
-        void SetAttackPoint()
+        private void SetAttackPoint()
         {
             Ray ray = _mainCamera.ScreenPointToRay(InputManager.instance.GetMousePos());
             bool validAttackPos = Physics.Raycast(ray,out RaycastHit hit,Mathf.Infinity,targetableLayer);

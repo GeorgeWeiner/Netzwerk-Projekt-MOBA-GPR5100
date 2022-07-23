@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Interfaces;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum StatType
@@ -18,9 +16,9 @@ public enum StatType
 /// </summary>
 public abstract class Stat : NetworkBehaviour, ICharacterStat
 {
-    [SerializeField] StatType statType;
+    [SerializeField] private StatType statType;
     public StatType StatType{ get => statType; }
-    [SyncVar][SerializeField] int maxValue;
+    [SyncVar][SerializeField] private int maxValue;
     public int MaxValue{ get => maxValue; }
     [SyncVar(hook = nameof(HandleStatUpdated))] [SerializeField] protected int currentValue;
     public int CurrentValue{ get => currentValue; }
@@ -29,7 +27,7 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
     public event Action<StatType, int,int> ClientOnStatUpdated;
     [SyncVar(hook = nameof(ChangePlayerDataForCallBacks))]public MobaPlayerData playerDataForCallbacks;
 
-    void Start()
+    private void Start()
     {
         currentValue = maxValue;
         StartCoroutine(PassiveStatRegen());
@@ -68,7 +66,7 @@ public abstract class Stat : NetworkBehaviour, ICharacterStat
     /// </summary>
     /// <param name="old"></param>
     /// <param name="newData"></param>
-    void ChangePlayerDataForCallBacks(MobaPlayerData  old, MobaPlayerData newData)
+    private void ChangePlayerDataForCallBacks(MobaPlayerData  old, MobaPlayerData newData)
     {
         playerDataForCallbacks = newData;
     }

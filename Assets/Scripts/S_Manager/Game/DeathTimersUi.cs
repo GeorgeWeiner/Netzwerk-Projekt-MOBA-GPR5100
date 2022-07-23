@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -10,11 +8,11 @@ using UnityEngine.UI;
 /// </summary>
 public class DeathTimersUi : BaseNetworkBehaviourSingleton<DeathTimersUi>
 {
-    [SerializeField] Image[] playerDeathCounterImages;
-    [SerializeField] Image[] PlayerChampionSprite;
-    [SerializeField] TMP_Text[] playerDeathTimers;
+    [SerializeField] private Image[] playerDeathCounterImages;
+    [SerializeField] private Image[] PlayerChampionSprite;
+    [SerializeField] private TMP_Text[] playerDeathTimers;
 
-    void Start()
+    private void Start()
     {
         InitializeDeathCounterImages();
     }
@@ -23,7 +21,7 @@ public class DeathTimersUi : BaseNetworkBehaviourSingleton<DeathTimersUi>
     /// </summary>
     /// <param name="player"></param>
     /// <param name="playerData"></param>
-    void InitializeDeathCounterImages()
+    private void InitializeDeathCounterImages()
     {
         int i = 0;
         foreach (var instanceDeathTimer in GameManager.Instance.deathTimers)

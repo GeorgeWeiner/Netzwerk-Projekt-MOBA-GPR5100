@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -9,10 +7,10 @@ using UnityEngine;
 /// <typeparam name="T"></typeparam>
 public class BaseNetworkBehaviourSingleton<T> : NetworkBehaviour where T: NetworkBehaviour
 {
-    [SerializeField] bool destroyOnLoad;
-    static public T instance;
+    [SerializeField] private bool destroyOnLoad;
+    public static T instance;
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {

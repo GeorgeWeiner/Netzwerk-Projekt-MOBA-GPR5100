@@ -1,21 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using S_Player;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Class which handles changing the name of a player
 /// </summary>
 public class SubmitName : NetworkBehaviour
 {
-    [SerializeField] ChampSelect champSelection;
-    [SerializeField] TMP_InputField nameInput;
-    [SerializeField] GameObject submitMenu;
-    [SerializeField] GameObject champSelect;
+    [SerializeField] private ChampSelect champSelection;
+    [SerializeField] private TMP_InputField nameInput;
+    [SerializeField] private GameObject submitMenu;
+    [SerializeField] private GameObject champSelect;
     
     public void ChangeName()
     {

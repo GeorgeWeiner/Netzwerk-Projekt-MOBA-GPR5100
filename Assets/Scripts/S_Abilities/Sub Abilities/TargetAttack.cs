@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using S_Combat;
+﻿using S_Combat;
 using UnityEngine;
 
 namespace S_Abilities
@@ -8,7 +7,9 @@ namespace S_Abilities
     public class TargetAttack : SubAbility
     {
         [SerializeField] private int damage;
+        [SerializeField] private float range;
         private Targetable _target;
+        
 
         public override void ExecuteSubAbility()
         {

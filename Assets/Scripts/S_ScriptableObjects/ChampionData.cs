@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using Mirror;
-using S_Player;
-using Steamworks;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewChampion",menuName = "NewChampion")]
 public class ChampionData : ScriptableObject
 {
     [Header("ChampionDisplay")]
-    [SerializeField] string championName;
-    [SerializeField] GameObject heroPrefab;
-    [SerializeField] GameObject heroVisuals;
-    [SerializeField] Sprite championSprite;
+    [SerializeField]
+    private string championName;
+    [SerializeField] private GameObject heroPrefab;
+    [SerializeField] private GameObject heroVisuals;
+    [SerializeField] private Sprite championSprite;
     public Sprite ChampionSprite{ get => championSprite; }
-    [SerializeField] int championId;
+    [SerializeField] private int championId;
     public int ChampionId{ get => championId; }
 
     public GameObject GetVisualDisplay()

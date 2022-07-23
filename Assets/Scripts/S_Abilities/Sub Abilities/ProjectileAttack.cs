@@ -17,7 +17,7 @@ namespace S_Abilities
         public void InitializeSelf(Transform self, AbilityHandler handler, Transform projectileSpawnTransform)
         {
             TransformSelf = self;
-            AbilityHandler = handler;
+            abilityHandler = handler;
             _spawnPoint = projectileSpawnTransform;
         }
     }

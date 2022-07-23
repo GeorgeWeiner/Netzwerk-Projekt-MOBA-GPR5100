@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-static public class Vector3SqrdDistance
+public static class Vector3SqrdDistance
 {
     // Vector3.magnitude ?
     
-    static public float GetSqredDistance(this Vector3 shaft, Vector3 tip)
+    public static float GetSqredDistance(this Vector3 shaft, Vector3 tip)
     {
         return Mathf.Sqrt((tip - shaft).sqrMagnitude);
     }

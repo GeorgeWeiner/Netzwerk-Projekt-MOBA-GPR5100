@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -7,10 +5,11 @@ using UnityEngine;
 [CustomEditor(typeof(AnimationManager),true)]
 public class AnimationManagerEditor : Editor
 {
-    Animator animator;
-    AnimationManager animationManager;
-    const string savePath = "Assets/Meshes & Animations/Animator";
-    void Awake()
+    private Animator animator;
+    private AnimationManager animationManager;
+    private const string savePath = "Assets/Meshes & Animations/Animator";
+
+    private void Awake()
     {
         animationManager = (AnimationManager)target;
     }

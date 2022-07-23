@@ -1,4 +1,3 @@
-using System;
 using Mirror;
 using S_Animations;
 using S_Combat;
@@ -11,7 +10,7 @@ namespace S_Player
     {
         [SerializeField] private Targeter targeter;
         [SerializeField] private float chaseRange = 10f;
-        [SerializeField] NetworkAudioManager audioManager;
+        [SerializeField] private NetworkAudioManager audioManager;
         
         private NavMeshAgent _agent;
         private AnimationHandler _animationHandler;
@@ -42,7 +41,7 @@ namespace S_Player
             else if (hasAuthority)
             {
                 //To stop the command from being called every frame.
-                if (Time.frameCount % 30 != 0) return;
+                if (Time.frameCount % 2 != 0) return;
                 CmdMoveTowardsAttackTarget();
             }
         }
@@ -70,7 +69,7 @@ namespace S_Player
         }
         
         [Command]
-        public void CmdAttack()
+        private void CmdAttack()
         {
             _agent.ResetPath();
             _animationHandler.SetAnimationStateCallback(AnimationStates.Attacking);

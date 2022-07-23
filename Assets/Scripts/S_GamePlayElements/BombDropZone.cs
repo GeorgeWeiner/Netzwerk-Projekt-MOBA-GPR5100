@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
+using S_Extensions;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class BombDropZone : NetworkBehaviour
 {
-    [SerializeField] Team teamSide;
-    [SerializeField] float timeForBombToExplode;
+    [SerializeField] private Team teamSide;
+    [SerializeField] private float timeForBombToExplode;
     private void Start()
     {
         gameObject.DrawRectangle(GetComponent<LineRenderer>(), GetComponent<BoxCollider>().bounds.extents * 2);
@@ -16,7 +15,7 @@ public class BombDropZone : NetworkBehaviour
     /// Defines what happens when a bomb carrier carries the bomb
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         bool isRightSide = NetworkClient.connection.identity.TryGetComponent<MobaPlayerData>(out MobaPlayerData playerEnteringZone);
         bool isBombCarrier = other.TryGetComponent<BombCarrier>(out BombCarrier bombcarrier);

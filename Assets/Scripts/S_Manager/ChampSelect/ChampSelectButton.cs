@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Mirror;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,10 +6,10 @@ using UnityEngine.UI;
 /// </summary>
 public class ChampSelectButton : MonoBehaviour,IPointerDownHandler
 {
-    [SerializeField] ChampSelect champSelect;
-    [SerializeField] ChampionData championData;
+    [SerializeField] private ChampSelect champSelect;
+    [SerializeField] private ChampionData championData;
 
-    void Awake()
+    private void Awake()
     {
         GetComponent<Image>().sprite = championData.ChampionSprite;
     }

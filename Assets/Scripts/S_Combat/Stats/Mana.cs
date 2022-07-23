@@ -1,8 +1,4 @@
-﻿using System;
-using Interfaces;
-using Mirror;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEngine;
+﻿using Interfaces;
 
 namespace S_Combat
 {
@@ -20,16 +16,19 @@ namespace S_Combat
             
             currentValue -= amount;
         }
-        void OnDestroy()
+
+        private void OnDestroy()
         {
             GameManager.Instance.OnPlayerDie -= OnRevive;
             GameManager.Instance.OnRoundWon -= OnRoundReset;
         }
-        void OnRevive(MobaPlayerData player)
+
+        private void OnRevive(MobaPlayerData player)
         {
             currentValue = MaxValue;
         }
-        void OnRoundReset()
+
+        private void OnRoundReset()
         {
             currentValue = MaxValue;
         }

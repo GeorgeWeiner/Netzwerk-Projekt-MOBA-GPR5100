@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using S_Combat;
 using UnityEngine;
 
 public class RangedAttack : Attack
 {
-    [SerializeField] float projectileSpeed;
-    [SerializeField] GameObject projectile;
-    [SerializeField] Transform attackPoint;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private Transform attackPoint;
    
     protected override IEnumerator AttackTarget(IDamageable target)
     {
@@ -35,7 +33,7 @@ public class RangedAttack : Attack
         canAttack = true;
     }
     [Command(requiresAuthority = false)]
-    void CmdInitializeProjectile()
+    private void CmdInitializeProjectile()
     {
         MobaNetworkRoomManager.SpawnPrefab(projectile,attackPoint,null,dmg,projectileSpeed,targeter.GetTarget());
     }

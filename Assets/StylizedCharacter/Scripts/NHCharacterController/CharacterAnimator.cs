@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using NHance.Assets.Scripts.Enums;
+﻿using NHance.Assets.Scripts.Enums;
 using UnityEngine;
 
 namespace NHance.Assets.Scripts

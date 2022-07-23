@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NHance.Assets.Scripts;
 using NHance.Assets.Scripts.Enums;
 using NHance.Assets.StylizedCharacter.Scripts.Containers;
 using UnityEngine;

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using NHance.Assets.Scripts;
-using UnityEditor;
 using UnityEngine;
 
 namespace NHance.Assets
@@ -51,7 +47,7 @@ namespace NHance.Assets
             }
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (maxVerticalAngle < minVerticalAngle)
             {
@@ -59,7 +55,7 @@ namespace NHance.Assets
             }
         }
 
-        void Awake()
+        private void Awake()
         {
             if(focus == null && TryToFindCharacter)
                 focus = FindObjectOfType<NHCharacterController>().gameObject.transform;
@@ -71,7 +67,7 @@ namespace NHance.Assets
             lastFocusOffset = focusOffset;
         }
 
-        void Update()
+        private void Update()
         {
             UpdateFocusPoint();
             Quaternion lookRotation;
@@ -113,7 +109,7 @@ namespace NHance.Assets
             _transform.rotation = lookRotation;
         }
 
-        void UpdateFocusPoint()
+        private void UpdateFocusPoint()
         {
             var position = (focus != null ? focus.position : Vector3.zero) + focusOffset;
             var x = Mathf.SmoothDamp(focusPoint.x, position.x, ref currentXVelocity,
@@ -125,7 +121,7 @@ namespace NHance.Assets
             focusPoint = new Vector3(x, y, z);
         }
 
-        bool ManualRotation()
+        private bool ManualRotation()
         {
             if (!Input.GetMouseButton(0)) return false;
 
@@ -143,7 +139,7 @@ namespace NHance.Assets
             return false;
         }
 
-        void FocusOffsetMove()
+        private void FocusOffsetMove()
         {
             if (!(Input.GetMouseButton(1) || focus == null))
             {
@@ -157,7 +153,7 @@ namespace NHance.Assets
             focusOffset += up + right + forward;
         }
 
-        void ConstrainAngles()
+        private void ConstrainAngles()
         {
             orbitAngles.x =
                 Mathf.Clamp(orbitAngles.x, minVerticalAngle, maxVerticalAngle);

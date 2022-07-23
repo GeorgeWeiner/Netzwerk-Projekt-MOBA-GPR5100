@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// A simple death counter which displays how long youre dead and when the player on revive should be invoked
@@ -44,7 +42,7 @@ public class DeathCounter : NetworkBehaviour
     /// </summary>
     /// <param name="old"></param>
     /// <param name="newValue"></param>
-    void SyncDeathTime(float old,float newValue)
+    private void SyncDeathTime(float old,float newValue)
     {
         deathTime = newValue;
         deathTimer.text = Mathf.RoundToInt(deathTime).ToString();

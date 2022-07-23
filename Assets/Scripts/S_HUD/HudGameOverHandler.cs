@@ -1,5 +1,4 @@
-﻿using System;
-using S_Manager;
+﻿using S_Manager;
 using UnityEngine;
 using Mirror;
 

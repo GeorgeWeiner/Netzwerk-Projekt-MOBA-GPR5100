@@ -1,27 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using TMPro;
+using S_Extensions;
 using UnityEngine.UI;
 using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class Bomb : NetworkBehaviour
 {
-    [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] Image timer;
-    [SerializeField] Vector3 pickUpZoneSize;
-    [SerializeField] LayerMask playerLayer;
-    [SerializeField] float timeForPickup;
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private Image timer;
+    [SerializeField] private Vector3 pickUpZoneSize;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float timeForPickup;
 
-    [SyncVar(hook = nameof(UpdateTimer))] float pickupTime;
-    [SyncVar(hook = nameof(UpdateBombState))]  bool isGettingPickedUp;
+    [SyncVar(hook = nameof(UpdateTimer))] private float pickupTime;
+    [SyncVar(hook = nameof(UpdateBombState))]
+    private bool isGettingPickedUp;
     public bool IsGettingPickedUp{ get => isGettingPickedUp; }
-    [SyncVar(hook = nameof(UpdateBombIsPickedUpState))]  bool isPickedUp = false;
+    [SyncVar(hook = nameof(UpdateBombIsPickedUpState))]
+    private bool isPickedUp = false;
     public bool IsPickedUp{ get => isPickedUp; }
-    Coroutine pickUpRoutine;
-    Coroutine explosionRoutine;
+    private Coroutine pickUpRoutine;
+    private Coroutine explosionRoutine;
 
-    void Start()
+    private void Start()
     {
         gameObject.DrawRectangle(lineRenderer, pickUpZoneSize);
     }
@@ -88,7 +89,7 @@ public class Bomb : NetworkBehaviour
     /// </summary>
     /// <param name="carrier"></param>
     /// <returns></returns>
-    IEnumerator PickUpTimer(BombCarrier carrier)
+    private IEnumerator PickUpTimer(BombCarrier carrier)
     {
         pickupTime = this.timeForPickup;
         timer.gameObject.SetActive(isGettingPickedUp);
@@ -122,7 +123,7 @@ public class Bomb : NetworkBehaviour
     /// <param name="timeForExplosion"></param>
     /// <param name="teamWhichDroppedBomb"></param>
     /// <returns></returns>
-    IEnumerator ExplodeBomb(float timeForExplosion,Team teamWhichDroppedBomb)
+    private IEnumerator ExplodeBomb(float timeForExplosion,Team teamWhichDroppedBomb)
     {
         Debug.Log("TimesTicking");
         yield return new WaitForSeconds(timeForExplosion);
@@ -133,16 +134,17 @@ public class Bomb : NetworkBehaviour
     }
     #region Hooks
 
-    void UpdateBombState(bool old,bool newValue)
+    private void UpdateBombState(bool old,bool newValue)
     {
         isGettingPickedUp = newValue;
     }
-    void UpdateBombIsPickedUpState(bool old, bool newValue)
+
+    private void UpdateBombIsPickedUpState(bool old, bool newValue)
     {
         isPickedUp = newValue;
     }
 
-    void UpdateTimer(float old,float newValue)
+    private void UpdateTimer(float old,float newValue)
     {
         pickupTime = newValue;
     }

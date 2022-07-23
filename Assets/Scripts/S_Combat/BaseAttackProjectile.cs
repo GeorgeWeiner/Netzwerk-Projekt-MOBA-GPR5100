@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using S_Combat;
 using UnityEngine;
@@ -8,7 +6,7 @@ public class BaseAttackProjectile : Projectile
 {
     public Targetable target;
 
-    void Update()
+    private void Update()
     {
         MoveTowardsTarget();
     }
@@ -29,7 +27,7 @@ public class BaseAttackProjectile : Projectile
     /// <summary>
     /// Moves the projectile towards the target
     /// </summary>
-    void MoveTowardsTarget()
+    private void MoveTowardsTarget()
     {
         if (target != null)
         {
@@ -40,7 +38,7 @@ public class BaseAttackProjectile : Projectile
     /// Deals dgm to the target youve selected
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent<Targetable>(out var target))
         { 
