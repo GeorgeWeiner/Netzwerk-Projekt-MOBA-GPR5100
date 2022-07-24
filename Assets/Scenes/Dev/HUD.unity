@@ -475,6 +475,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6033826319027885033, guid: 63acf64cc616ece428da6155fa1c21c0,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6033826319603152938, guid: 63acf64cc616ece428da6155fa1c21c0,
         type: 3}
       propertyPath: m_Name

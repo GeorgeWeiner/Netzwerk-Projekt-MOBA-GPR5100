@@ -22097,6 +22097,7 @@ GameObject:
   - component: {fileID: 776588539213103963}
   - component: {fileID: 8465983915621068000}
   - component: {fileID: 3005295175643395779}
+  - component: {fileID: -2165989835001573954}
   m_Layer: 6
   m_Name: DragonKnightMesh
   m_TagString: Player
@@ -22168,6 +22169,43 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 6ac1e5cd2e284254bb8f2b7d44653aa2
   hasSpawned: 0
+--- !u!114 &-2165989835001573954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2977902240544923848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56729158d4f3554bbb3c79fe6ac2e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Items:
+    _list: []
+  Cache:
+    _cache: []
+  SocketMap:
+    _list: []
+  itemToBoneMapper:
+    list: []
+  rootBone: {fileID: 0}
+  rootGeometry: {fileID: 0}
+  PartsMap: []
+  characterPrefix: 
+  FoldoutBodyPartSetup: 0
+  FoldoutSocketsSetup: 0
+  FoldoutSocketsTransformSetup: 0
+  FoldoutItemToBoneMapper: 0
+  showAnimationControls: 0
+  Gender: 0
+  BodyMaterialsToReplace: []
+  HeadMaterialsToReplace: []
+  DefaultBodyMaterial: []
+  DefaultHeadMaterial: []
+  DefaultFemBrowsMaterial: []
+  DefaultEyesMaterial: []
+  Auto: 0
 --- !u!1 &2980781233299715338
 GameObject:
   m_ObjectHideFlags: 0

@@ -87,6 +87,7 @@ MonoBehaviour:
   allChampionsAvailable:
   - {fileID: 11400000, guid: ac79bf864495d8042b10a601975b5f5b, type: 2}
   - {fileID: 11400000, guid: f8222a622ff4d784ebff4b234cee608f, type: 2}
+  - {fileID: 11400000, guid: e6671cc8b9e836041a80272894a496ad, type: 2}
   currentlyPlayedChampion: {fileID: 0}
   playerNumber: 0
   playerName: 

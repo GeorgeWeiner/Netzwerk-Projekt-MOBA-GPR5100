@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using S_Combat;
+using S_Player;
 using UnityEngine;
 
 public enum AbilitySlot
@@ -20,12 +21,13 @@ namespace S_Abilities
     public class AbilityHandler : NetworkBehaviour
     {
         [SerializeField] private List<Ability> abilities;
-        [SerializeField] private Transform abilitySpawnOrigin;
         [SerializeField] private Mana mana;
 
         private readonly Dictionary<AbilitySlot, Ability> _abilitySlots = new();
+        private PlayerCommands _playerCommands;
 
         public event Action<SubAbility> SubAbilityExecuted;
+        private Coroutine currentAbility;
 
         //public override void OnStartServer()
         //{
@@ -46,12 +48,13 @@ namespace S_Abilities
         public override void OnStartClient()
         {
             InputManager.OnPressedAbility += AbilityCallback;
+            _playerCommands = GetComponent<PlayerCommands>();
             
             for (var i = 0; i < abilities.Count; i++)
             {
                 foreach (var subAbility in abilities[i].subAbilities)
                 {
-                    subAbility.InitializeSelf(transform, this, abilities[i]);
+                    subAbility.InitializeSelf(transform, this, abilities[i], _playerCommands);
                 }
                 _abilitySlots.Add((AbilitySlot)i, abilities[i]);
             }
@@ -71,27 +74,61 @@ namespace S_Abilities
                 Debug.Log("No ability assigned to this slot. Returning.");
                 return;
             }
-            
-            mana.UseMana(_abilitySlots[slot].manaCost, out bool canUse);
-            if (!canUse)
+
+            if (currentAbility != null)
             {
-                print("Not enough mana left.");
-                return;
+                StopCoroutine(currentAbility);
             }
 
-            StartCoroutine(ExecuteAbilitySteps(_abilitySlots[slot]));
+            currentAbility = StartCoroutine(ExecuteAbilitySteps(_abilitySlots[slot]));
         }
         
         private IEnumerator ExecuteAbilitySteps(Ability ability)
         {
+            //If transform position is not in range of the target walk towards it.
+            //If the rotation is not facing the target rotate towards it.
+            
+            var target = _playerCommands.targeter.GetTarget();
+            var targetPos = target == null ? _playerCommands.agent.destination : target.transform.position;
+            
+            float distance = Vector3.Distance(transform.position, targetPos);
+
+            if (distance > ability.range && target != null)
+            {
+                _playerCommands.CmdMoveTowardsAttackTarget();
+            }
+
+            while (Vector3.Distance(transform.position, targetPos) > ability.range)
+            {
+                print("Waiting for the distance to target to shrink.");
+                yield return null;
+            }
+
+            const float angle = 10f;
+            var position = transform.position;
+
+            while (Vector3.SignedAngle(transform.forward, position - targetPos, Vector3.up) > angle)
+            {
+                yield return null;
+            }
+            
+            mana.UseMana(ability.manaCost, out bool canUse);
+            if (!canUse)
+            {
+                print("Not enough mana left.");
+                yield break;
+            }
+            
+            Debug.Log("In position. Initiating Ability.");
+
             foreach (var subAbility in ability.subAbilities)
             {
-                subAbility.InitializeSelf(transform, this, ability);
+                //subAbility.InitializeSelf(transform, this, ability);
                 subAbility.ExecuteSubAbility();
                 SubAbilityExecuted?.Invoke(subAbility);
                 yield return new WaitForSeconds(subAbility.subAbilityDelay);
             }
-
+            
             Debug.Log($"Finished executing {ability.abilityName}.");
         }
 

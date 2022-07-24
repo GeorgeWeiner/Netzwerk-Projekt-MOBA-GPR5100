@@ -6,7 +6,7 @@ public class MeleeAttack : Attack
 {
     protected override IEnumerator AttackTarget(IDamageable damageTarget)
     {
-        animationHandler.SetAnimationState(AnimationStates.Attacking);
+        animationHandler.SetAnimationStateCallback(AnimationStates.Attacking);
         canAttack = false;
         float attackDelay = base.attackDelay;
 

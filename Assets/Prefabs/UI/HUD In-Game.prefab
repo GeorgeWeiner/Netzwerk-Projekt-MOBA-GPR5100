@@ -5134,6 +5134,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6033826319603152942}
     m_Modifications:
+    - target: {fileID: 113197218298174471, guid: 496cbbd6e4607d641ad788f6eeb5d835,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113197218481781707, guid: 496cbbd6e4607d641ad788f6eeb5d835,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113197218575240503, guid: 496cbbd6e4607d641ad788f6eeb5d835,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 113197218647509875, guid: 496cbbd6e4607d641ad788f6eeb5d835,
         type: 3}
       propertyPath: m_Name
@@ -5242,6 +5257,16 @@ PrefabInstance:
     - target: {fileID: 113197218647509876, guid: 496cbbd6e4607d641ad788f6eeb5d835,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113197219158546448, guid: 496cbbd6e4607d641ad788f6eeb5d835,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113197219439006231, guid: 496cbbd6e4607d641ad788f6eeb5d835,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -67,6 +67,8 @@ MonoBehaviour:
   syncInterval: 0.1
   targeter: {fileID: 4739244059358363384}
   chaseRange: 10
+  audioManager: {fileID: 0}
+  agent: {fileID: 1644134146656374372}
 --- !u!114 &6455118606660949304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +88,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a963eca0b2f652f4da30251ae05b6fbc, type: 2}
   - {fileID: 11400000, guid: b12e8e125f2348341972e5523ab191de, type: 2}
   - {fileID: 11400000, guid: 698bb5456f189ff44a38a4a979b9c94b, type: 2}
-  abilitySpawnOrigin: {fileID: 5717268716169178906}
   mana: {fileID: 213116089994570242}
 --- !u!114 &4739244059358363384
 MonoBehaviour:

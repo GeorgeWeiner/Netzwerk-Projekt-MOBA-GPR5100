@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Mirror;
 using S_Animations;
 using S_Combat;
@@ -8,42 +10,45 @@ namespace S_Player
 {
     public class PlayerCommands : NetworkBehaviour
     {
-        [SerializeField] private Targeter targeter;
+        public Targeter targeter;
         [SerializeField] private float chaseRange = 10f;
         [SerializeField] private NetworkAudioManager audioManager;
         
-        private NavMeshAgent _agent;
+        public NavMeshAgent agent;
         private AnimationHandler _animationHandler;
+        private float turnRate;
+
+        public event Action targetReached;
 
         private void Start()
         {
-            _agent = GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
             _animationHandler = GetComponent<AnimationHandler>();
+            turnRate = agent.angularSpeed;
+
         }
 
         private void Update()
         {
-            if (_agent.velocity.magnitude < 0.3 && hasAuthority && _animationHandler != null)
+            if (agent.velocity.magnitude < 0.1 && hasAuthority && _animationHandler != null)
             {
-              
-                _animationHandler.SetAnimationState(AnimationStates.Idle);
-                audioManager.PlayServerAudioFile(AudioFileType.walking, 0);
+                _animationHandler.SetAnimationStateCallback(AnimationStates.Idle);
             }
             
-            if (targeter.GetTarget() == null) return;
-
+            //if (targeter.GetTarget() == null) return;
+            //
             //Cool extension method invocation thing.
-            if (transform.position.Distance(targeter.GetTarget().transform.position) < chaseRange && hasAuthority)
-            {
-                audioManager.PlayServerAudioFile(AudioFileType.walking, 0);
-                CmdAttack();
-            }
-            else if (hasAuthority)
-            {
-                //To stop the command from being called every frame.
-                if (Time.frameCount % 2 != 0) return;
-                CmdMoveTowardsAttackTarget();
-            }
+            //if (transform.position.Distance(targeter.GetTarget().transform.position) < chaseRange && hasAuthority)
+            //{
+            //    audioManager.PlayServerAudioFile(AudioFileType.walking, 0);
+            //    CmdAttack();
+            //}
+            //else if (hasAuthority)
+            //{
+            //    //To stop the command from being called every frame.
+            //    if (Time.frameCount % 2 != 0) return;
+            //    CmdMoveTowardsAttackTarget();
+            //}
         }
         [Command]
         public void CmdMove(Vector3 position)
@@ -55,7 +60,7 @@ namespace S_Player
             
             if (!validPosition) return;
             
-            _agent.SetDestination(hit.position);
+            agent.SetDestination(hit.position);
             _animationHandler.SetAnimationStateCallback(AnimationStates.Walking);
         }
 
@@ -64,15 +69,35 @@ namespace S_Player
         {
             var target = targeter.GetTarget();
 
-            _agent.SetDestination(target.transform.position);
+            agent.SetDestination(target.transform.position);
             _animationHandler.SetAnimationStateCallback(AnimationStates.Walking);
         }
         
         [Command]
         private void CmdAttack()
         {
-            _agent.ResetPath();
+            agent.ResetPath();
             _animationHandler.SetAnimationStateCallback(AnimationStates.Attacking);
+        }
+
+        [Command]
+        public void CmdStandStill(float duration)
+        {
+            StartCoroutine(StationaryCoroutine(duration, Time.time));
+        }
+
+        private IEnumerator StationaryCoroutine(float duration, float time)
+        {
+            agent.ResetPath();
+            
+            while (Time.time < time + duration)
+            {
+                agent.velocity = Vector3.MoveTowards(agent.velocity, Vector3.zero, .1f);
+                agent.angularSpeed = 10f;
+                yield return null;
+            }
+
+            agent.angularSpeed = turnRate;
         }
     }
 }

@@ -12,12 +12,7 @@ namespace S_Abilities
         [SerializeField] private float boxWidth, boxHeight, boxLength;
         [SerializeField] private bool hostileSpell;
         [SerializeField] private bool canTargetSelf;
-        
-        public override void ExecuteSubAbility()
-        {
-            //Add extra functionality here if you please.
-        }
-        
+
         public List<Health> GetList<T>()
         {
             var targets = new List<Health>();

@@ -14,7 +14,6 @@ namespace S_Animations
     public class AnimationHandler : NetworkBehaviour
     {
         [SerializeField] private Animator animator;
-        public Animator Animator{ get => animator; }
         private static readonly int State = Animator.StringToHash("AnimationState");
 
         public void SetAnimationStateCallback(AnimationStates animationState)

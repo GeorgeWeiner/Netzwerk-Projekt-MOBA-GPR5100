@@ -14,6 +14,7 @@ namespace S_Abilities
         public string abilityName;
         public int manaCost;
         public float coolDown;
+        public float range;
         
         public List<SubAbility> subAbilities;
     }

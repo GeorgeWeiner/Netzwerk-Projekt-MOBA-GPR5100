@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87dd5ffc003e6d347be21412eaccde56, type: 3}
+  m_Name: Shadow Demon
+  m_EditorClassIdentifier: 
+  championName: Shadow Demon
+  heroPrefab: {fileID: 589805541654695172, guid: d2a25da37e6621b40aa75ac0ac482fdf,
+    type: 3}
+  heroVisuals: {fileID: 5222793449012938671, guid: ee8869a62d17a224f8c757d293fd5698,
+    type: 3}
+  championSprite: {fileID: 21300000, guid: 1808b17c61fdd8e4bbafe533bc4f904c, type: 3}
+  championId: 2

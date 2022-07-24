@@ -18,6 +18,8 @@ namespace S_Abilities
             /*For this to work, a sub-ability of type ListGenerator needs to be placed in front of this sub-ability in the inspector.
              It can be placed at any previous position before this one.*/
             
+            base.ExecuteSubAbility();
+            
             var listGenerator = AbilityInstance.subAbilities.OfType<IListGenerator>().FirstOrDefault();
             List<Health> targets = listGenerator?.GetList<Health>();
 

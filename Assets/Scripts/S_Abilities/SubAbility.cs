@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using S_Player;
+using UnityEngine;
 using UnityEngine.VFX;
 
 namespace S_Abilities
@@ -17,20 +18,31 @@ namespace S_Abilities
         protected Transform TransformSelf;
         protected AbilityHandler abilityHandler;
         protected Ability AbilityInstance;
+        private PlayerCommands playerCommands;
 
         [Header("Visual Effects")]
         public VisualEffectAsset visualEffectAsset;
         [Range(0.01f, 5f)] public float visualEffectPlaybackSpeed = 1f;
         [Range(0.1f, 10f)] public float visualEffectDurationInSeconds = 1f;
 
-        public abstract void ExecuteSubAbility();
+        public virtual void ExecuteSubAbility()
+        {
+            BecomeStationary();
+        }
 
         //Inject dependencies.
-        public void InitializeSelf(Transform self, AbilityHandler handler, Ability ability)
+        public void InitializeSelf(Transform self, AbilityHandler handler, Ability ability, PlayerCommands commands)
         {
             TransformSelf = self;
             abilityHandler = handler;
             AbilityInstance = ability;
+            playerCommands = commands;
+        }
+
+        private void BecomeStationary()
+        {
+            if (!isStationary) return;
+            playerCommands.CmdStandStill(subAbilityDelay);
         }
     }
 }

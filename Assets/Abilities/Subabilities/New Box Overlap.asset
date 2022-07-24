@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343c86022b5b4236a9280b382d65d9b1, type: 3}
   m_Name: New Box Overlap
   m_EditorClassIdentifier: 
-  subAbilityDelay: 0
-  range: 0
-  queryType:
-    GuidAssignmentFailed: 0
-    GUID: 9bb6011fe782f7249ae192b1555b36c5
-    _typeNameAndAssembly: S_Combat.Health, Assembly-CSharp
-    _suppressLogs: 0
+  subAbilityDelay: 0.3
+  isStationary: 1
+  isCancellable: 0
+  visualEffectAsset: {fileID: 8926484042661614526, guid: 2895017779581e149959a47dea32d2ad,
+    type: 3}
+  visualEffectPlaybackSpeed: 2.5
+  visualEffectDurationInSeconds: 0.3
   boxWidth: 3
   boxHeight: 2
   boxLength: 5
+  hostileSpell: 0
+  canTargetSelf: 0

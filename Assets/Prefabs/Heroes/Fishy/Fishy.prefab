@@ -71,6 +71,7 @@ MonoBehaviour:
   targeter: {fileID: 4739244059358363384}
   chaseRange: 10
   audioManager: {fileID: 7022001957032745041}
+  agent: {fileID: 1644134146656374372}
 --- !u!114 &4739244059358363384
 MonoBehaviour:
   m_ObjectHideFlags: 0

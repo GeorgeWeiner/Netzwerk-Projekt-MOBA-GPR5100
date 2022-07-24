@@ -16,7 +16,7 @@ MonoBehaviour:
   abilityName: Breathe Fire
   manaCost: 1
   coolDown: 12
+  range: 5
   subAbilities:
   - {fileID: 11400000, guid: 5b99ad6bbcb43594ea3c0a9d266c27bc, type: 2}
   - {fileID: 11400000, guid: 20b2564aa95cac44287adf0a22a44ef8, type: 2}
-  visualEffect: {fileID: 0}
