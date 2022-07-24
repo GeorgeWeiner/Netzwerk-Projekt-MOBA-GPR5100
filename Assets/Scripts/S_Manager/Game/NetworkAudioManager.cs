@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 
 public enum AudioFileType
 {
     walking,
-    ability
+    ability,
 }
 public class NetworkAudioManager : NetworkBehaviour
 {
@@ -16,13 +17,28 @@ public class NetworkAudioManager : NetworkBehaviour
     /// Plays a audioFile on the server by taking in the index and the AudioFileType and the index. The index is
     /// responsible if you've got several attack sounds you can tag them with the index to find the one you want to play
     /// </summary>
+    /// <param name="position"></param>
     /// <param name="type"></param>
     /// <param name="index"></param>
-    public void PlayServerAudioFile(AudioFileType type,int index)
+    public void PlayServerAudioFile(Vector3 position, AudioFileType type, int index)
     {
         if (hasAuthority)
         {
-            CreateAudioObject(transform.position, type,index);
+            CmdCreateAudioObject(position, type,index);
+        }
+    }
+    
+    public void PlayServerAudioFile(Vector3 position, AudioFileType type, AudioClip clip)
+    {
+        if (hasAuthority)
+        {
+            foreach (var audioFile in audioFiles)
+            {
+                if (audioFile.type == type && audioFile.audioClips.Contains(clip))
+                {
+                    CmdCreateAudioObject(position, type, audioFile.Index);
+                }
+            }
         }
     }
     /// <summary>
@@ -30,48 +46,79 @@ public class NetworkAudioManager : NetworkBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <param name="index"></param>
-    public void PlayLocalAudioFile(AudioFileType type,int index)
+    //public void PlayLocalAudioFile(AudioFileType type,int index)
+    //{
+    //    var instance = Instantiate(audioPrefab, transform.position, Quaternion.identity);
+    //    var audioSource = instance.GetComponent<AudioSource>();
+    //    foreach (var audioFile in audioFiles)
+    //    {
+    //        if (audioFile.type == type && audioFile.CanPlayAudioFile() && audioFile.Index == index)
+    //        {
+    //            audioSource.PlayOneShot(audioFile.audioClips);
+    //            Destroy(instance,audioFile.audioClips.length);
+    //            return;
+    //        }
+    //    }
+    //}
+    //
+    //public void PlayLocalAudioFile(AudioFileType type, AudioClip clip)
+    //{
+    //    var instance = Instantiate(audioPrefab, transform.position, Quaternion.identity);
+    //    var audioSource = instance.GetComponent<AudioSource>();
+    //    foreach (var audioFile in audioFiles)
+    //    {
+    //        if (audioFile.type == type && audioFile.CanPlayAudioFile() && audioFile.audioClips == clip)
+    //        {
+    //            audioSource.PlayOneShot(audioFile.audioClips);
+    //            Destroy(instance, audioFile.audioClips.length);
+    //            return;
+    //        }
+    //    }
+    //}
+
+    private int FindIndex(AudioFile audioFile)
     {
-        var instance = Instantiate(audioPrefab, transform.position, Quaternion.identity);
-        var audioSource = instance.GetComponent<AudioSource>();
-        foreach (var audioFile in audioFiles)
-        {
-            if (audioFile.type == type && audioFile.CanPlayAudioFile() && audioFile.Index == index)
-            {
-                audioSource.PlayOneShot(audioFile.audioClip);
-                Destroy(instance,audioFile.audioClip.length);
-                return;
-            }
-        }
+        if (audioFile.randomPlayback)
+            return Random.Range(0, audioFile.audioClips.Count);
+        
+        return audioFile.lastClipIndex < audioFile.audioClips.Count ? audioFile.lastClipIndex : 0;
     }
+    
     [Command]
-    private void CreateAudioObject(Vector3 position, AudioFileType audioFileType, int index)
+    private void CmdCreateAudioObject(Vector3 position, AudioFileType audioFileType, int index)
     {
         foreach (var audioFile in audioFiles)
         {
             if (audioFile.type == audioFileType && audioFile.CanPlayAudioFile() && audioFile.Index == index)
             {
-                Debug.Log("HEEYPLAYERD");
                 var go = Instantiate(audioPrefab,position,Quaternion.identity);
-                NetworkServer.Spawn(go); 
-                PlayAudioOnServer(go,audioFileType,audioFile.Index);
+                NetworkServer.Spawn(go);
+                RpcPlayAudioOnServer(go,audioFileType,audioFile.Index);
                 return;
             }
         }
-
     }
 
     [ClientRpc]
-    private void PlayAudioOnServer(GameObject audioObject, AudioFileType audioFileType, int index)
+    private void RpcPlayAudioOnServer(GameObject audioObject, AudioFileType audioFileType, int index)
     {
         foreach (var audioFile in audioFiles)
         {
             if (audioFile.type == audioFileType && audioFile.CanPlayAudioFile() && audioFile.Index == index)
             {
                 var audioSource = audioObject.GetComponent<AudioSource>();
-                audioSource.PlayOneShot(audioFile.audioClip);
-                audioFile.SetTimer();
-                Destroy(audioObject,audioFile.audioClip.length);
+                var listIndex = FindIndex(audioFile);
+                var audioClip = audioFile.audioClips[listIndex];
+
+
+                audioFile.lastClipIndex = listIndex + 1;
+                audioSource.pitch = Random.Range(audioFile.audioClipPitchMin, audioFile.audioClipPitchMax);
+                audioSource.volume = audioFile.volume;
+                audioSource.spatialBlend = audioFile.spatialBlend;
+                audioSource.PlayOneShot(audioClip);
+                audioFile.SetTimer(listIndex);
+                
+                Destroy(audioObject,audioFile.audioClips[listIndex].length);
                 return;
             }
         }
@@ -83,20 +130,28 @@ public class AudioFile
 {
     [Tooltip("This is the solution I came up with if you've got several attacks sounds or things tagged with the same enum")]
     [SerializeField] private int index;
-    public int Index => index;
-    public AudioFileType type;
-    public AudioClip audioClip;
-    private float _lastTimePlayed;
     
-    public void SetTimer()
+    public AudioFileType type;
+    public List<AudioClip> audioClips;
+    
+    [Range(0f, 2f)] public float audioClipPitchMin = .8f;
+    [Range(0f, 2f)] public float audioClipPitchMax = 1.2f;
+    [Range(0f, 1f)] public float volume = .5f;
+    [Range(0f, 1f)] public float spatialBlend = 1f;
+    
+    public bool randomPlayback;
+    public int Index => index;
+    private float _lastTimePlayed;
+    [HideInInspector] public int lastClipIndex;
+    
+    public void SetTimer(int listIndex)
     {
         _lastTimePlayed = Time.time;
-        _lastTimePlayed += audioClip.length;
+        _lastTimePlayed += audioClips[listIndex].length;
     }
 
     public bool CanPlayAudioFile()
     {
         return Time.time > _lastTimePlayed;
     }
-
 }

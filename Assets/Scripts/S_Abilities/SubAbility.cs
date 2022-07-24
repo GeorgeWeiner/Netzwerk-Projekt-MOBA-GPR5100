@@ -25,6 +25,10 @@ namespace S_Abilities
         [Range(0.01f, 5f)] public float visualEffectPlaybackSpeed = 1f;
         [Range(0.1f, 10f)] public float visualEffectDurationInSeconds = 1f;
 
+        [Header("Sound Effects")] 
+        public AudioFileType audioFileType = AudioFileType.ability;
+        public AudioClip audioClip;
+
         public virtual void ExecuteSubAbility()
         {
             BecomeStationary();

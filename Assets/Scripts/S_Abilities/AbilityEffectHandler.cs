@@ -7,19 +7,16 @@ namespace S_Abilities
 {
     public class AbilityEffectHandler : NetworkBehaviour
     {
-        //Receive the event of the sub ability.
-        //Check weather the sub abilities Effect is null.
-        //If the sub ability has an effect, execute it.
-    
-        //Create reference to the VFX-Graph.
-        //Set properties like speed and duration in the sub ability.
-
         private AbilityHandler _abilityHandler;
+        private NetworkAudioManager _audioManager;
 
-        public override void OnStartServer()
+        public override void OnStartClient()
         {
             _abilityHandler = GetComponent<AbilityHandler>();
+            _audioManager = GetComponent<NetworkAudioManager>();
+            
             _abilityHandler.SubAbilityExecuted += VisualEffectCallback; 
+            _abilityHandler.SubAbilityExecuted += SoundEffectCallback; 
         }
 
         private void VisualEffectCallback(SubAbility subAbility)
@@ -56,6 +53,29 @@ namespace S_Abilities
                         subAbility.visualEffectDurationInSeconds);
                 }
             }
+        }
+
+        private void SoundEffectCallback(SubAbility subAbility)
+        {
+            if (subAbility == null)
+            {
+                Debug.LogWarning("Sub Ability was null. Returning.");
+                return;
+            }
+
+            if (subAbility.audioClip == null)
+            {
+                Debug.Log("Sub Abilities audio clip asset was null. Returning.");
+                return;
+            }
+
+            if (_audioManager == null)
+            {
+                Debug.LogError("Audio Manager was null. Returning.");
+                return;
+            }
+            
+            _audioManager.PlayServerAudioFile(transform.position, AudioFileType.ability, subAbility.audioClip);
         }
 
         /*You cannot pass the child directly, as this is null on the server.

@@ -273,7 +273,31 @@ MonoBehaviour:
   audioFiles:
   - index: 0
     type: 1
-    audioClip: {fileID: 8300000, guid: 57ad7226b9f86d04084e3bb28fb50090, type: 3}
+    audioClips:
+    - {fileID: 8300000, guid: f4abaf8f7cf64ad4ba39882b4452c8df, type: 3}
+    - {fileID: 8300000, guid: 1624a44bcdd63a941a3413883757daaf, type: 3}
+    audioClipPitchMin: 1.05
+    audioClipPitchMax: 0.95
+    volume: 0.5
+    spatialBlend: 0
+    randomPlayback: 1
+    lastClipIndex: 0
+  - index: 0
+    type: 0
+    audioClips:
+    - {fileID: 8300000, guid: 36ea918397539d04098bb3050ac673d9, type: 3}
+    - {fileID: 8300000, guid: 9fbe4d2deaa4c0447a0d28b95d6d1bab, type: 3}
+    - {fileID: 8300000, guid: 4d864d0340414f9459e18ad2b0f87c06, type: 3}
+    - {fileID: 8300000, guid: 687c3dd1b6f569c40ad523413e461071, type: 3}
+    - {fileID: 8300000, guid: e77d0dba2cd42c448a2082e947ae7201, type: 3}
+    - {fileID: 8300000, guid: 3b3343b8f24acb5409efecbe6d6f0d9d, type: 3}
+    - {fileID: 8300000, guid: bc307f80bf4d76d428da4d13f16eb0b9, type: 3}
+    audioClipPitchMin: 1.05
+    audioClipPitchMax: 0.95
+    volume: 1
+    spatialBlend: 1
+    randomPlayback: 1
+    lastClipIndex: 0
 --- !u!114 &3553251447114331053
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ MonoBehaviour:
     type: 3}
   visualEffectPlaybackSpeed: 2.5
   visualEffectDurationInSeconds: 0.3
+  audioFileType: 1
+  audioClip: {fileID: 8300000, guid: f4abaf8f7cf64ad4ba39882b4452c8df, type: 3}
   boxWidth: 3
   boxHeight: 2
   boxLength: 5

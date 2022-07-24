@@ -34,6 +34,10 @@ namespace S_Player
             {
                 _animationHandler.SetAnimationStateCallback(AnimationStates.Idle);
             }
+            else
+            {
+                audioManager.PlayServerAudioFile(transform.position, AudioFileType.walking, 0);
+            }
             
             //if (targeter.GetTarget() == null) return;
             //
